@@ -12,6 +12,8 @@ export default class ChooseScreen extends React.Component{
 		return(
 			<View style={styles.container}>
 				<PricingCard
+					containerStyle={{flex: 1}}
+					wrapperStyle={{flex: 1, justifyContent: 'center'}}
 					title={'Single Player'}
 					color={'#4f9deb'}
 					button={{title: 'Single Player', icon: 'user', type: 'font-awesome'}}
@@ -19,6 +21,8 @@ export default class ChooseScreen extends React.Component{
 					onButtonPress={() => this.props.navigation.navigate('SinglePlayer')}
 				/>
 				<PricingCard
+					containerStyle={{flex: 1}}
+					wrapperStyle={{flex: 1, justifyContent: 'center'}}
 					title={'Multiplayer'}
 					color={'#9D28E6'}
 					button={{title: 'Coming soon!', icon: 'users', type: 'font-awesome'}}
