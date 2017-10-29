@@ -10,7 +10,7 @@ import styles from '~/src/styles';
 export default class ChooseScreen extends React.Component{
 	render(){
 		return(
-			<View style={styles.container}>
+			<View style={styles.containerCenter}>
 				<PricingCard
 					containerStyle={{flex: 1}}
 					wrapperStyle={{flex: 1, justifyContent: 'center'}}

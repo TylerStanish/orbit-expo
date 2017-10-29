@@ -1,0 +1,70 @@
+import React from 'react';
+import {
+	View
+} from 'react-native';
+import {
+	FormLabel,
+	FormInput,
+	ButtonGroup,
+	Button
+} from 'react-native-elements';
+import {connect} from 'react-redux';
+
+import {createGame} from '../../actions/index';
+
+class NewGameModal extends React.Component{
+
+	state = {
+		name: '',
+		selected: 0
+	}
+
+	createGame(){
+		let {name, selected} = this.state;
+		let numWeeks;
+		if(selected === 0){
+			numWeeks = 30;
+		}
+		if(selected === 1){
+			numWeeks = 60;
+		}
+		if(selected === 2){
+			numWeeks = 90;
+		}
+		console.log(numWeeks);
+		this.props.createGame(name, numWeeks);
+	}
+
+	render(){
+		return(
+			<View>
+				<FormLabel>Game name</FormLabel>
+				<FormInput
+					onChangeText={name => this.setState({name})}
+					placeholder={'Captain'}
+				/>
+				<ButtonGroup
+					buttons={['30 weeks', '60 weeks', '90 weeks']}
+					selectedIndex={this.state.selected}
+					onPress={(i) => this.setState({selected: i}, () => console.log(typeof i))}
+					selectedBackgroundColor={'#97c662'}
+				/>
+				<Button
+					title={'Begin Game'}
+					backgroundColor={'#97c662'}
+					color={'#4a4a4a'}
+					style={{marginTop: 10}}
+					onPress={() => this.createGame()}
+					loading={this.props.loading}
+				/>
+			</View>
+		);
+	}
+}
+
+export default connect(state => {
+	return{
+		loading: state.newGameReducer.loading,
+		error: state.newGameReducer.error
+	}
+}, {createGame})(NewGameModal);

@@ -4,42 +4,25 @@ import {
 	View
 } from 'react-native';
 import {Icon} from 'react-native-elements';
+import styles from '~/src/styles';
 
 export default class ModalTemplate extends React.Component{
 
-	state = {
-		visible: false
-	}
-
-	open(){
-		this.setState({visible: true});
-	}
-
 	render(){
 		return(
-			<Modal visible={this.state.visible}>
-				<View style={styles.modalHeader}>
-					<Icon
-						name={'close'}
-						color={'red'}
-						onPress={() => this.setState({visible: false})}
-					/>
+			<Modal animationType={'slide'} transparent visible={this.props.visible}>
+				<View style={styles.modalContainer}>
+					<View style={styles.modalHeader}>
+						<Icon
+							name={'close'}
+							color={'red'}
+							onPress={() => this.props.close()}
+							size={40}
+						/>
+					</View>
+					{this.props.children}
 				</View>
-				{React.Children.map(this.props.children, child => {
-					React.cloneElement(child, {
-						close: this.setState({visible: false}),
-						open: this.setState({visible: true})
-					});
-				})}
 			</Modal>
 		);
-	}
-}
-
-const styles = {
-	modalHeader: {
-		flexDirection: 'row',
-		justifyContent: 'flex-end',
-		alignItems: 'center'
 	}
 }

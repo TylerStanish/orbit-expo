@@ -11,7 +11,7 @@
     "firebase-functions": "^0.7.1",
     "react": "16.0.0-beta.5",
     "react-native": "https://github.com/expo/react-native/archive/sdk-22.0.1.tar.gz",
-    "react-native-app-intro": "https://github.com/merryjs/react-native-app-intro",
+    "react-native-app-intro": "git+https://github.com/merryjs/react-native-app-intro.git",
     "react-native-elements": "^0.17.0",
     "react-navigation": "^1.0.0-beta.15",
     "react-redux": "^5.0.6",

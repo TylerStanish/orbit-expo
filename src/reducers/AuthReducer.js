@@ -9,10 +9,8 @@ const initialstate = {
 
 export default (state = initialstate, action) => {
 	switch(action.type){
-		case types.EMAIL_CHANGED:
-			return{...state, email: action.payload}
-		case types.PASSWORD_CHANGED:
-			return{...state, password: action.payload};
+		case types.UPDATE_USER:
+			return{...state, user: action.payload}
 		default: return state;
 	}
 }

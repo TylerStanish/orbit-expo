@@ -40,15 +40,9 @@ export default class extends React.Component{
 		loading: true
 	}
 
-	async componentWillMount(){
-		await firebase.initializeApp({
-			apiKey: 'AIzaSyAoh8fDZ9x5b5NI39xFHe--DnqGOsxrxlc',
-			authDomain: 'smuggler-23fe7.firebaseapp.com',
-			projectId: 'smuggler-23fe7'
-		});
+	componentWillMount(){
 		firebase.auth().onAuthStateChanged(user => {
 			if(this.state.loading) this.setState({loading: false});
-			console.log(user);
 			if(user){
 				this._navigator.dispatch(NavigationActions.reset({
 					index: 0,
