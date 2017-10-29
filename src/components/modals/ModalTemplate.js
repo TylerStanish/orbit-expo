@@ -10,7 +10,7 @@ export default class ModalTemplate extends React.Component{
 
 	render(){
 		return(
-			<Modal animationType={'slide'} transparent visible={this.props.visible}>
+			<Modal animationType={'slide'} visible={this.props.visible} transparent>
 				<View style={styles.modalContainer}>
 					<View style={styles.modalHeader}>
 						<Icon

@@ -13,6 +13,7 @@ import WelcomeScreen from './src/screens/WelcomeScreen';
 import AuthScreen from './src/screens/AuthScreen';
 import ChooseScreen from './src/screens/ChooseScreen';
 import SinglePlayerScreen from './src/screens/SinglePlayerScreen';
+import SinglePlayerGameScreen from './src/screens/SinglePlayerGameScreen';
 const Navigator = StackNavigator({
 	Welcome: {
 		screen: WelcomeScreen,
@@ -31,6 +32,9 @@ const Navigator = StackNavigator({
 	},
 	SinglePlayer: {
 		screen: SinglePlayerScreen
+	},
+	SinglePlayerGame: {
+		screen: SinglePlayerGameScreen
 	}
 });
 

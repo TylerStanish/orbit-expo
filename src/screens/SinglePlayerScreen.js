@@ -1,22 +1,18 @@
 import React from 'react';
 import {
 	View,
-	ScrollView
+	ScrollView,
+	TouchableOpacity
 } from 'react-native';
 import {
 	Button,
-	ListItem
+	Text
 } from 'react-native-elements';
 import {connect} from 'react-redux';
-import {fetchGames} from '../actions';
-import ModalTemplate from '../components/modals/ModalTemplate';
+import {fetchGames, openNewGameModal} from '../actions';
 import NewGameModal from '../components/modals/NewGameModal';
 
 class SinglePlayerScreen extends React.Component{
-
-	state = {
-		visible: false
-	}
 
 	componentWillMount(){
 		this.props.fetchGames();
@@ -24,30 +20,36 @@ class SinglePlayerScreen extends React.Component{
 
 	renderGames(){
 		return this.props.games.map(game => {
-			return <ListItem
-				title={game.captainName}
-				key={game._id}
-			/>
+			return (
+				<TouchableOpacity
+					key={Math.random()}
+					style={{height: this._height/5, borderTopWidth: 0.5}}
+					onPress={() => this.props.navigation.navigate('SinglePlayerGame')}
+				>
+					<Text>{game.captainName}</Text>
+				</TouchableOpacity>
+			);
 		});
+	}
+
+	handleLayout(e){
+		this._height = e.nativeEvent.layout.height;
 	}
 
 	render(){
 		return(
-			<ScrollView contentContainerStyle={{flex: 1}} style={{paddingVertical: 10}}>
+			<ScrollView contentContainerStyle={{flex: 1}} style={{paddingTop: 10}}>
 				<Button
 					raised
 					icon={{name: 'add'}}
 					title={'New Game'}
 					backgroundColor={'#97c662'}
-					onPress={() => this.setState({visible: true})}
+					onPress={() => this.props.openNewGameModal()}
 				/>
-				{this.renderGames()}
-				<ModalTemplate
-					visible={this.state.visible}
-					close={() => this.setState({visible: false})}
-				>
-					<NewGameModal/>
-				</ModalTemplate>
+				<View style={{flex: 1}} onLayout={e => this.handleLayout(e)}>
+					{this.renderGames()}
+				</View>
+				<NewGameModal/>
 			</ScrollView>
 		)
 	}
@@ -57,4 +59,4 @@ export default connect((state) => {
 	return{
 		games: state.fetchGamesReducer.games
 	}
-}, {fetchGames})(SinglePlayerScreen);
+}, {fetchGames, openNewGameModal})(SinglePlayerScreen);

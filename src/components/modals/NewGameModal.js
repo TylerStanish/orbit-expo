@@ -1,16 +1,13 @@
 import React from 'react';
 import {
-	View
-} from 'react-native';
-import {
 	FormLabel,
 	FormInput,
 	ButtonGroup,
 	Button
 } from 'react-native-elements';
 import {connect} from 'react-redux';
-
-import {createGame} from '../../actions/index';
+import {createGame, closeNewGameModal} from '../../actions/index';
+import ModalTemplate from './ModalTemplate';
 
 class NewGameModal extends React.Component{
 
@@ -37,7 +34,7 @@ class NewGameModal extends React.Component{
 
 	render(){
 		return(
-			<View>
+			<ModalTemplate visible={this.props.visible} close={() => this.props.closeNewGameModal()}>
 				<FormLabel>Game name</FormLabel>
 				<FormInput
 					onChangeText={name => this.setState({name})}
@@ -57,7 +54,7 @@ class NewGameModal extends React.Component{
 					onPress={() => this.createGame()}
 					loading={this.props.loading}
 				/>
-			</View>
+			</ModalTemplate>
 		);
 	}
 }
@@ -65,6 +62,7 @@ class NewGameModal extends React.Component{
 export default connect(state => {
 	return{
 		loading: state.newGameReducer.loading,
-		error: state.newGameReducer.error
+		error: state.newGameReducer.error,
+		visible: state.modalReducer.newGameModalVisible
 	}
-}, {createGame})(NewGameModal);
+}, {createGame, closeNewGameModal})(NewGameModal);

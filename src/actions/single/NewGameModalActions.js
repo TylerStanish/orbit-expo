@@ -26,10 +26,22 @@ export const createGame = (name, weeks) => {
 				maxStorage: 60
 			},
 			userId: firebase.auth().currentUser.uid
-		}).then((doc) => {
+		}).then(() => {
 			dispatch({type: Types.CREATED_GAME});
-		}).catch((e) => {
+		}).catch(() => {
 			dispatch({type: Types.CREATED_GAME_FAILED});
 		});
+	}
+};
+
+export const openNewGameModal = () => {
+	return{
+		type: Types.OPEN_NEW_GAME_MODAL
+	}
+};
+
+export const closeNewGameModal = () => {
+	return{
+		type: Types.CLOSE_NEW_GAME_MODAL
 	}
 };
