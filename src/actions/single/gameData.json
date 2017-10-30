@@ -1,0 +1,90 @@
+{
+	"ships": [
+		{
+			"name": "Asteroid Clunker",
+			"space": 60,
+			"cost": 0,
+			"defense": 0.20
+		},
+		{
+			"name": "Trade Vessel",
+			"space": 100,
+			"cost": 200000,
+			"defense": 0.12
+		},
+		{
+			"name": "Curator Starfighter",
+			"space": 140,
+			"cost": 1000000,
+			"defense": 0.03
+		},
+		{
+			"name": "Imperial Yacht",
+			"space": 200,
+			"cost": 10000000,
+			"defense": 0.001
+		}
+	],
+	"contraband": [
+		{
+			"name": "Apla",
+			"min": 2200,
+			"max": 3800,
+			"qty": 0
+		},
+		{
+			"name": "Rotan Slaves",
+			"min": 6000,
+			"max": 12000,
+			"qty": 0
+		},
+		{
+			"name": "Clean Water",
+			"min": 15,
+			"max": 111,
+			"qty": 0
+		},
+		{
+			"name": "Curator Carbines",
+			"min": 700,
+			"max": 1350,
+			"qty": 0
+		},
+		{
+			"name": "Imperial Snipers",
+			"min": 900,
+			"max": 1450,
+			"qty": 0
+		},
+		{
+			"name": "Covi Armor",
+			"min": 19000,
+			"max": 26000,
+			"qty": 0
+		},
+		{
+			"name": "NoxMat",
+			"min": 85000,
+			"max": 120000,
+			"qty": 0
+		},
+		{
+			"name": "Aeger",
+			"min": 83,
+			"max": 123,
+			"qty": 0
+		},
+		{
+			"name": "Sanafoam",
+			"min": 350,
+			"max": 950,
+			"qty": 0
+		},
+		{
+			"name": "Fauksol",
+			"min": 213,
+			"max": 250,
+			"qty": 0
+		}
+	]
+}

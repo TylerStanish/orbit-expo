@@ -45,13 +45,25 @@ export default class extends React.Component{
 	}
 
 	componentWillMount(){
+		process.env.URL = 'https://us-central1-smuggler-23fe7.cloudfunctions.net';
+		firebase.initializeApp({
+			apiKey: 'AIzaSyAoh8fDZ9x5b5NI39xFHe--DnqGOsxrxlc',
+			authDomain: 'smuggler-23fe7.firebaseapp.com',
+			projectId: 'smuggler-23fe7'
+		});
+
+		// firebase.firestore().enablePersistence().then(() => {
+		// 	console.log('offline persistence enabled');
+		// });
+
 		firebase.auth().onAuthStateChanged(user => {
+			console.log(user);
 			if(this.state.loading) this.setState({loading: false});
 			if(user){
 				this._navigator.dispatch(NavigationActions.reset({
 					index: 0,
 					actions: [NavigationActions.navigate({routeName: 'Choose'})]
-				}))
+				}));
 			}
 			this.store.dispatch({
 				type: Types.UPDATE_USER,

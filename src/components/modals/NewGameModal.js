@@ -3,7 +3,8 @@ import {
 	FormLabel,
 	FormInput,
 	ButtonGroup,
-	Button
+	Button,
+	FormValidationMessage
 } from 'react-native-elements';
 import {connect} from 'react-redux';
 import {createGame, closeNewGameModal} from '../../actions/index';
@@ -28,7 +29,6 @@ class NewGameModal extends React.Component{
 		if(selected === 2){
 			numWeeks = 90;
 		}
-		console.log(numWeeks);
 		this.props.createGame(name, numWeeks);
 	}
 
@@ -54,6 +54,7 @@ class NewGameModal extends React.Component{
 					onPress={() => this.createGame()}
 					loading={this.props.loading}
 				/>
+				<FormValidationMessage>{this.props.error}</FormValidationMessage>
 			</ModalTemplate>
 		);
 	}

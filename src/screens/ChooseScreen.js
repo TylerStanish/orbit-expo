@@ -16,7 +16,7 @@ export default class ChooseScreen extends React.Component{
 					wrapperStyle={{flex: 1, justifyContent: 'center'}}
 					title={'Single Player'}
 					color={'#4f9deb'}
-					button={{title: 'Single Player', icon: 'user', type: 'font-awesome'}}
+					button={{title: 'Single Player', icon: 'person'}}
 					info={['30, 60, or 90 round games']}
 					onButtonPress={() => this.props.navigation.navigate('SinglePlayer')}
 				/>
@@ -25,7 +25,7 @@ export default class ChooseScreen extends React.Component{
 					wrapperStyle={{flex: 1, justifyContent: 'center'}}
 					title={'Multiplayer'}
 					color={'#9D28E6'}
-					button={{title: 'Coming soon!', icon: 'users', type: 'font-awesome'}}
+					button={{title: 'Coming soon!', icon: 'people'}}
 					info={['Play with friends in real time!']}
 				/>
 			</View>

@@ -1,35 +1,20 @@
 import * as Types from '../types';
+import axios from 'axios';
 import firebase from 'firebase';
-import 'firebase/firestore';
-
-firebase.initializeApp({
-	apiKey: 'AIzaSyAoh8fDZ9x5b5NI39xFHe--DnqGOsxrxlc',
-	authDomain: 'smuggler-23fe7.firebaseapp.com',
-	projectId: 'smuggler-23fe7'
-});
-
-const db = firebase.firestore();
 
 export const createGame = (name, weeks) => {
-	return dispatch => {
+	return async (dispatch) => {
 		dispatch({type: Types.CREATE_GAME});
-		db.collection('single').add({
-			maxPeriods: weeks,
-			currentPeriod: 1,
-			captainName: name,
-			repository: [],
-			chips: 2500,
-			debt: 6000,
-			netWorth: 0,
-			ship: {
-				name: 'Asteroid Clunker',
-				maxStorage: 60
-			},
-			userId: firebase.auth().currentUser.uid
+		let token = await firebase.auth().currentUser.getIdToken();
+		axios.post(`${process.env.URL}/createGame`, {
+			name,
+			weeks,
+			token: token
 		}).then(() => {
 			dispatch({type: Types.CREATED_GAME});
-		}).catch(() => {
-			dispatch({type: Types.CREATED_GAME_FAILED});
+			dispatch({type: Types.CLOSE_NEW_GAME_MODAL});
+		}).catch(error => {
+			dispatch({type: Types.CREATED_GAME_FAILED, payload: error.response.error});
 		});
 	}
 };

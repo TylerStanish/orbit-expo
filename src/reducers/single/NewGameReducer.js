@@ -21,7 +21,7 @@ export default (state = initialState, action) => {
 			return{
 				...state,
 				loading: false,
-				error: 'Failed to create game'
+				error: action.payload
 			};
 		default: return state;
 	}
