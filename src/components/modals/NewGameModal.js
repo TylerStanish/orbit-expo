@@ -34,7 +34,7 @@ class NewGameModal extends React.Component{
 
 	render(){
 		return(
-			<ModalTemplate visible={this.props.visible} close={() => this.props.closeNewGameModal()}>
+			<ModalTemplate visible={this.props.visible} close={() => this.props.close()}>
 				<FormLabel>Game name</FormLabel>
 				<FormInput
 					onChangeText={name => this.setState({name})}
@@ -66,4 +66,4 @@ export default connect(state => {
 		error: state.newGameReducer.error,
 		visible: state.modalReducer.newGameModalVisible
 	}
-}, {createGame, closeNewGameModal})(NewGameModal);
+}, {createGame, close: closeNewGameModal})(NewGameModal);

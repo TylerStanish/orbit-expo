@@ -9,13 +9,17 @@ import {
 	Text
 } from 'react-native-elements';
 import {connect} from 'react-redux';
-import {fetchGames, openNewGameModal} from '../actions';
+import {fetchGames, openNewGameModal, unmountFetchGames} from '../actions';
 import NewGameModal from '../components/modals/NewGameModal';
 
 class SinglePlayerScreen extends React.Component{
 
 	componentWillMount(){
 		this.props.fetchGames();
+	}
+
+	componentWillUnmount(){
+		this.props.unmountFetchGames();
 	}
 
 	renderGames(){
@@ -59,4 +63,4 @@ export default connect((state) => {
 	return{
 		games: state.fetchGamesReducer.games
 	}
-}, {fetchGames, openNewGameModal})(SinglePlayerScreen);
+}, {fetchGames, openNewGameModal, unmountFetchGames})(SinglePlayerScreen);

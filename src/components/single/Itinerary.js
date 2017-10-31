@@ -5,6 +5,15 @@ import {
 import {
 	Button
 } from 'react-native-elements';
+import {connect} from 'react-redux';
+import {
+	openBankModal,
+	openShipModal,
+	openTravelModal
+} from '../../actions/Modals';
+import BankModal from '../modals/BankModal';
+import ShipModal from '../modals/ShipModal';
+import TravelModal from '../modals/TravelModal';
 
 class Itinerary extends React.Component{
 
@@ -27,6 +36,7 @@ class Itinerary extends React.Component{
 					backgroundColor={'#fcc746'}
 					icon={{name: 'attach-money'}}
 					buttonStyle={{height: this.state.height/3}}
+					onPress={() => this.props.openBankModal()}
 				/>
 				<Button
 					large
@@ -35,6 +45,7 @@ class Itinerary extends React.Component{
 					icon={{name: 'flight-takeoff'}}
 					backgroundColor={'#4f9deb'}
 					buttonStyle={{height: this.state.height/3}}
+					onPress={() => this.props.openShipModal()}
 				/>
 				<Button
 					large
@@ -43,10 +54,18 @@ class Itinerary extends React.Component{
 					buttonStyle={{height: this.state.height/3}}
 					icon={{name: 'skip-next'}}
 					backgroundColor={'#9D28E6'}
+					onPress={() => this.props.openTravelModal()}
 				/>
+				<BankModal/>
+				<ShipModal/>
+				<TravelModal/>
 			</View>
 		);
 	}
 }
 
-export default Itinerary;
+export default connect(null, {
+	openBankModal,
+	openShipModal,
+	openTravelModal
+})(Itinerary);

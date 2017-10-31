@@ -3,6 +3,7 @@ import{
 	View,
 	Text
 } from 'react-native';
+import {connect} from 'react-redux';
 
 class Market extends React.Component{
 	render(){
@@ -14,4 +15,8 @@ class Market extends React.Component{
 	}
 }
 
-export default Market;
+export default connect(state => {
+	return{
+
+	}
+})(Market);
