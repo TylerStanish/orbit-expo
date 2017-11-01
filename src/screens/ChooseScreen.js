@@ -1,13 +1,20 @@
 import React from 'react';
 import {
-	View
+	View,
+	Text
 } from 'react-native';
 import {
 	PricingCard
 } from 'react-native-elements';
+import firebase from 'firebase';
 import styles from '~/src/styles';
 
 export default class ChooseScreen extends React.Component{
+
+	static navigationOptions = {
+		headerRight: <Text onPress={() => firebase.auth().signOut()} style={{fontWeight: 'bold', marginRight: 10}}>Log out</Text>
+	}
+
 	render(){
 		return(
 			<View style={styles.containerCenter}>

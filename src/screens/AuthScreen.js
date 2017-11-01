@@ -1,17 +1,25 @@
 import React from 'react';
 import {
 	View,
-	Image,
-	Dimensions
+	Image
 } from 'react-native';
 import {
-	Button,
-	SocialIcon
+	SocialIcon,
+	FormInput
 } from 'react-native-elements';
 import firebase from 'firebase';
 import expo from 'expo';
+import styles from '../styles';
+import {connect} from 'react-redux';
 
-export default class AuthScreen extends React.Component{
+import PhoneAuthModal from '../components/modals/PhoneAuthModal';
+import {openPhoneAuthModal} from '../actions/Modals';
+
+class AuthScreen extends React.Component{
+
+	state = {
+		number: 0
+	}
 
 	async signInWithGoogle(){
 		const res = await expo.Google.logInAsync({
@@ -30,17 +38,30 @@ export default class AuthScreen extends React.Component{
 	}
 
 	signUpWithPhone(){
-		const number = '2196699311';
-		const recaptcha =  new firebase.auth.RecaptchaVerifier('sign-in-button');
-		firebase.auth().signInWithPhoneNumber(number, recaptcha).then(res => {
-			console.log(res);
-		}).catch(e => console.log(e));
+		let {number} = this.state;
+		number = Number(number);
+		if(isNaN(number)){
+			alert('Invalid phone number');
+			return;
+		}
+		this.props.openPhoneAuthModal();
 	}
 
 	render(){
 		return(
 			<View style={{flex: 1}}>
 				<Image source={require('../../assets/icons/orbit.gif')} style={styles.backgroundImage}>
+					<FormInput
+						keyboardType={'phone-pad'}
+						onChangeText={number => this.setState({number})}
+					/>
+					<SocialIcon
+						type={'phone'}
+						button
+						title={'Sign up with phone'}
+						style={{backgroundColor: 'gray'}}
+						onPress={() => this.signUpWithPhone()}
+					/>
 					<SocialIcon
 						type={'facebook'}
 						button
@@ -58,23 +79,11 @@ export default class AuthScreen extends React.Component{
 						style={{backgroundColor: '#DB4437'}}
 						onPress={() => this.signInWithGoogle()}
 					/>
-					<SocialIcon
-						type={'phone'}
-						button
-						title={'Sign up with phone'}
-						style={{backgroundColor: 'gray'}}
-						onPress={() => this.signUpWithPhone()}
-					/>
 				</Image>
+				<PhoneAuthModal/>
 			</View>
 		)
 	}
 }
 
-const styles = {
-	backgroundImage: {
-		resizeMode: 'cover',
-		width: Dimensions.get('window').width,
-		height: Dimensions.get('window').height,
-	}
-}
+export default connect(null, {openPhoneAuthModal})(AuthScreen);

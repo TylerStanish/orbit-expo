@@ -4,7 +4,8 @@ const initialState = {
 	newGameModalVisible: false,
 	bankModalVisible: false,
 	shipModalVisible: false,
-	travelModalVisible: false
+	travelModalVisible: false,
+	phoneAuthModalVisible: false
 };
 
 export default (state = initialState, action) => {
@@ -48,6 +49,16 @@ export default (state = initialState, action) => {
 			return{
 				...state,
 				travelModalVisible: false
+			};
+		case Types.OPEN_PHONE_AUTH_MODAL:
+			return{
+				...state,
+				phoneAuthModalVisible: true
+			};
+		case Types.CLOSE_PHONE_AUTH_MODAL:
+			return{
+				...state,
+				phoneAuthModalVisible: false
 			};
 		default: return state;
 	}

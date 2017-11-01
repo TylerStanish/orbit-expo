@@ -22,5 +22,11 @@ export default {
 		borderRadius: 5,
 		borderWidth: 1,
 		borderColor: '#ccc'
+	},
+	backgroundImage: {
+		resizeMode: 'cover',
+		width: Dimensions.get('window').width,
+		height: Dimensions.get('window').height,
+		justifyContent: 'flex-end'
 	}
 }

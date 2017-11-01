@@ -64,11 +64,16 @@ export default class extends React.Component{
 					index: 0,
 					actions: [NavigationActions.navigate({routeName: 'Choose'})]
 				}));
+				return;
 			}
 			this.store.dispatch({
 				type: Types.UPDATE_USER,
 				payload: user
 			});
+			this._navigator.dispatch(NavigationActions.reset({
+				index: 0,
+				actions: [NavigationActions.navigate({routeName: 'Auth'})]
+			}));
 		});
 	}
 

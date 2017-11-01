@@ -47,3 +47,15 @@ export const closeTravelModal = () => {
 		type: Types.CLOSE_TRAVEL_MODAL
 	}
 };
+
+export const openPhoneAuthModal = () => {
+	return{
+		type: Types.OPEN_PHONE_AUTH_MODAL
+	}
+};
+
+export const closePhoneAuthModal = () => {
+	return{
+		type: Types.CLOSE_PHONE_AUTH_MODAL
+	}
+};

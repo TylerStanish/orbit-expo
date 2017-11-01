@@ -19,7 +19,7 @@ export const fetchGames = () => {
 
 // This isn't being called
 export const unmountFetchGames = () => {
-	fetchGamesQuery();
+	fetchGamesQuery.firestore.INTERNAL.delete();
 	console.log('unmounting query');
 	return{
 		type: Types.UNMOUNT_FETCH_GAMES
