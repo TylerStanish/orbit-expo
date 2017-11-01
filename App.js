@@ -14,6 +14,7 @@ import AuthScreen from './src/screens/AuthScreen';
 import ChooseScreen from './src/screens/ChooseScreen';
 import SinglePlayerScreen from './src/screens/SinglePlayerScreen';
 import SinglePlayerGameScreen from './src/screens/SinglePlayerGameScreen';
+import PhoneVerify from './src/screens/PhoneVerifyScreen';
 const Navigator = StackNavigator({
 	Welcome: {
 		screen: WelcomeScreen,
@@ -23,6 +24,12 @@ const Navigator = StackNavigator({
 	},
 	Auth: {
 		screen: AuthScreen,
+		navigationOptions: {
+			header: null
+		}
+	},
+	PhoneVerify: {
+		screen: PhoneVerify,
 		navigationOptions: {
 			header: null
 		}

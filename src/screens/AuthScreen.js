@@ -38,13 +38,14 @@ class AuthScreen extends React.Component{
 	}
 
 	signUpWithPhone(){
-		let {number} = this.state;
-		number = Number(number);
-		if(isNaN(number)){
-			alert('Invalid phone number');
-			return;
-		}
-		this.props.openPhoneAuthModal();
+		// let {number} = this.state;
+		// number = Number(number);
+		// if(isNaN(number)){
+		// 	alert('Invalid phone number');
+		// 	return;
+		// }
+		// this.props.openPhoneAuthModal();
+		this.props.navigation.navigate('PhoneVerify');
 	}
 
 	render(){

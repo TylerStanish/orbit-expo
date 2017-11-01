@@ -4,7 +4,13 @@ import {
 	TextInput
 } from 'react-native';
 import {connect} from 'react-redux';
-import CountryPicker from 'react-native-country-picker-modal';
+import {
+	Input,
+	Item
+} from 'native-base';
+import {
+	FormInput
+} from 'react-native-elements';
 
 import ModalTemplate from './ModalTemplate';
 
@@ -12,25 +18,14 @@ import {closePhoneAuthModal} from '../../actions/Modals';
 
 class PhoneAuthModal extends React.Component{
 
-	constructor(p){
-		super(p);
-		let arr = [];
-		for(let i = 0; i < 10; i++){
-			arr.push('');
-		}
-		this.state = {
-			country: {
-				cca2: 'US',
-				callingCode: '1'
-			},
-			width: 0,
-			inputs: arr
-		}
-		this._refs = [];
-	}
-
 	getLayout(e){
 		this.setState({width: e.nativeEvent.layout.width});
+	}
+
+	componentDidMount(){
+		console.log(this._ref);
+		console.log('mounted')
+		// this._ref._root.focus();
 	}
 
 	renderInputs(){
@@ -68,11 +63,16 @@ class PhoneAuthModal extends React.Component{
 	}
 
 	render(){
+		console.log(this._ref);
+		console.log('from render');
 		return(
 			<ModalTemplate visible={this.props.visible} close={this.props.closePhoneAuthModal}>
 				<View onLayout={e => this.getLayout(e)} style={{flex: 1, flexDirection: 'row'}}>
-					<CountryPicker cca2={this.state.country.cca2} onChange={s => this.setState({country: s})}/>
-					{this.renderInputs()}
+					<FormInput
+						style={{height: 50, width: 50, borderBottomWidth: 1, borderBottomColor: 'purple'}}
+						maxLength={1}
+						ref={ref => this._ref = ref}
+					/>
 				</View>
 			</ModalTemplate>
 		);

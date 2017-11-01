@@ -28,5 +28,21 @@ export default {
 		width: Dimensions.get('window').width,
 		height: Dimensions.get('window').height,
 		justifyContent: 'flex-end'
+	},
+
+	phoneAuthText: {
+		fontSize: 50,
+		alignItems: 'center',
+		borderBottomWidth: 1,
+		borderBottomColor: 'purple',
+		// textDecorationLine: 'underline',
+		margin: 5
+	},
+	finePrint: {
+		fontSize: 12,
+		color: 'gray',
+		marginHorizontal: 15,
+		marginTop: 10
 	}
+
 }
