@@ -24,11 +24,16 @@ export const CREATE_GAME = 'create_game';
 export const CREATED_GAME = 'created_game';
 export const CREATED_GAME_FAILED = 'created_game_failed';
 
+// fetch types
 export const FETCH_GAMES = 'fetch_games';
 export const FETCHED_GAMES = 'fetched_games';
 export const FETCHED_GAMES_FAILED = 'fetched_games_failed';
 export const UNMOUNT_FETCH_GAMES = 'unmount_fetch_games';
+export const FETCH_GAME = 'fetch_game';
+export const FETCHED_GAME = 'fetched_game';
+// export const FETCHED_GAME_FAILED = 'fetched_game_failed';
 
+// Auth types
 export const SIGN_UP_WITH_PHONE = 'sign_up_with_phone';
 export const SIGNED_UP_WITH_PHONE = 'signed_up_with_phone';
 export const SIGNED_UP_WITH_PHONE_FAILED = 'signed_up_with_phone_failed';

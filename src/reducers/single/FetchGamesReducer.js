@@ -1,7 +1,10 @@
 import * as Types from '../../actions/types';
 
 const initialState = {
-	games: []
+	games: [],
+	game: null,
+	loading: false,
+	loadingGame: false
 };
 
 export default (state = initialState, action) => {
@@ -21,6 +24,16 @@ export default (state = initialState, action) => {
 			return{
 				...state,
 				loading: false
+			};
+		case Types.FETCH_GAME:
+			return{
+				...state,
+				loadingGame: true,
+			};
+		case Types.FETCHED_GAME:
+			return{
+				...state,
+				game: action.payload
 			};
 		default: return state;
 	}

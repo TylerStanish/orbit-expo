@@ -6,7 +6,9 @@ import {
 } from 'react-native';
 import {
 	Button,
-	Text
+	Text,
+	ListItem,
+	List
 } from 'react-native-elements';
 import {connect} from 'react-redux';
 import {fetchGames, openNewGameModal, unmountFetchGames} from '../actions';
@@ -25,13 +27,14 @@ class SinglePlayerScreen extends React.Component{
 	renderGames(){
 		return this.props.games.map(game => {
 			return (
-				<TouchableOpacity
+				<ListItem
+					title={game.captainName}
+					subtitle={game.ship.name}
+					badge={{value: game.chips, containerStyle: {marginTop: 10}}}
 					key={Math.random()}
 					style={{height: this._height/5, borderTopWidth: 0.5}}
-					onPress={() => this.props.navigation.navigate('SinglePlayerGame')}
-				>
-					<Text>{game.captainName}</Text>
-				</TouchableOpacity>
+					onPress={() => this.props.navigation.navigate('SinglePlayerGame', {uid: game.uid})}
+				/>
 			);
 		});
 	}
@@ -50,9 +53,9 @@ class SinglePlayerScreen extends React.Component{
 					backgroundColor={'#97c662'}
 					onPress={() => this.props.openNewGameModal()}
 				/>
-				<View style={{flex: 1}} onLayout={e => this.handleLayout(e)}>
+				<List style={{flex: 1}} onLayout={e => this.handleLayout(e)}>
 					{this.renderGames()}
-				</View>
+				</List>
 				<NewGameModal/>
 			</ScrollView>
 		)

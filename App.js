@@ -66,6 +66,7 @@ export default class extends React.Component{
 		firebase.auth().onAuthStateChanged(user => {
 			if(this.state.loading) this.setState({loading: false});
 			if(user){
+				console.log(user);
 				this._navigator.dispatch(NavigationActions.reset({
 					index: 0,
 					actions: [NavigationActions.navigate({routeName: 'Choose'})]
@@ -78,7 +79,7 @@ export default class extends React.Component{
 			});
 			this._navigator.dispatch(NavigationActions.reset({
 				index: 0,
-				actions: [NavigationActions.navigate({routeName: 'Auth'})]
+				actions: [NavigationActions.navigate({routeName: 'Welcome'})]
 			}));
 		});
 	}

@@ -25,3 +25,18 @@ export const unmountFetchGames = () => {
 		type: Types.UNMOUNT_FETCH_GAMES
 	}
 };
+
+let fetchGameQuery;
+
+export const fetchGame = (uid) => {
+	return dispatch => {
+		dispatch({type: Types.FETCH_GAME});
+		fetchGameQuery = firebase.firestore().collection('single').doc(uid).onSnapshot(doc => {
+			dispatch({type: Types.FETCHED_GAME, payload: doc.data()});
+		});
+	}
+};
+
+export const unmountFetchGame = () => {
+	fetchGameQuery();
+};

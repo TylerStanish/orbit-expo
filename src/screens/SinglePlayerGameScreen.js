@@ -6,6 +6,7 @@ import {
 import Itinerary from '../components/single/Itinerary';
 import Market from '../components/single/Market';
 import ScrollableTabView from 'react-native-scrollable-tab-view';
+import {fetchGame, unmountFetchGame} from '../actions/single/FetchActions';
 
 class SinglePlayerGameScreen extends React.Component{
 
@@ -13,14 +14,26 @@ class SinglePlayerGameScreen extends React.Component{
 		headerRight: <Text style={{fontWeight: 'bold', marginRight: 10}}>Round 1/30</Text>
 	}
 
+	componentWillMount(){
+		this.props.fetchGame(this.props.navigation.state.params.uid);
+	}
+
+	componentDidUnmount(){
+		this.props.unmountFetchGame();
+	}
+
 	render(){
 		return(
 			<ScrollableTabView>
-				<Itinerary tabLabel={'Itinerary'}/>
-				<Market tabLabel={'Market'}/>
+				<Itinerary game={this.props.game} tabLabel={'Itinerary'}/>
+				<Market game={this.props.game} tabLabel={'Market'}/>
 			</ScrollableTabView>
 		);
 	}
 }
 
-export default SinglePlayerGameScreen;
+export default connect(state => {
+	return{
+		game: state.fetchGamesReducer.game
+	}
+}, {fetchGame, unmountFetchGame})(SinglePlayerGameScreen);

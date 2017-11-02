@@ -5,11 +5,11 @@ import AppIntro from 'react-native-app-intro';
 export default class WelcomeScreen extends React.Component{
 
 	onSkipBtnHandle = () => {
-		this.props.navigation.navigate("Auth");
+		this.props.navigation.navigate('PhoneVerify');
 	}
 
 	doneBtnHandle = () => {
-		this.props.navigation.navigate("Auth");
+		this.props.navigation.navigate('PhoneVerify');
 	}
 
 	render(){
