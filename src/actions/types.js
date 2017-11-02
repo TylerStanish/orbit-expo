@@ -52,3 +52,6 @@ export const OPEN_TRAVEL_MODAL = 'open_travel_modal';
 export const CLOSE_TRAVEL_MODAL = 'close_travel_modal';
 export const OPEN_PHONE_AUTH_MODAL = 'open_phone_auth_modal';
 export const CLOSE_PHONE_AUTH_MODAL = 'close_phone_auth_modal';
+
+export const OPEN_TRANSACTION_MODAL = 'open_transaction_modal';
+export const CLOSE_TRANSACTION_MODAL = 'close_transaction_modal';

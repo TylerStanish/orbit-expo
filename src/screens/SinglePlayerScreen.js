@@ -33,7 +33,7 @@ class SinglePlayerScreen extends React.Component{
 					badge={{value: game.chips, containerStyle: {marginTop: 10}}}
 					key={Math.random()}
 					style={{height: this._height/5, borderTopWidth: 0.5}}
-					onPress={() => this.props.navigation.navigate('SinglePlayerGame', {uid: game.uid})}
+					onPress={() => this.props.navigation.navigate('SinglePlayerGame', {uid: game.userId})}
 				/>
 			);
 		});

@@ -12,7 +12,8 @@ export const fetchGames = () => {
 		fetchGamesQuery.onSnapshot(snapshot => {
 			dispatch({type: Types.FETCHED_GAMES, payload: snapshot.docs.map(doc => doc.data())});
 		}, err => {
-			dispatch({type: Types.FETCHED_GAMES_FAILED});
+			console.log(err);
+			dispatch({type: Types.FETCHED_GAMES_FAILED, payload: err});
 		});
 	}
 };
@@ -31,12 +32,13 @@ let fetchGameQuery;
 export const fetchGame = (uid) => {
 	return dispatch => {
 		dispatch({type: Types.FETCH_GAME});
-		fetchGameQuery = firebase.firestore().collection('single').doc(uid).onSnapshot(doc => {
-			dispatch({type: Types.FETCHED_GAME, payload: doc.data()});
+		fetchGameQuery = firebase.firestore().collection('single').where('userId', '==', uid).onSnapshot(snapshot => {
+			dispatch({type: Types.FETCHED_GAME, payload: snapshot.docs[0].data()});
 		});
 	}
 };
 
 export const unmountFetchGame = () => {
 	fetchGameQuery();
+	return{type: 'bla'};
 };

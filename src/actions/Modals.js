@@ -59,3 +59,16 @@ export const closePhoneAuthModal = () => {
 		type: Types.CLOSE_PHONE_AUTH_MODAL
 	}
 };
+
+export const openTransactionModal = (item) => {
+	return{
+		type: Types.OPEN_TRANSACTION_MODAL,
+		payload: item
+	}
+};
+
+export const closeTransactionModal = () => {
+	return{
+		type: Types.CLOSE_TRANSACTION_MODAL
+	}
+};

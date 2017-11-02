@@ -5,7 +5,9 @@ const initialState = {
 	bankModalVisible: false,
 	shipModalVisible: false,
 	travelModalVisible: false,
-	phoneAuthModalVisible: false
+	phoneAuthModalVisible: false,
+	transactionModalVisible: false,
+	transactionItem: null
 };
 
 export default (state = initialState, action) => {
@@ -59,6 +61,17 @@ export default (state = initialState, action) => {
 			return{
 				...state,
 				phoneAuthModalVisible: false
+			};
+		case Types.OPEN_TRANSACTION_MODAL:
+			return{
+				...state,
+				transactionModalVisible: true,
+				transactionItem: action.payload
+			};
+		case Types.CLOSE_TRANSACTION_MODAL:
+			return{
+				...state,
+				transactionModalVisible: false
 			};
 		default: return state;
 	}

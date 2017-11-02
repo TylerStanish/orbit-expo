@@ -6,6 +6,7 @@ import {
 import Itinerary from '../components/single/Itinerary';
 import Market from '../components/single/Market';
 import ScrollableTabView from 'react-native-scrollable-tab-view';
+import {connect} from 'react-redux';
 import {fetchGame, unmountFetchGame} from '../actions/single/FetchActions';
 
 class SinglePlayerGameScreen extends React.Component{
@@ -18,7 +19,7 @@ class SinglePlayerGameScreen extends React.Component{
 		this.props.fetchGame(this.props.navigation.state.params.uid);
 	}
 
-	componentDidUnmount(){
+	componentWillUnmount(){
 		this.props.unmountFetchGame();
 	}
 
