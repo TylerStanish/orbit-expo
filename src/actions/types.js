@@ -29,6 +29,13 @@ export const FETCHED_GAMES = 'fetched_games';
 export const FETCHED_GAMES_FAILED = 'fetched_games_failed';
 export const UNMOUNT_FETCH_GAMES = 'unmount_fetch_games';
 
+export const SIGN_UP_WITH_PHONE = 'sign_up_with_phone';
+export const SIGNED_UP_WITH_PHONE = 'signed_up_with_phone';
+export const SIGNED_UP_WITH_PHONE_FAILED = 'signed_up_with_phone_failed';
+export const REDEEM_CODE = 'redeem_code';
+export const REDEEMED_CODE = 'redeemed_code';
+export const REDEEMED_CODE_FAILED = 'redeemed_code_failed';
+
 // Modal types
 export const OPEN_NEW_GAME_MODAL = 'open_new_game_modal';
 export const CLOSE_NEW_GAME_MODAL = 'close_new_game_modal';

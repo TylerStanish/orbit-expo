@@ -3,6 +3,10 @@ import * as types from '../actions/types';
 const initialState = {
 	user: null,
 	loading: false,
+	loadingRedeem: false,
+	error: null,
+	errorRedeem: null,
+	token: null
 };
 
 export default (state = initialState, action) => {
@@ -11,6 +15,39 @@ export default (state = initialState, action) => {
 			return{
 				...state,
 				user: action.payload
+			};
+		case types.SIGN_UP_WITH_PHONE:
+			return{
+				...state,
+				loading: true
+			};
+		case types.SIGNED_UP_WITH_PHONE:
+			return{
+				...state,
+				loading: false
+			};
+		case types.SIGNED_UP_WITH_PHONE_FAILED:
+			return{
+				...state,
+				loading: false,
+				error: action.payload
+			};
+		case types.REDEEM_CODE:
+			return{
+				...state,
+				loadingRedeem: true
+			};
+		case types.REDEEMED_CODE:
+			return{
+				...state,
+				loadingRedeem: false,
+				token: action.payload
+			};
+		case types.REDEEMED_CODE_FAILED:
+			return{
+				...state,
+				loadingRedeem: false,
+				errorRedeem: action.paylaod
 			};
 		default: return state;
 	}

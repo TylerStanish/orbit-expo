@@ -3,7 +3,7 @@ import {Provider} from 'react-redux';
 import {createStore, applyMiddleware} from 'redux';
 import ReduxThunk from 'redux-thunk';
 import reducers from './src/reducers';
-import Expo, {Constants} from 'expo';
+import Expo, {Constants, Font} from 'expo';
 import firebase from 'firebase';
 
 import * as Types from './src/actions/types';
@@ -64,7 +64,6 @@ export default class extends React.Component{
 		// });
 
 		firebase.auth().onAuthStateChanged(user => {
-			console.log(user);
 			if(this.state.loading) this.setState({loading: false});
 			if(user){
 				this._navigator.dispatch(NavigationActions.reset({
@@ -81,6 +80,12 @@ export default class extends React.Component{
 				index: 0,
 				actions: [NavigationActions.navigate({routeName: 'Auth'})]
 			}));
+		});
+	}
+
+	componentDidMount() {
+		Font.loadAsync({
+			'monospace': require('./assets/fonts/Monospace.ttf')
 		});
 	}
 

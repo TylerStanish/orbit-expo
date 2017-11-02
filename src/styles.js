@@ -31,12 +31,13 @@ export default {
 	},
 
 	phoneAuthText: {
-		fontSize: 50,
+		fontSize: width/10,
 		alignItems: 'center',
 		borderBottomWidth: 1,
 		borderBottomColor: 'purple',
 		// textDecorationLine: 'underline',
-		margin: 5
+		margin: 10,
+		fontFamily: 'monospace'
 	},
 	finePrint: {
 		fontSize: 12,

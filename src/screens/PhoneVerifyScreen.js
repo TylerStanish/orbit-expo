@@ -4,12 +4,17 @@ import {
 	Dimensions,
 	TextInput,
 	Text,
-	Keyboard
+	Keyboard,
+	Animated
 } from 'react-native';
 import {
-	Button
+	Button,
+	FormInput
 } from 'react-native-elements';
+import CountryPicker from 'react-native-country-picker-modal';
+import {connect} from 'react-redux';
 import styles from '../styles';
+import {signInWithPhone, redeemCode} from '../actions/auth/index';
 
 const {width} = Dimensions.get('window');
 class PhoneVerifyScreen extends React.Component{
@@ -18,7 +23,16 @@ class PhoneVerifyScreen extends React.Component{
 		super(p);
 		this.state = {
 			number: '',
-			keyboardHeight: 0
+			code: '',
+			keyboardHeight: 0,
+			countryInfo: {
+				cca2: 'US',
+				callingCode: '1',
+			},
+
+			verifying: true,
+			verifyOpacity: new Animated.Value(1),
+			redeemOpacity: new Animated.Value(0)
 		};
 	}
 
@@ -26,6 +40,7 @@ class PhoneVerifyScreen extends React.Component{
 		let bla = Keyboard.addListener('keyboardDidShow', (e) => {
 			this.setState({keyboardHeight: e.endCoordinates.height});
 		});
+		this._ref.focus();
 	}
 
 	// I'm not using this method, but I think it's good
@@ -103,18 +118,75 @@ class PhoneVerifyScreen extends React.Component{
 		return arr;
 	}
 
+	renderCode(){
+		let arr = [];
+		let numbers = this.state.code.split('');
+		for(let i=0; i<4; i++){
+			if(isNaN(numbers[i])) numbers[i] = '_';
+		}
+		let next = numbers.indexOf('_');
+		numbers.map((num, index) => {
+			let color = 'black';
+			if(index === next) color = 'purple';
+			arr.push(<Text style={[styles.phoneAuthText, {color, fontSize: 80}]}>{num}</Text>);
+		});
+		return arr;
+	}
+
+	verify(){
+		let string = `+${this.state.countryInfo.callingCode}${this.state.number}`;
+		this.props.signInWithPhone(string, err => {
+			if(!err){
+				Animated.timing(this.state.verifyOpacity, {toValue: 0}).start(() => {
+					this.setState({verifying: false}, () => {
+						Animated.timing(this.state.redeemOpacity, {toValue: 1}).start();
+					});
+				});
+			}else{
+				console.log(err);
+			}
+		});
+	}
+
+	redeemCode(){
+		let string = `+${this.state.countryInfo.callingCode}${this.state.number}`;
+		this.props.redeemCode(string, this.state.code);
+	}
+
 	render(){
-		console.log(this.state.keyboardHeight);
-		return(
-			<View style={{marginTop: 100, flex: 1, marginBottom: this.state.keyboardHeight+20, flexDirection: 'column', justifyContent: 'space-between', alignItems: 'center'}}>
+
+		let verifying = (
+			<Animated.View style={{
+				marginTop: 100,
+				flex: 1,
+				marginBottom: this.state.keyboardHeight+20,
+				flexDirection: 'column',
+				justifyContent: 'space-between',
+				alignItems: 'center',
+				opacity: this.state.verifyOpacity
+			}}>
 				<View style={{alignItems: 'center'}}>
-					<View style={{flexDirection: 'row'}}>{this.renderAreaCode()}</View>
+					<View style={{flexDirection: 'row', alignItems: 'center'}}>
+						<CountryPicker
+							cca2={this.state.countryInfo.cca2}
+							onChange={e => {
+								this.setState({countryInfo: e}, () => {
+									this._ref.focus();
+								});
+							}}
+							onClose={() => this._ref.focus()}
+							filterable
+							closeable
+						/>
+						<Text style={styles.phoneAuthText}>+{this.state.countryInfo.callingCode}</Text>
+						{this.renderAreaCode()}
+					</View>
 					<View style={{flexDirection: 'row'}}>{this.renderNumber()}</View>
 				</View>
-				<TextInput
+				<FormInput
+					ref={ref => this._ref = ref}
 					keyboardType={'phone-pad'}
 					style={{position: 'absolute', top: -100, left: -100}}
-					autoFocus
 					value={this.state.number}
 					onChangeText={num => {
 						if(num.length < 11){
@@ -130,12 +202,55 @@ class PhoneVerifyScreen extends React.Component{
 						raised
 						containerViewStyle={{width: '90%'}}
 						borderRadius={5}
+						onPress={() => this.verify()}
+						loading={this.props.loading}
 					/>
 					<Text style={styles.finePrint}>By tapping "Verify Phone Number" above, we will send you an SMS to confirm your phone number. Message &amp; data rates may apply.</Text>
 				</View>
-			</View>
+			</Animated.View>
 		);
+
+		let redeeming = (
+			<Animated.View style={{
+				opacity: this.state.redeemOpacity,
+				marginTop: 100,
+				marginBottom: this.state.keyboardHeight+20,
+				justifyContent: 'space-between',
+				alignItems: 'center',
+				flex: 1
+			}}>
+				<FormInput
+					autoFocus
+					keyboardType={'phone-pad'}
+					style={{position: 'absolute', top: -100, left: -100}}
+					value={this.state.code}
+					onChangeText={num => {
+						if(num.length < 5){
+							this.setState({code: num});
+						}
+					}}
+				/>
+				<View style={{flexDirection: 'row'}}>{this.renderCode()}</View>
+				<Button
+					title={this.props.loading ? '' : 'Enter code'}
+					backgroundColor={'#744BAC'}
+					large
+					raised
+					containerViewStyle={{width: '90%'}}
+					borderRadius={5}
+					loading={this.props.loadingRedeem}
+					onPress={() => this.redeemCode()}
+				/>
+			</Animated.View>
+		);
+
+		return this.state.verifying ? verifying : redeeming
 	}
 }
 
-export default PhoneVerifyScreen;
+export default connect(state => {
+	return{
+		loading: state.authReducer.loading,
+		loadingRedeem: state.authReducer.loadingRedeem
+	}
+}, {signInWithPhone, redeemCode})(PhoneVerifyScreen);
