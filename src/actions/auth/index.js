@@ -1,5 +1,6 @@
 import axios from 'axios';
 import * as Types from '../types';
+import firebase from 'firebase';
 
 export const signInWithPhone = (phone, cb) => {
 	return dispatch => {
@@ -24,10 +25,16 @@ export const redeemCode = (phone, code) => {
 		axios.post(process.env.URL + '/redeemCode', {
 			phone,
 			code
-		}).then((tok) => {
+		}).then((res) => {
+			let tok = res.data.token;
 			console.log(tok);
 			console.log('^^^ should be the token');
-			dispatch({type: Types.REDEEMED_CODE, payload: tok});
+			// let's log em' in
+			firebase.auth().signInWithCustomToken(tok).then(() => {
+				dispatch({type: Types.REDEEMED_CODE, payload: tok});
+			}).catch(e => {
+				dispatch({type: Types.REDEEMED_CODE_FAILED, payload: e});
+			});
 		}).catch(e => {
 			console.log(e);
 			console.log('the error');

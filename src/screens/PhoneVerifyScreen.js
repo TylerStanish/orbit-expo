@@ -87,13 +87,13 @@ class PhoneVerifyScreen extends React.Component{
 		// we can use indexOf here because it returns the first index that it encounters '_'
 		let next = numbers.indexOf('_');
 
-		arr.push(<Text style={styles.phoneAuthText}>(</Text>);
+		arr.push(<Text key={Math.random()} style={styles.phoneAuthText}>(</Text>);
 		numbers.map((num, index) => {
 			let color = 'black';
 			if(index === next) color = 'purple';
-			arr.push(<Text style={[styles.phoneAuthText, {color}]}>{num}</Text>);
+			arr.push(<Text key={index} style={[styles.phoneAuthText, {color}]}>{num}</Text>);
 		});
-		arr.push(<Text style={styles.phoneAuthText}>)</Text>);
+		arr.push(<Text key={Math.random()} style={styles.phoneAuthText}>)</Text>);
 		return arr;
 	}
 
@@ -107,13 +107,13 @@ class PhoneVerifyScreen extends React.Component{
 		numbers.slice(3, 6).map((num, index) => {
 			let color = 'black';
 			if(index+3 === next) color = 'purple';
-			arr.push(<Text style={[styles.phoneAuthText, {color}]}>{num}</Text>)
+			arr.push(<Text key={index+100} style={[styles.phoneAuthText, {color}]}>{num}</Text>)
 		});
-		arr.push(<Text style={styles.phoneAuthText}>-</Text>);
+		arr.push(<Text key={Math.random()} style={styles.phoneAuthText}>-</Text>);
 		numbers.slice(6, 10).map((num, index) => {
 			let color = 'black';
 			if(index+6 === next) color = 'purple';
-			arr.push(<Text style={[styles.phoneAuthText, {color}]}>{num}</Text>)
+			arr.push(<Text key={index} style={[styles.phoneAuthText, {color}]}>{num}</Text>)
 		});
 		return arr;
 	}
@@ -128,7 +128,7 @@ class PhoneVerifyScreen extends React.Component{
 		numbers.map((num, index) => {
 			let color = 'black';
 			if(index === next) color = 'purple';
-			arr.push(<Text style={[styles.phoneAuthText, {color, fontSize: 80}]}>{num}</Text>);
+			arr.push(<Text key={index} style={[styles.phoneAuthText, {color, fontSize: 80}]}>{num}</Text>);
 		});
 		return arr;
 	}
@@ -150,7 +150,7 @@ class PhoneVerifyScreen extends React.Component{
 
 	redeemCode(){
 		let string = `+${this.state.countryInfo.callingCode}${this.state.number}`;
-		this.props.redeemCode(string, this.state.code);
+		this.props.redeemCode(string, Number(this.state.code));
 	}
 
 	render(){
@@ -196,7 +196,7 @@ class PhoneVerifyScreen extends React.Component{
 				/>
 				<View style={{alignItems: 'center', width: '100%'}}>
 					<Button
-						title={'Verify Phone Number'}
+						title={this.props.loading ? ' ' : 'Verify Phone Number'}
 						backgroundColor={'#744BAC'}
 						large
 						raised
@@ -232,7 +232,7 @@ class PhoneVerifyScreen extends React.Component{
 				/>
 				<View style={{flexDirection: 'row'}}>{this.renderCode()}</View>
 				<Button
-					title={this.props.loading ? '' : 'Enter code'}
+					title={this.props.loadingRedeem ? ' ' : 'Enter code'}
 					backgroundColor={'#744BAC'}
 					large
 					raised
