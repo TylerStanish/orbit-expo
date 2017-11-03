@@ -23,6 +23,8 @@ import {connect} from 'react-redux';
 
 import {openTransactionModal} from '../../actions/Modals';
 
+let keyboardHeight = 0;
+
 class Footer extends React.Component{
 
 	state = {
@@ -54,9 +56,16 @@ class Footer extends React.Component{
 	}
 
 	componentDidMount(){
-		let bla = Keyboard.addListener('keyboardDidChangeFrame', e => {
+		let bla = Keyboard.addListener('keyboardDidShow', e => {
 			// this.state.height.setValue(this.state.height._value + e.endCoordinates.height);
+			keyboardHeight = e.endCoordinates.height;
+			console.log('set height ti', keyboardHeight);
 			Animated.timing(this.state.height, {toValue: this.state.height._value + e.endCoordinates.height}).start();
+		});
+		let bla1 = Keyboard.addListener('keyboardDidHide', e => {
+			// this.state.height.setValue(this.state.height._value + e.endCoordinates.height);
+
+			Animated.timing(this.state.height, {toValue: this.state.height._value - keyboardHeight}).start();
 		});
 	}
 
