@@ -1,14 +1,14 @@
 import React from 'react';
 import{
 	View,
-	ScrollView
+	ScrollView,
+	Text
 } from 'react-native';
-import{
-	ListItem
-} from 'react-native-elements';
 import {connect} from 'react-redux';
 import TransactionModal from '../modals/TransactionModal';
 import {openTransactionModal} from '../../actions/Modals';
+
+import Footer from '../misc/GraphFooter';
 
 class Market extends React.Component{
 
@@ -30,7 +30,7 @@ class Market extends React.Component{
 	render(){
 		return(
 			<View>
-				<ScrollView style={{marginBottom: 250}}>
+				<ScrollView bounces={false} style={{marginBottom: 250}}>
 					{this.renderItems()}
 					<TransactionModal/>
 				</ScrollView>
@@ -45,47 +45,6 @@ export default connect(state => {
 		game: state.fetchGamesReducer.game
 	}
 }, {openTransactionModal})(Market);
-
-const dummy = [
-	{x: 0, y: 100},
-	{x: 1, y: 110},
-	{x: 2, y: 105},
-	{x: 3, y: 140},
-	{x: 4, y: 150}
-];
-
-import {Dimensions, Text} from 'react-native';
-import {VictoryChart, VictoryLine, VictoryAxis} from 'victory-native';
-import {ButtonGroup} from 'react-native-elements';
-class Footer extends React.Component{
-	render(){
-		return(
-			<View style={{
-				width: Dimensions.get('window').width,
-				height: 250,
-				position: 'absolute',
-				bottom: 0,
-				left: 0,
-				backgroundColor: '#ddd',
-				alignItems: 'center'
-			}}>
-				<ButtonGroup
-					buttons={['Buy', 'Sell']}
-					containerStyle={{height: 50}}
-				/>
-				<VictoryChart padding={{top: 10, bottom: 50, left: 50, right: 50}} height={200}>
-					<VictoryAxis label={'x-axis'}/>
-					<VictoryAxis label={''} dependentAxis/>
-					<VictoryLine
-
-						data={dummy}
-						animate={{duration: 500}}
-					/>
-				</VictoryChart>
-			</View>
-		);
-	}
-}
 
 import{
 	TouchableOpacity

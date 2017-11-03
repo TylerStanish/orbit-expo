@@ -16,6 +16,7 @@
     "react-native-app-intro": "https://github.com/merryjs/react-native-app-intro.git",
     "react-native-country-picker-modal": "https://github.com/xcarpentier/react-native-country-picker-modal.git",
     "react-native-elements": "^0.17.0",
+    "react-native-keyboard-aware-scroll-view": "^0.4.1",
     "react-native-scrollable-tab-view": "^0.8.0",
     "react-navigation": "^1.0.0-beta.15",
     "react-redux": "^5.0.6",

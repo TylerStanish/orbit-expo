@@ -7,7 +7,7 @@ const initialState = {
 	travelModalVisible: false,
 	phoneAuthModalVisible: false,
 	transactionModalVisible: false,
-	transactionItem: null
+	transactionItem: null,
 };
 
 export default (state = initialState, action) => {
@@ -66,7 +66,8 @@ export default (state = initialState, action) => {
 			return{
 				...state,
 				transactionModalVisible: true,
-				transactionItem: action.payload
+				transactionItem: action.payload.item,
+				buying: action.payload.buying
 			};
 		case Types.CLOSE_TRANSACTION_MODAL:
 			return{

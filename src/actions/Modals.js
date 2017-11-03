@@ -60,10 +60,10 @@ export const closePhoneAuthModal = () => {
 	}
 };
 
-export const openTransactionModal = (item) => {
+export const openTransactionModal = (buying, item) => {
 	return{
 		type: Types.OPEN_TRANSACTION_MODAL,
-		payload: item
+		payload: {buying, item}
 	}
 };
 
