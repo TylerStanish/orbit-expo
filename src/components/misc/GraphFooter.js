@@ -17,9 +17,12 @@ import {VictoryChart, VictoryLine, VictoryAxis} from 'victory-native';
 import {
 	ButtonGroup,
 	Button,
-	FormInput
+	FormInput,
+	Icon
 } from 'react-native-elements';
 import {connect} from 'react-redux';
+
+const {width} = Dimensions.get('window');
 
 import {openTransactionModal} from '../../actions/Modals';
 
@@ -30,7 +33,9 @@ class Footer extends React.Component{
 	state = {
 		height: new Animated.Value(250),
 		opacity: new Animated.Value(0),
-		transactionHeight: new Animated.Value(0)
+		transactionHeight: new Animated.Value(0),
+
+		buying: true
 	}
 
 	keyboardHeight = new Animated.Value(0)
@@ -48,11 +53,18 @@ class Footer extends React.Component{
 		// });
 
 		Animated.parallel([
-			Animated.timing(this.state.height, {toValue: 300}),
-			Animated.timing(this.state.transactionHeight, {toValue: 50}),
+			Animated.timing(this.state.height, {duration: 200, toValue: 300}),
+			Animated.timing(this.state.transactionHeight, {duration: 200, toValue: 50}),
 		]).start(() => {
-			Animated.timing(this.state.opacity, {toValue: 1}).start();
+			Animated.timing(this.state.opacity, {duration: 200, toValue: 1}).start();
 		});
+
+		if(!index){
+			this.setState({buying: true});
+			this._ref.focus();
+		}else{
+			this.setState({buying: false});
+		}
 	}
 
 	componentDidMount(){
@@ -60,7 +72,9 @@ class Footer extends React.Component{
 			// this.state.height.setValue(this.state.height._value + e.endCoordinates.height);
 			keyboardHeight = e.endCoordinates.height;
 			console.log('set height ti', keyboardHeight);
-			Animated.timing(this.state.height, {toValue: this.state.height._value + e.endCoordinates.height}).start();
+			Animated.timing(this.state.height, {toValue: this.state.height._value + e.endCoordinates.height}).start(() => {
+				// this._ref.focus();
+			});
 		});
 		let bla1 = Keyboard.addListener('keyboardDidHide', e => {
 			// this.state.height.setValue(this.state.height._value + e.endCoordinates.height);
@@ -69,8 +83,43 @@ class Footer extends React.Component{
 		});
 	}
 
+	setMax(){
+
+	}
+
+	closeTransaction(){
+		this.state.opacity.setValue(0);
+		Animated.parallel([
+			Animated.timing(this.state.transactionHeight, {duration: 200, toValue: 0}),
+			Animated.timing(this.state.height, {duration: 200, toValue: 250})
+		]).start();
+	}
+
 	render(){
-		console.log(this.keyboardHeight);
+
+		let button;
+		if(this.state.buying){
+			button = (
+				<Button
+					backgroundColor={'green'}
+					title={'Buy'}
+					borderRadius={5}
+					raised
+					style={{flex: 1, height: 40}}
+				/>
+			);
+		}else{
+			button = (
+				<Button
+					backgroundColor={'red'}
+					title={'Sell'}
+					containerStyle={{flex: 1, height: 40}}
+					raised
+					borderRadius={5}
+				/>
+			);
+		}
+
 		return(
 			<Animated.View style={{
 				width: Dimensions.get('window').width,
@@ -81,17 +130,22 @@ class Footer extends React.Component{
 				backgroundColor: '#ddd',
 				alignItems: 'center',
 			}}>
-				<Animated.View style={{flexDirection: 'row', height: this.state.transactionHeight, opacity: this.state.opacity}}>
+				<Animated.View style={{alignItems: 'center', flexDirection: 'row', height: this.state.transactionHeight, opacity: this.state.opacity}}>
 					<FormInput
 						placeholder={'Number'}
-						containerStyle={{flex: 1}}
+						containerStyle={{flex: 2}}
 						keyboardType={'numeric'}
+						ref={ref => this._ref = ref}
 					/>
 					<Button
-						backgroundColor={'red'}
-						title={'Sell'}
-						containerStyle={{flex: 1}}
+						title={'Set max'}
+						borderRadius={5}
+						raised
+						containerStyle={{flex: 1, height: 40}}
+						onPress={() => this.setMax()}
 					/>
+					{button}
+					<Icon onPress={() => this.closeTransaction()} iconStyle={{flex: 1}} name={'close'} color={'red'}/>
 				</Animated.View>
 				<ButtonGroup
 					buttons={['Buy', 'Sell']}
@@ -103,7 +157,7 @@ class Footer extends React.Component{
 					<VictoryAxis label={''} dependentAxis/>
 					<VictoryLine
 
-						data={dummy}
+						data={this.props.game.repository[this.props.selectedItem].prices}
 						animate={{duration: 500}}
 					/>
 				</VictoryChart>
@@ -112,4 +166,8 @@ class Footer extends React.Component{
 	}
 }
 
-export default connect(null, {openTransactionModal})(Footer);
+export default connect(state => {
+	return{
+		game: state.fetchGamesReducer.game
+	}
+}, {openTransactionModal})(Footer);

@@ -8,11 +8,19 @@ import Market from '../components/single/Market';
 import ScrollableTabView from 'react-native-scrollable-tab-view';
 import {connect} from 'react-redux';
 import {fetchGame, unmountFetchGame} from '../actions/single/FetchActions';
+import firebase from 'firebase';
 
 class SinglePlayerGameScreen extends React.Component{
 
 	static navigationOptions = {
-		headerRight: <Text style={{fontWeight: 'bold', marginRight: 10}}>Round 1/30</Text>
+		headerRight: <Text onPress={() => {
+			firebase.firestore().runTransaction(t => {
+				let ref = firebase.firestore().collection('single').doc('-Ky1XAWJ_f2psvas4slA');
+				return t.get(ref).then(doc => {
+					t.update(ref, {currentPeriod: doc.data().currentPeriod + 1});
+				})
+			})
+		}} style={{fontWeight: 'bold', marginRight: 10}}>Round 1/30</Text>
 	}
 
 	componentWillMount(){
