@@ -1,30 +1,28 @@
 import React from 'react';
 import {
-	View,
-	Text
+	View
 } from 'react-native';
 import Itinerary from '../components/single/Itinerary';
 import Market from '../components/single/Market';
 import ScrollableTabView from 'react-native-scrollable-tab-view';
 import {connect} from 'react-redux';
 import {fetchGame, unmountFetchGame} from '../actions/single/FetchActions';
-import firebase from 'firebase';
+import Header from '../components/misc/Header';
+import AbsoluteLoading from '../components/misc/AbsoluteLoading';
+import Loading from '../components/misc/Loading';
 
 class SinglePlayerGameScreen extends React.Component{
 
-	static navigationOptions = {
-		headerRight: <Text onPress={() => {
-			firebase.firestore().runTransaction(t => {
-				let ref = firebase.firestore().collection('single').doc('-Ky1XAWJ_f2psvas4slA');
-				return t.get(ref).then(doc => {
-					t.update(ref, {currentPeriod: doc.data().currentPeriod + 1});
-				})
-			})
-		}} style={{fontWeight: 'bold', marginRight: 10}}>Round 1/30</Text>
+	static navigationOptions = ({navigation}) => {
+		let {game} = navigation.state.params;
+		return{
+			headerRight: <Header/>
+		}
 	}
 
 	componentWillMount(){
-		this.props.fetchGame(this.props.navigation.state.params.uid);
+		console.log('should be called with _id', this.props.navigation.state.params._id);
+		this.props.fetchGame(this.props.navigation.state.params._id);
 	}
 
 	componentWillUnmount(){
@@ -32,6 +30,11 @@ class SinglePlayerGameScreen extends React.Component{
 	}
 
 	render(){
+
+		if(!this.props.game){
+			return <Loading/>
+		}
+
 		return(
 			<ScrollableTabView>
 				<Itinerary game={this.props.game} tabLabel={'Itinerary'}/>

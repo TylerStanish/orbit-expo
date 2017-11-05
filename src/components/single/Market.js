@@ -2,18 +2,26 @@ import React from 'react';
 import{
 	View,
 	ScrollView,
-	Text
+	Text,
+	Animated
 } from 'react-native';
 import {connect} from 'react-redux';
 import TransactionModal from '../modals/TransactionModal';
 import {openTransactionModal} from '../../actions/Modals';
+// import AbsoluteLoading from '../misc/AbsoluteLoading'
 
 import Footer from '../misc/GraphFooter';
 
 class Market extends React.Component{
 
 	state = {
-		selectedItem: 'Apla'
+		selectedItem: 'Apla',
+
+		opacity: new Animated.Value(0)
+	};
+
+	componentDidMount(){
+		Animated.timing(this.state.opacity, {toValue: 1}).start();
 	}
 
 	renderItems(){
@@ -32,13 +40,14 @@ class Market extends React.Component{
 
 	render(){
 		return(
-			<View>
+			<Animated.View style={{opacity: this.state.opacity}}>
 				<ScrollView bounces={false} style={{marginBottom: 250}}>
 					{this.renderItems()}
 					<TransactionModal/>
 				</ScrollView>
 				<Footer selectedItem={this.state.selectedItem}/>
-			</View>
+				{/*<AbsoluteLoading/>*/}
+			</Animated.View>
 		);
 	}
 }

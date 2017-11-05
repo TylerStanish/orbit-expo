@@ -8,6 +8,8 @@ const initialState = {
 	phoneAuthModalVisible: false,
 	transactionModalVisible: false,
 	transactionItem: null,
+
+	absoluteLoading: false
 };
 
 export default (state = initialState, action) => {
@@ -73,6 +75,11 @@ export default (state = initialState, action) => {
 			return{
 				...state,
 				transactionModalVisible: false
+			};
+		case Types.TOGGLE_ABSOLUTE_LOADING:
+			return{
+				...state,
+				absoluteLoading: !state.absoluteLoading
 			};
 		default: return state;
 	}

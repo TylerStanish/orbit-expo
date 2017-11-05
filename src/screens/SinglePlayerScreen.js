@@ -11,7 +11,7 @@ import {
 	List
 } from 'react-native-elements';
 import {connect} from 'react-redux';
-import {fetchGames, openNewGameModal, unmountFetchGames} from '../actions';
+import {fetchGames, openNewGameModal, unmountFetchGames, fetchGame} from '../actions';
 import NewGameModal from '../components/modals/NewGameModal';
 
 class SinglePlayerScreen extends React.Component{
@@ -33,7 +33,7 @@ class SinglePlayerScreen extends React.Component{
 					badge={{value: game.chips, containerStyle: {marginTop: 10}}}
 					key={Math.random()}
 					style={{height: this._height/5, borderTopWidth: 0.5}}
-					onPress={() => this.props.navigation.navigate('SinglePlayerGame', {uid: game.userId})}
+					onPress={() => this.props.navigation.navigate('SinglePlayerGame', {_id: game._id})}
 				/>
 			);
 		});
@@ -66,4 +66,4 @@ export default connect((state) => {
 	return{
 		games: state.fetchGamesReducer.games
 	}
-}, {fetchGames, openNewGameModal, unmountFetchGames})(SinglePlayerScreen);
+}, {fetchGames, openNewGameModal, unmountFetchGames, fetchGame})(SinglePlayerScreen);

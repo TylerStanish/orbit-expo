@@ -1,3 +1,19 @@
+/*
+*
+* NOTES ON THE STRUCTURE OF THIS APP
+*
+* I plan to use Redux for all firebase firestore updates, transactions, etc.
+* For most functionality I will implement cloud https functions except when it is
+* an easy write to the database with minimal logic. In this case I will write directly.
+*
+* I plan on implementing global state with the current user logged in in order to
+* prevent having to call an asynchronous function each time I wish to retrieve the user.
+* The same goes for getting data from the game object.
+*
+* */
+
+
+
 import React from 'react';
 import {Provider} from 'react-redux';
 import {createStore, applyMiddleware} from 'redux';

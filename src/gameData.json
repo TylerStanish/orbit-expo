@@ -1,0 +1,93 @@
+{
+	"places": [
+		"Earth",
+		"The Moon",
+		"Rota",
+		"Phobos",
+		"Mars"
+	],
+	"ships": [
+		{
+			"name": "Asteroid Clunker",
+			"maxSpace": 60,
+			"cost": 0,
+			"defense": 0.20,
+			"space": 0
+		},
+		{
+			"name": "Trade Vessel",
+			"maxSpace": 100,
+			"cost": 200000,
+			"defense": 0.12,
+			"space": 0
+		},
+		{
+			"name": "Curator Starfighter",
+			"maxSpace": 140,
+			"cost": 1000000,
+			"defense": 0.03,
+			"space": 0
+		},
+		{
+			"name": "Imperial Yacht",
+			"maxSpace": 200,
+			"cost": 10000000,
+			"defense": 0.001,
+			"space": 0
+		}
+	],
+	"contrabandInfo": {
+		"Apla": [2200, 3800],
+		"Rotan Slaves": [6000, 12000],
+		"Clean Water": [15, 111],
+		"Curator Carbines": [700, 1350],
+		"Imperial Snipers": [900, 1450],
+		"Covi Armor": [19000, 26000],
+		"NoxMat": [85000, 120000],
+		"Aeger": [83, 123],
+		"Sanafoam": [350, 950],
+		"Fauksol": [213, 250]
+	},
+	"contrabandTemplate": [
+		{
+			"name": "Apla",
+			"qty": 0
+		},
+		{
+			"name": "Rotan Slaves",
+			"qty": 0
+		},
+		{
+			"name": "Clean Water",
+			"qty": 0
+		},
+		{
+			"name": "Curator Carbines",
+			"qty": 0
+		},
+		{
+			"name": "Imperial Snipers",
+			"qty": 0
+		},
+		{
+			"name": "Covi Armor",
+			"qty": 0
+		},
+		{
+			"name": "NoxMat",
+			"qty": 0
+		},
+		{
+			"name": "Aeger",
+			"qty": 0
+		},
+		{
+			"name": "Sanafoam",
+			"qty": 0
+		},
+		{
+			"name": "Fauksol",
+			"qty": 0
+		}
+	]
+}

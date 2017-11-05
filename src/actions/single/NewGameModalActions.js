@@ -6,6 +6,7 @@ export const createGame = (name, weeks) => {
 	return async (dispatch) => {
 		dispatch({type: Types.CREATE_GAME});
 		let token = await firebase.auth().currentUser.getIdToken();
+		console.log(token);
 		axios.post(`${process.env.URL}/createGame`, {
 			name,
 			weeks

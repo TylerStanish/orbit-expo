@@ -21,6 +21,8 @@ import {
 	Icon
 } from 'react-native-elements';
 import {connect} from 'react-redux';
+import axios from 'axios';
+import firebase from 'firebase';
 
 const {width} = Dimensions.get('window');
 
@@ -35,7 +37,10 @@ class Footer extends React.Component{
 		opacity: new Animated.Value(0),
 		transactionHeight: new Animated.Value(0),
 
-		buying: true
+		buying: true,
+
+		amount: '0',
+		disabled: true
 	}
 
 	keyboardHeight = new Animated.Value(0)
@@ -60,10 +65,10 @@ class Footer extends React.Component{
 		});
 
 		if(!index){
-			this.setState({buying: true});
-			this._ref.focus();
+			this.setState({buying: true, amount: '0'});
+			// this._ref.focus();
 		}else{
-			this.setState({buying: false});
+			this.setState({buying: false, amount: '0'});
 		}
 	}
 
@@ -83,8 +88,45 @@ class Footer extends React.Component{
 		});
 	}
 
-	setMax(){
+	getMaxBuy(){
+		let bal = this.props.game.chips;
+		let price = this.props.game.repository[this.props.selectedItem].prices.slice(-1).pop();
+		console.log(Math.floor(bal/price));
+		return Math.floor(bal/price);
+	}
 
+	getMaxSell(){
+		return this.props.game.repository[this.props.selectedItem].qty;
+	}
+
+	setMaxBuy(){
+		this.handleInput(this.getMaxBuy().toString());
+	}
+
+	setMaxSell(){
+		this.handleInput(this.getMaxSell().toString());
+	}
+
+	handleInput(value){
+		this.setState({amount: value});
+		let newValue = Number(value);
+		if(isNaN(newValue) || newValue === 0){
+			this.setState({disabled: true});
+			return;
+		}
+		if(this.state.buying){
+			if(newValue > this.getMaxBuy()){
+				this.setState({disabled: true});
+			}else{
+				this.setState({disabled: false});
+			}
+		}else{
+			if(newValue > this.getMaxSell()){
+				this.setState({disabled: true});
+			}else{
+				this.setState({disabled: false});
+			}
+		}
 	}
 
 	closeTransaction(){
@@ -93,6 +135,37 @@ class Footer extends React.Component{
 			Animated.timing(this.state.transactionHeight, {duration: 200, toValue: 0}),
 			Animated.timing(this.state.height, {duration: 200, toValue: 250})
 		]).start();
+	}
+
+	// perhaps convert these to redux and client-side firestore for better speed?
+	async buy(){
+		let token = await firebase.auth().currentUser.getIdToken();
+		axios.post(process.env.URL + '/buyContraband', {
+			gameId: this.props.game._id,
+			amountBuy: Number(this.state.amount),
+			contrabandType: this.props.selectedItem
+		}, {
+			headers: {
+				'x-auth': token
+			}
+		}).then(() => {
+			this.closeTransaction();
+		})
+	}
+
+	async sell(){
+		let token = await firebase.auth().currentUser.getIdToken();
+		axios.post(process.env.URL + '/sellContraband', {
+			gameId: this.props.game._id,
+			amountSell: Number(this.state.amount),
+			contrabandType: this.props.selectedItem
+		}, {
+			headers: {
+				'x-auth': token
+			}
+		}).then(() => {
+			this.closeTransaction();
+		})
 	}
 
 	render(){
@@ -105,7 +178,9 @@ class Footer extends React.Component{
 					title={'Buy'}
 					borderRadius={5}
 					raised
-					style={{flex: 1, height: 40}}
+					containerViewStyle={{flex: 1, marginLeft: 0, marginRight: 5}}
+					disabled={this.state.disabled}
+					onPress={() => this.buy()}
 				/>
 			);
 		}else{
@@ -113,9 +188,11 @@ class Footer extends React.Component{
 				<Button
 					backgroundColor={'red'}
 					title={'Sell'}
-					containerStyle={{flex: 1, height: 40}}
+					containerViewStyle={{flex: 1, marginLeft: 0, marginRight: 5}}
+					disabled={this.state.disabled}
 					raised
 					borderRadius={5}
+					onPress={() => this.sell()}
 				/>
 			);
 		}
@@ -133,26 +210,43 @@ class Footer extends React.Component{
 				<Animated.View style={{alignItems: 'center', flexDirection: 'row', height: this.state.transactionHeight, opacity: this.state.opacity}}>
 					<FormInput
 						placeholder={'Number'}
-						containerStyle={{flex: 2}}
+						containerStyle={{flex: 1.5}}
 						keyboardType={'numeric'}
 						ref={ref => this._ref = ref}
+						value={this.state.amount}
+						onChangeText={v => this.handleInput(v)}
 					/>
 					<Button
-						title={'Set max'}
+						title={'Max'}
 						borderRadius={5}
 						raised
-						containerStyle={{flex: 1, height: 40}}
-						onPress={() => this.setMax()}
+						containerViewStyle={{flex: 1, marginLeft: 0, marginRight: 5}}
+						onPress={() => this.state.buying ? this.setMaxBuy() : this.setMaxSell()}
 					/>
 					{button}
-					<Icon onPress={() => this.closeTransaction()} iconStyle={{flex: 1}} name={'close'} color={'red'}/>
+					<Icon
+						onPress={() => this.closeTransaction()}
+						containerStyle={{flex: 0.5}}
+						name={'close'}
+						color={'red'}
+						size={30}
+					/>
 				</Animated.View>
-				<ButtonGroup
-					buttons={['Buy', 'Sell']}
-					containerStyle={{height: 50}}
-					onPress={index => this.handleButtonPress(index)}
-				/>
-				<VictoryChart padding={{top: 10, bottom: 50, left: 50, right: 50}} height={200}>
+				<View style={{flexDirection: 'row'}}>
+					<Button
+						title={'Buy'}
+						backgroundColor={'green'}
+						containerViewStyle={{width: '50%', marginLeft: 0, marginRight: 0}}
+						onPress={() => this.handleButtonPress(0)}
+					/>
+					<Button
+						title={'Sell'}
+						backgroundColor={'red'}
+						containerViewStyle={{width: '50%', marginLeft: 0, marginRight: 0}}
+						onPress={() => this.handleButtonPress(1)}
+					/>
+				</View>
+				<VictoryChart padding={{top: 10, bottom: 25, left: 50, right: 50}} height={200}>
 					<VictoryAxis label={''}/>
 					<VictoryAxis label={''} dependentAxis/>
 					<VictoryLine

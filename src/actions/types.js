@@ -33,6 +33,15 @@ export const FETCH_GAME = 'fetch_game';
 export const FETCHED_GAME = 'fetched_game';
 // export const FETCHED_GAME_FAILED = 'fetched_game_failed';
 
+// Single player stuff
+export const NEXT_PERIOD = 'next_period';
+export const NEXT_PERIOD_SUCCESS = 'next_period_success';
+export const NEXT_PERIOD_FAIL = 'next_period_fail';
+
+export const SHIP_PURCHASE = 'ship_purchase';
+export const SHIP_PURCHASED = 'ship_purchased';
+export const SHIP_PURCHASE_FAILED = 'ship_purchased_failed';
+
 // Auth types
 export const SIGN_UP_WITH_PHONE = 'sign_up_with_phone';
 export const SIGNED_UP_WITH_PHONE = 'signed_up_with_phone';
@@ -55,3 +64,5 @@ export const CLOSE_PHONE_AUTH_MODAL = 'close_phone_auth_modal';
 
 export const OPEN_TRANSACTION_MODAL = 'open_transaction_modal';
 export const CLOSE_TRANSACTION_MODAL = 'close_transaction_modal';
+
+export const TOGGLE_ABSOLUTE_LOADING = 'toggle_absolute_loading';
