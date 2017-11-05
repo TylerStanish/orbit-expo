@@ -68,21 +68,23 @@ export const buyShip = (gameId, ship) => {
 				let chips = game.chips;
 				let cost = rawCost[ship];
 				if(chips < cost){
-					dispatch({type: Types.SHIP_PURCHASE_FAILED, payload: 'Insufficient funds'});
-					return;
+					return Promise.reject('Insufficient funds');
 				}
 				let index;
-				gameData.ships.map((ship, i) => {
-					if(ship.name === ship){
+				gameData.ships.map((shipObj, i) => {
+					if(shipObj.name === ship){
 						index = i;
 					}
 				});
+				if(isNaN(index)){
+					return Promise.reject('Invalid ship choice');
+				}
 				t.update(ref, {
 					chips: chips - cost,
 					ship: {
-						defense: gameData.ships[i].defense,
-						maxSpace: gameData.ships[i].maxSpace,
-						cost: gameData.ships[i].cost,
+						defense: gameData.ships[index].defense,
+						maxSpace: gameData.ships[index].maxSpace,
+						cost: gameData.ships[index].cost,
 						name: ship
 					}
 				});
@@ -91,7 +93,7 @@ export const buyShip = (gameId, ship) => {
 			dispatch({type: Types.SHIP_PURCHASED});
 			dispatch({type: Types.CLOSE_SHIP_MODAL});
 		}).catch(e => {
-			dispatch({type: Types.SHIP_PURCHASE_FAILED, payload: 'Failed to purchase ship'});
+			dispatch({type: Types.SHIP_PURCHASE_FAILED, payload: e});
 		});
 	}
 };

@@ -5,7 +5,7 @@ import{
 import {connect} from 'react-redux';
 import ModalTemplate from './ModalTemplate';
 import{
-	Checkbox,
+	CheckBox,
 	Button
 } from 'react-native-elements';
 
@@ -30,34 +30,49 @@ class ShipModal extends React.Component{
 
 	constructor(p){
 		super(p);
-		console.log(p);
-		console.log('nothing to see here');
-		if(!this.ships){
+		this.updateShips(p);
+		this.state = {
+			selected: ''
+		}
+	}
+
+	componentWillReceiveProps(nextProps){
+		this.updateShips(nextProps);
+	}
+
+	updateShips(nextProps){
+		if(!this.ships || this.props.game.ship.name !== nextProps.game.ship.name){
 			let shipArray;
-			if(p.game.ship.name === 'Asteroid Clunker'){
+			if(nextProps.game.ship.name === 'Asteroid Clunker'){
 				shipArray = ['Trade Vessel', 'Curator Starfighter', 'Imperial Yacht'];
 			}
 			// if the user has an augmented ship, display that ship via if statements, e.g.
-			if(p.game.ship.name === 'Trade Vessel'){
+			if(nextProps.game.ship.name === 'Trade Vessel'){
 				shipArray = ['Curator Starfighter', 'Imperial Yacht'];
 			}
-			if(p.game.ship.name === 'Curator Starfighter'){
+			if(nextProps.game.ship.name === 'Curator Starfighter'){
 				shipArray = ['Imperial Yacht'];
 			}
-			if(p.game.ship.name === 'Imperial Yacht'){
+			if(nextProps.game.ship.name === 'Imperial Yacht'){
 				shipArray = [];
 			}
 			console.log('LEGALLY updating state');
 			this.ships = shipArray;
+			this.setState({selected: shipArray[0]});
 		}
-		this.state = {};
 	}
 
 	renderShips(){
 		return this.ships.map(ship => {
 			return(
 				// we could do a checkbox list
-				<Text>{ship}</Text>
+				<CheckBox
+					title={ship}
+					checkedIcon={'dot-circle-o'}
+					uncheckedIcon={'circle-o'}
+					onPress={() => this.setState({selected: ship})}
+					checked={this.state.selected === ship}
+				/>
 			);
 		});
 	}
@@ -70,12 +85,14 @@ class ShipModal extends React.Component{
 
 		return(
 			<ModalTemplate visible={this.props.visible} close={() => this.props.close()}>
-				{/*  */}
+				{/* Put image of selected ship and add default image and selected */}
 				{this.renderShips()}
 				<Button
 					raised
-					onPress={() => this.props.buyShip(this.state.selected)}
-					title={`Buy ${this.state.selected} for ${costObj[this.state.selected]}`}
+					onPress={() => this.props.buyShip(this.props.game._id, this.state.selected)}
+					title={this.state.selected ? `Buy ${this.state.selected} for ${costObj[this.state.selected]}` : ''}
+					disabled={!this.state.selected}
+
 				/>
 			</ModalTemplate>
 		);

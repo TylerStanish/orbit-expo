@@ -28,12 +28,11 @@ export const unmountFetchGames = () => {
 };
 
 let fetchGameQuery;
-
 export const fetchGame = (_id) => {
-	if(typeof fetchGameQuery === 'function'){
-		console.log('undoing');
-		fetchGamesQuery();
-	}
+	// if(typeof fetchGameQuery === 'function'){
+	// 	console.log('undoing');
+	// 	fetchGamesQuery();
+	// }
 	return dispatch => {
 		dispatch({type: Types.FETCH_GAME});
 		fetchGameQuery = firebase.firestore().collection('single').where('_id', '==', _id).onSnapshot(snapshot => {

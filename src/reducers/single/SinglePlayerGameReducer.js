@@ -2,7 +2,8 @@ import * as Types from '../../actions/types';
 
 const initialState = {
 	nextPeriodLoading: false,
-	shipLoading: false
+	shipLoading: false,
+	buyShipError: ''
 };
 
 export default (state = initialState, action) => {
