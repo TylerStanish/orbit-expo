@@ -16,7 +16,7 @@ class SinglePlayerGameScreen extends React.Component{
 	static navigationOptions = ({navigation}) => {
 		let {game} = navigation.state.params;
 		return{
-			headerRight: <Header/>
+			headerRight: <Header navigation={navigation}/>
 		}
 	}
 

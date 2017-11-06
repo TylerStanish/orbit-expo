@@ -67,6 +67,10 @@ export default class extends React.Component{
 		loading: true
 	}
 
+	static goBackOnNavigator(){
+		this._navigator.dispatch(NavigationActions.back());
+	}
+
 	componentWillMount(){
 		process.env.URL = 'https://us-central1-smuggler-23fe7.cloudfunctions.net';
 		firebase.initializeApp({

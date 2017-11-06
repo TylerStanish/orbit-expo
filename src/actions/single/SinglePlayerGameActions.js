@@ -1,12 +1,15 @@
 import * as Types from '../types';
 import axios from 'axios';
 import firebase from 'firebase';
+import App from '../../../App';
 
-export const nextPeriod = (gameId) => {
+export const nextPeriod = (gameId, last, cb) => {
 	return async dispatch => {
 		dispatch({type: Types.NEXT_PERIOD});
 		dispatch({type: Types.TOGGLE_ABSOLUTE_LOADING});
 		let token = await firebase.auth().currentUser.getIdToken();
+		console.log('this is what youre looking for');
+		console.log(gameId, last, token);
 		axios.post(process.env.URL + '/nextPeriod', {
 			gameId
 		}, {
@@ -17,8 +20,12 @@ export const nextPeriod = (gameId) => {
 			dispatch({type: Types.NEXT_PERIOD_SUCCESS});
 			dispatch({type: Types.CLOSE_TRAVEL_MODAL});
 			dispatch({type: Types.TOGGLE_ABSOLUTE_LOADING});
+			if(last){
+				// dispatch a navigator action that goes back to the SinglePlayerScreen
+				cb();
+			}
 		}).catch(e => {
-			alert('Failed to travel to next round');
+			console.log(e);
 			dispatch({type: Types.NEXT_PERIOD_FAIL});
 			dispatch({type: Types.TOGGLE_ABSOLUTE_LOADING});
 		});
