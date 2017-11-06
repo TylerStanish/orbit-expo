@@ -174,7 +174,7 @@ class Footer extends React.Component{
 		if(this.state.buying){
 			button = (
 				<Button
-					backgroundColor={'green'}
+					backgroundColor={'#8cc153'}
 					title={'Buy'}
 					borderRadius={5}
 					raised
@@ -186,7 +186,7 @@ class Footer extends React.Component{
 		}else{
 			button = (
 				<Button
-					backgroundColor={'red'}
+					backgroundColor={'#ff4b30'}
 					title={'Sell'}
 					containerViewStyle={{flex: 1, marginLeft: 0, marginRight: 5}}
 					disabled={this.state.disabled}
@@ -228,20 +228,20 @@ class Footer extends React.Component{
 						onPress={() => this.closeTransaction()}
 						containerStyle={{flex: 0.5}}
 						name={'close'}
-						color={'red'}
+						color={'#ff4b30'}
 						size={30}
 					/>
 				</Animated.View>
 				<View style={{flexDirection: 'row'}}>
 					<Button
 						title={'Buy'}
-						backgroundColor={'green'}
+						backgroundColor={'#8cc153'}
 						containerViewStyle={{width: '50%', marginLeft: 0, marginRight: 0}}
 						onPress={() => this.handleButtonPress(0)}
 					/>
 					<Button
 						title={'Sell'}
-						backgroundColor={'red'}
+						backgroundColor={'#ff4b30'}
 						containerViewStyle={{width: '50%', marginLeft: 0, marginRight: 0}}
 						onPress={() => this.handleButtonPress(1)}
 					/>

@@ -72,6 +72,7 @@ class ShipModal extends React.Component{
 					uncheckedIcon={'circle-o'}
 					onPress={() => this.setState({selected: ship})}
 					checked={this.state.selected === ship}
+					key={ship}
 				/>
 			);
 		});

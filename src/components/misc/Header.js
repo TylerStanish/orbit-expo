@@ -12,12 +12,18 @@ class Header extends React.Component{
 		if(!this.props.game || this.props.loading){
 			return <Loading/>
 		}
+
+		let text = `Period ${this.props.game.currentPeriod}/${this.props.game.maxPeriods}`;
+		if(this.props.game.currentPeriod === this.props.game.maxPeriods){
+			text = 'Finish game';
+		}
+
 		return(
 			<Text
 				style={{marginRight: 5}}
 				onPress={() => this.props.nextPeriod(this.props.game._id)}
 			>
-				Period {this.props.game.currentPeriod}/{this.props.game.maxPeriods}
+				{text}
 			</Text>
 		);
 	}

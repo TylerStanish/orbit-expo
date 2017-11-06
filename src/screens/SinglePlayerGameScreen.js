@@ -9,7 +9,7 @@ import {connect} from 'react-redux';
 import {fetchGame, unmountFetchGame} from '../actions/single/FetchActions';
 import Header from '../components/misc/Header';
 import AbsoluteLoading from '../components/misc/AbsoluteLoading';
-import Loading from '../components/misc/Loading';
+import Balance from '../components/misc/Balance';
 
 class SinglePlayerGameScreen extends React.Component{
 
@@ -32,14 +32,17 @@ class SinglePlayerGameScreen extends React.Component{
 	render(){
 
 		if(!this.props.game){
-			return <Loading/>
+			return <AbsoluteLoading/>
 		}
 
 		return(
-			<ScrollableTabView>
-				<Itinerary game={this.props.game} tabLabel={'Itinerary'}/>
-				<Market game={this.props.game} tabLabel={'Market'}/>
-			</ScrollableTabView>
+			<View style={{flex: 1}}>
+				<Balance chips={this.props.game.chips} debt={this.props.game.debt}/>
+				<ScrollableTabView>
+					<Itinerary game={this.props.game} tabLabel={'Itinerary'}/>
+					<Market game={this.props.game} tabLabel={'Market'}/>
+				</ScrollableTabView>
+			</View>
 		);
 	}
 }

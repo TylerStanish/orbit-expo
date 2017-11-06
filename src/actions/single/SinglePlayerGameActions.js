@@ -33,7 +33,28 @@ export const borrow = (gameId, amount) => {
 			return t.get(ref).then(doc => {
 				let game = doc.data();
 				let chips = game.chips + amount;
-				t.update(ref, {chips})
+				let debt = game.debt + amount;
+				t.update(ref, {chips, debt});
+			});
+		}).then(() => {
+			dispatch({type: Types.CLOSE_BANK_MODAL});
+		}).catch((e) => {
+			alert('Transaction failed');
+			console.log(e);
+		});
+	}
+};
+
+export const payBack = (gameId, amount) => {
+	return async dispatch => {
+		const db = firebase.firestore();
+		const ref = db.collection('single').doc(gameId);
+		db.runTransaction(t => {
+			return t.get(ref).then(doc => {
+				let game = doc.data();
+				let chips = game.chips - amount;
+				let debt = game.debt - amount;
+				t.update(ref, {chips, debt});
 			});
 		}).then(() => {
 			dispatch({type: Types.CLOSE_BANK_MODAL});

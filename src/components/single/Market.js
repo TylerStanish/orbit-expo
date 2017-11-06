@@ -11,6 +11,7 @@ import {openTransactionModal} from '../../actions/Modals';
 // import AbsoluteLoading from '../misc/AbsoluteLoading'
 
 import Footer from '../misc/GraphFooter';
+import Balance from '../misc/Balance';
 
 class Market extends React.Component{
 
@@ -61,7 +62,20 @@ export default connect(state => {
 import{
 	TouchableOpacity
 } from 'react-native';
+import gameData from '../../gameData.json';
 class Item extends React.Component{
+
+	getPriceWithColor(price){
+		let min = gameData.contrabandInfo[this.props.name][0];
+		let max = gameData.contrabandInfo[this.props.name][1];
+		let range = max-min;
+		console.log(min,max,price);
+		let r = (price - min) * 255/range;
+		let g = (max - price) * 255/range;
+		let b = 0;
+		return <Text style={{color: `rgb(${r},${g},${b})`}}>{price}</Text>
+	}
+
 	render(){
 		return(
 			<TouchableOpacity
@@ -80,7 +94,7 @@ class Item extends React.Component{
 					<Text>{this.props.name}</Text>
 				</View>
 				<View style={{flex: 1.2}}>
-					<Text>{this.props.item.prices[this.props.item.prices.length-1]}</Text>
+					{this.getPriceWithColor(this.props.item.prices[this.props.item.prices.length-1])}
 				</View>
 				<View style={{flex: 0.5}}>
 					<Text>{this.props.item.qty}</Text>

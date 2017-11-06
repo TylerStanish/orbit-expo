@@ -14,6 +14,7 @@ import {
 import BankModal from '../modals/BankModal';
 import ShipModal from '../modals/ShipModal';
 import TravelModal from '../modals/TravelModal';
+import Balance from '../misc/Balance';
 
 class Itinerary extends React.Component{
 
@@ -35,7 +36,7 @@ class Itinerary extends React.Component{
 					title={'Bank'}
 					backgroundColor={'#fcc746'}
 					icon={{name: 'attach-money'}}
-					buttonStyle={{height: this.state.height/3}}
+					buttonStyle={{height: this.state.height/4}}
 					onPress={() => this.props.openBankModal()}
 				/>
 				<Button
@@ -44,17 +45,25 @@ class Itinerary extends React.Component{
 					title={'Ship'}
 					icon={{name: 'flight-takeoff'}}
 					backgroundColor={'#4f9deb'}
-					buttonStyle={{height: this.state.height/3}}
+					buttonStyle={{height: this.state.height/4}}
 					onPress={() => this.props.openShipModal()}
 				/>
 				<Button
 					large
 					raised
 					title={'Travel'}
-					buttonStyle={{height: this.state.height/3}}
+					buttonStyle={{height: this.state.height/4}}
 					icon={{name: 'skip-next'}}
 					backgroundColor={'#9D28E6'}
 					onPress={() => this.props.openTravelModal()}
+				/>
+				<Button
+					large
+					raised
+					title={'Base'}
+					buttonStyle={{height: this.state.height/4}}
+					icon={{name: 'weekend'}}
+					backgroundColor={'#fc5830'}
 				/>
 				<BankModal/>
 				<ShipModal/>

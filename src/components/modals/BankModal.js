@@ -7,7 +7,7 @@ import {
 } from 'react-native-elements';
 
 import {closeBankModal} from '../../actions';
-import {borrow} from '../../actions/single/SinglePlayerGameActions';
+import {borrow, payBack} from '../../actions/single/SinglePlayerGameActions';
 
 class BankModal extends React.Component{
 
@@ -68,6 +68,7 @@ class BankModal extends React.Component{
 					title={'Pay back'}
 					large
 					disabled={this.state.disabled1}
+					onPress={() => this.props.payBack(this.props.game._id, parseInt(this.state.amount))}
 				/>
 			</ModalTemplate>
 		);
@@ -79,4 +80,4 @@ export default connect(state => {
 		visible: state.modalReducer.bankModalVisible,
 		game: state.fetchGamesReducer.game,
 	}
-}, {close: closeBankModal, borrow})(BankModal);
+}, {close: closeBankModal, borrow, payBack})(BankModal);
