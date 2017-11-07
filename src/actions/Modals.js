@@ -72,3 +72,10 @@ export const closeTransactionModal = () => {
 		type: Types.CLOSE_TRANSACTION_MODAL
 	}
 };
+
+export const setBankModalAmount = (amount) => {
+	return{
+		type: Types.SET_BANK_MODAL_AMOUNT,
+		payload: amount
+	}
+};

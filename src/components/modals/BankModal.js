@@ -10,6 +10,7 @@ import{Content} from 'native-base';
 
 import {closeBankModal} from '../../actions';
 import {borrow, payBack} from '../../actions/single/SinglePlayerGameActions';
+import {setBankModalAmount} from '../../actions/Modals';
 import Balance from '../misc/Balance';
 
 class BankModal extends React.Component{
@@ -17,7 +18,6 @@ class BankModal extends React.Component{
 	constructor(p){
 		super(p);
 		this.state = {
-			amount: 0,
 			disabled: true,
 			disabled1: true,
 			// get chips and debt from mapStateToProps
@@ -34,7 +34,6 @@ class BankModal extends React.Component{
 		let disabled;
 		let disabled1;
 		if(amount > chips){
-			disabled = true;
 			disabled1 = true;
 		}
 		if(amount > debt){
@@ -47,34 +46,55 @@ class BankModal extends React.Component{
 			disabled = true;
 			disabled1 = true;
 		}
-		this.setState({amount, disabled, disabled1});
+		this.setState({disabled, disabled1});
+		this.props.setBankModalAmount(amount);
+	}
+
+	borrowMax(){
+		let {chips, debt, currentPeriod, _id} = this.props.game;
+		let max = currentPeriod*5000 - debt;
+		this.props.borrow(_id, max);
+	}
+
+	payBackMax(){
+		let {chips, debt, currentPeriod, _id} = this.props.game;
+		let max = Math.min(chips, debt);
+		this.props.payBack(_id, max);
 	}
 
 	render(){
 		return(
 			<ModalTemplate visible={this.props.visible} close={() => this.props.close()}>
 				<Content keyboardShouldPersistTaps={'always'}>
-					<Balance chips={this.props.game.chips} debt={this.props.game.debt}/>
-					<Balance chips={this.props.game.chips} debt={this.props.game.debt}/>
+					<Balance chips={this.props.game.chips} debt={this.props.game.debt} netWorth={this.props.game.netWorth}/>
 					<FormInput
 						keyboardType={'numeric'}
 						onChangeText={t => this.handleInput(t)}
 						autoFocus
 						placeholder={'Amount'}
+						value={this.props.amount}
+					/>
+					<Button
+						title={'Borrow max'}
+						onPress={() => this.borrowMax()}
 					/>
 					<Button
 						backgroundColor={'green'}
 						title={'Borrow'}
 						large
 						disabled={this.state.disabled}
-						onPress={() => this.props.borrow(this.props.game._id, parseInt(this.state.amount))}
+						onPress={() => this.props.borrow(this.props.game._id, parseInt(this.props.amount))}
+					/>
+					<Button
+						title={'Pay back max'}
+						onPress={() => this.payBackMax()}
 					/>
 					<Button
 						backgroundColor={'red'}
 						title={'Pay back'}
 						large
 						disabled={this.state.disabled1}
-						onPress={() => this.props.payBack(this.props.game._id, parseInt(this.state.amount))}
+						onPress={() => this.props.payBack(this.props.game._id, parseInt(this.props.amount))}
 					/>
 				</Content>
 			</ModalTemplate>
@@ -86,5 +106,7 @@ export default connect(state => {
 	return {
 		visible: state.modalReducer.bankModalVisible,
 		game: state.fetchGamesReducer.game,
+
+		amount: state.modalReducer.bankModalAmount
 	}
-}, {close: closeBankModal, borrow, payBack})(BankModal);
+}, {close: closeBankModal, borrow, payBack, setBankModalAmount})(BankModal);

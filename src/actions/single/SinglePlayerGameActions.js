@@ -45,6 +45,7 @@ export const borrow = (gameId, amount) => {
 			});
 		}).then(() => {
 			dispatch({type: Types.CLOSE_BANK_MODAL});
+			dispatch({type: Types.SET_BANK_MODAL_AMOUNT, payload: 0});
 		}).catch((e) => {
 			alert('Transaction failed');
 			console.log(e);
@@ -65,6 +66,7 @@ export const payBack = (gameId, amount) => {
 			});
 		}).then(() => {
 			dispatch({type: Types.CLOSE_BANK_MODAL});
+			dispatch({type: Types.SET_BANK_MODAL_AMOUNT, payload: 0});
 		}).catch((e) => {
 			alert('Transaction failed');
 			console.log(e);
@@ -107,13 +109,22 @@ export const buyShip = (gameId, ship) => {
 				if(isNaN(index)){
 					return Promise.reject('Invalid ship choice');
 				}
+				let shipObj = gameData.ships[index];
+
+				let spaceOccupied = 0;
+				for(let item in gameData.repository){
+					spaceOccupied += gameData.repository[item].qty;
+				}
+				let space = shipObj.maxSpace - spaceOccupied;
+
 				t.update(ref, {
 					chips: chips - cost,
 					ship: {
-						defense: gameData.ships[index].defense,
-						maxSpace: gameData.ships[index].maxSpace,
-						cost: gameData.ships[index].cost,
-						name: ship
+						defense: shipObj.defense,
+						maxSpace: shipObj.maxSpace,
+						cost: shipObj.cost,
+						name: ship,
+						space
 					}
 				});
 			});

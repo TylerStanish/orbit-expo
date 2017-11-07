@@ -79,6 +79,8 @@ class Footer extends React.Component{
 	getMaxBuy(){
 		let bal = this.props.game.chips;
 		let price = this.props.game.repository[this.props.selectedItem].prices.slice(-1).pop();
+		console.log("for debugging");
+		console.log(bal, price, this.props.selectedItem);
 		return Math.min(Math.floor(bal/price), this.props.game.ship.space);
 	}
 

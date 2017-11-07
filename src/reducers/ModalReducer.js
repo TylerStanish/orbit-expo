@@ -9,7 +9,9 @@ const initialState = {
 	transactionModalVisible: false,
 	transactionItem: null,
 
-	absoluteLoading: false
+	absoluteLoading: false,
+
+	bankModalAmount: 0
 };
 
 export default (state = initialState, action) => {
@@ -80,6 +82,11 @@ export default (state = initialState, action) => {
 			return{
 				...state,
 				absoluteLoading: !state.absoluteLoading
+			};
+		case Types.SET_BANK_MODAL_AMOUNT:
+			return{
+				...state,
+				bankModalAmount: action.payload
 			};
 		default: return state;
 	}
