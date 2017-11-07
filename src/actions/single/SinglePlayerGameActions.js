@@ -125,3 +125,69 @@ export const buyShip = (gameId, ship) => {
 		});
 	}
 };
+
+export const buyContraband = (gameId, amountBuy, contrabandType, cb) => {
+	return async dispatch => {
+		dispatch({type: Types.BUY_CONTRABAND});
+		const db = firebase.firestore();
+		const ref = db.collection('single').doc(gameId);
+		db.runTransaction(t => {
+			return t.get(ref).then(doc => {
+				let game = doc.data();
+				let price = game.repository[contrabandType].prices.slice(-1).pop();
+				let cost = amountBuy * price;
+				let chips = game.chips;
+				let newChips = chips - cost;
+				if(amountBuy > game.ship.space){
+					return Promise.reject('Not enough room on your ship!');
+				}
+				if(cost > chips){
+					return Promise.reject('Insufficient funds!');
+				}
+				let newRepo = game.repository;
+				newRepo[contrabandType].qty = amountBuy+game.repository[contrabandType].qty;
+				t.update(ref, {
+					chips: newChips,
+					repository: newRepo,
+					'ship.space': game.ship.space - amountBuy
+				});
+				return Promise.resolve();
+			});
+		}).then(() => {
+			dispatch({type: Types.BOUGHT_CONTRABAND});
+			cb();
+		}).catch(e => {
+			dispatch({type: Types.BUY_CONTRABAND_FAILED, payload: e});
+		});
+	}
+};
+
+export const sellContraband = (gameId, amountSell, contrabandType, cb) => {
+	return async dispatch => {
+		dispatch({type: Types.SELL_CONTRABAND});
+		const db = firebase.firestore();
+		const ref = db.collection('single').doc(gameId);
+		db.runTransaction(t => {
+			return t.get(ref).then(doc => {
+				let game = doc.data();
+				let price = game.repository[contrabandType].prices.slice(-1).pop();
+				let cost = amountSell * price;
+				let chips = game.chips;
+				let newChips = chips + cost;
+				let newRepo = game.repository;
+				newRepo[contrabandType].qty = game.repository[contrabandType].qty - amountSell;
+				t.update(ref, {
+					chips: newChips,
+					repository: newRepo,
+					'ship.space': game.ship.space + amountSell
+				});
+				return Promise.resolve();
+			});
+		}).then(() => {
+			dispatch({type: Types.SOLD_CONTRABAND});
+			cb();
+		}).catch(e => {
+			dispatch({type: Types.SELL_CONTRABAND_FAILED, payload: e});
+		});
+	}
+};

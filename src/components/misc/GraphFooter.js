@@ -21,12 +21,11 @@ import {
 	Icon
 } from 'react-native-elements';
 import {connect} from 'react-redux';
-import axios from 'axios';
-import firebase from 'firebase';
 
 const {width} = Dimensions.get('window');
 
 import {openTransactionModal} from '../../actions/Modals';
+import {buyContraband, sellContraband} from '../../actions/single/SinglePlayerGameActions';
 
 let keyboardHeight = 0;
 
@@ -46,17 +45,6 @@ class Footer extends React.Component{
 	keyboardHeight = new Animated.Value(0)
 
 	handleButtonPress(index){
-		// if(!index){
-		// 	this.props.openTransactionModal(false, this.props.selectedItem);
-		// }else{
-		// 	this.props.openTransactionModal(true, this.props.selectedItem);
-		// }
-		// Animated.timing(this.state.height, {toValue: 300}).start(() => {
-		// 	this.setState({transactionVisible: true}, () => {
-		// 		Animated.timing(this.state.opacity, {toValue: 1}).start();
-		// 	});
-		// });
-
 		Animated.parallel([
 			Animated.timing(this.state.height, {duration: 200, toValue: 300}),
 			Animated.timing(this.state.transactionHeight, {duration: 200, toValue: 50}),
@@ -91,8 +79,7 @@ class Footer extends React.Component{
 	getMaxBuy(){
 		let bal = this.props.game.chips;
 		let price = this.props.game.repository[this.props.selectedItem].prices.slice(-1).pop();
-		console.log(Math.floor(bal/price));
-		return Math.floor(bal/price);
+		return Math.min(Math.floor(bal/price), this.props.game.ship.space);
 	}
 
 	getMaxSell(){
@@ -137,37 +124,6 @@ class Footer extends React.Component{
 		]).start();
 	}
 
-	// perhaps convert these to redux and client-side firestore for better speed?
-	async buy(){
-		let token = await firebase.auth().currentUser.getIdToken();
-		axios.post(process.env.URL + '/buyContraband', {
-			gameId: this.props.game._id,
-			amountBuy: Number(this.state.amount),
-			contrabandType: this.props.selectedItem
-		}, {
-			headers: {
-				'x-auth': token
-			}
-		}).then(() => {
-			this.closeTransaction();
-		})
-	}
-
-	async sell(){
-		let token = await firebase.auth().currentUser.getIdToken();
-		axios.post(process.env.URL + '/sellContraband', {
-			gameId: this.props.game._id,
-			amountSell: Number(this.state.amount),
-			contrabandType: this.props.selectedItem
-		}, {
-			headers: {
-				'x-auth': token
-			}
-		}).then(() => {
-			this.closeTransaction();
-		})
-	}
-
 	render(){
 
 		let button;
@@ -175,25 +131,54 @@ class Footer extends React.Component{
 			button = (
 				<Button
 					backgroundColor={'#8cc153'}
-					title={'Buy'}
+					title={this.props.buyContrabandLoading ? '' : 'Buy'}
+					loading={this.props.buyContrabandLoading}
 					borderRadius={5}
 					raised
 					containerViewStyle={{flex: 1, marginLeft: 0, marginRight: 5}}
 					disabled={this.state.disabled}
-					onPress={() => this.buy()}
+					onPress={() => {
+						this.props.buyContraband(this.props.game._id, Number(this.state.amount), this.props.selectedItem, () => {
+							this.closeTransaction();
+						});
+					}}
 				/>
 			);
 		}else{
 			button = (
 				<Button
 					backgroundColor={'#ff4b30'}
-					title={'Sell'}
+					title={this.props.sellContrabandLoading ? '' : 'Sell'}
+					loading={this.props.sellContrabandLoading}
 					containerViewStyle={{flex: 1, marginLeft: 0, marginRight: 5}}
 					disabled={this.state.disabled}
 					raised
 					borderRadius={5}
-					onPress={() => this.sell()}
+					onPress={() => {
+						this.props.sellContraband(this.props.game._id, Number(this.state.amount), this.props.selectedItem, () => {
+							this.closeTransaction();
+						});
+					}}
 				/>
+			);
+		}
+
+		let chart = (
+			<View style={{height: 200, flex: 1, justifyContent: 'center'}}>
+				<Text style={{textAlign: 'center'}}>No data to display</Text>
+			</View>
+		);
+		if(this.props.game.repository[this.props.selectedItem].prices.length > 1){
+			chart = (
+				<VictoryChart padding={{top: 10, bottom: 25, left: 50, right: 50}} height={200}>
+					<VictoryAxis label={''}/>
+					<VictoryAxis label={''} dependentAxis/>
+					<VictoryLine
+
+						data={this.props.game.repository[this.props.selectedItem].prices}
+						animate={{duration: 500}}
+					/>
+				</VictoryChart>
 			);
 		}
 
@@ -246,15 +231,7 @@ class Footer extends React.Component{
 						onPress={() => this.handleButtonPress(1)}
 					/>
 				</View>
-				<VictoryChart padding={{top: 10, bottom: 25, left: 50, right: 50}} height={200}>
-					<VictoryAxis label={''}/>
-					<VictoryAxis label={''} dependentAxis/>
-					<VictoryLine
-
-						data={this.props.game.repository[this.props.selectedItem].prices}
-						animate={{duration: 500}}
-					/>
-				</VictoryChart>
+				{chart}
 			</Animated.View>
 		);
 	}
@@ -262,6 +239,8 @@ class Footer extends React.Component{
 
 export default connect(state => {
 	return{
-		game: state.fetchGamesReducer.game
+		game: state.fetchGamesReducer.game,
+		buyContrabandLoading: state.singlePlayerGameReducer.buyContrabandLoading,
+		sellContrabandLoading: state.singlePlayerGameReducer.sellContrabandLoading
 	}
-}, {openTransactionModal})(Footer);
+}, {openTransactionModal, buyContraband, sellContraband})(Footer);

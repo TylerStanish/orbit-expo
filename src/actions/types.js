@@ -42,6 +42,13 @@ export const SHIP_PURCHASE = 'ship_purchase';
 export const SHIP_PURCHASED = 'ship_purchased';
 export const SHIP_PURCHASE_FAILED = 'ship_purchased_failed';
 
+export const BUY_CONTRABAND = 'buy_contraband';
+export const BOUGHT_CONTRABAND = 'bought_contraband';
+export const BUY_CONTRABAND_FAILED = 'buy_contraband_failed';
+export const SELL_CONTRABAND = 'buy_contraband';
+export const SOLD_CONTRABAND = 'bought_contraband';
+export const SELL_CONTRABAND_FAILED = 'buy_contraband_failed';
+
 // Auth types
 export const SIGN_UP_WITH_PHONE = 'sign_up_with_phone';
 export const SIGNED_UP_WITH_PHONE = 'signed_up_with_phone';

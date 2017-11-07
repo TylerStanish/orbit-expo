@@ -1,13 +1,16 @@
 import React from 'react';
+import{ScrollView} from 'react-native';
 import {connect} from 'react-redux';
 import ModalTemplate from './ModalTemplate';
 import {
 	FormInput,
 	Button
 } from 'react-native-elements';
+import{Content} from 'native-base';
 
 import {closeBankModal} from '../../actions';
 import {borrow, payBack} from '../../actions/single/SinglePlayerGameActions';
+import Balance from '../misc/Balance';
 
 class BankModal extends React.Component{
 
@@ -50,26 +53,30 @@ class BankModal extends React.Component{
 	render(){
 		return(
 			<ModalTemplate visible={this.props.visible} close={() => this.props.close()}>
-				<FormInput
-					keyboardType={'numeric'}
-					onChangeText={t => this.handleInput(t)}
-					autoFocus
-					placeholder={'Amount'}
-				/>
-				<Button
-					backgroundColor={'green'}
-					title={'Borrow'}
-					large
-					disabled={this.state.disabled}
-					onPress={() => this.props.borrow(this.props.game._id, parseInt(this.state.amount))}
-				/>
-				<Button
-					backgroundColor={'red'}
-					title={'Pay back'}
-					large
-					disabled={this.state.disabled1}
-					onPress={() => this.props.payBack(this.props.game._id, parseInt(this.state.amount))}
-				/>
+				<Content keyboardShouldPersistTaps={'always'}>
+					<Balance chips={this.props.game.chips} debt={this.props.game.debt}/>
+					<Balance chips={this.props.game.chips} debt={this.props.game.debt}/>
+					<FormInput
+						keyboardType={'numeric'}
+						onChangeText={t => this.handleInput(t)}
+						autoFocus
+						placeholder={'Amount'}
+					/>
+					<Button
+						backgroundColor={'green'}
+						title={'Borrow'}
+						large
+						disabled={this.state.disabled}
+						onPress={() => this.props.borrow(this.props.game._id, parseInt(this.state.amount))}
+					/>
+					<Button
+						backgroundColor={'red'}
+						title={'Pay back'}
+						large
+						disabled={this.state.disabled1}
+						onPress={() => this.props.payBack(this.props.game._id, parseInt(this.state.amount))}
+					/>
+				</Content>
 			</ModalTemplate>
 		);
 	}
