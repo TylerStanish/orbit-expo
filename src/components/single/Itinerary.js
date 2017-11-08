@@ -36,7 +36,7 @@ class Itinerary extends React.Component{
 					title={'Bank'}
 					backgroundColor={'#fcc746'}
 					icon={{name: 'attach-money'}}
-					buttonStyle={{height: this.state.height/4}}
+					buttonStyle={{height: this.state.height/4, margin: 5}}
 					onPress={() => this.props.openBankModal()}
 				/>
 				<Button
@@ -45,14 +45,14 @@ class Itinerary extends React.Component{
 					title={'Ship'}
 					icon={{name: 'flight-takeoff'}}
 					backgroundColor={'#4f9deb'}
-					buttonStyle={{height: this.state.height/4}}
+					buttonStyle={{height: this.state.height/4, margin: 5}}
 					onPress={() => this.props.openShipModal()}
 				/>
 				<Button
 					large
 					raised
 					title={'Travel'}
-					buttonStyle={{height: this.state.height/4}}
+					buttonStyle={{height: this.state.height/4, margin: 5}}
 					icon={{name: 'skip-next'}}
 					backgroundColor={'#9D28E6'}
 					onPress={() => this.props.openTravelModal()}
@@ -61,7 +61,7 @@ class Itinerary extends React.Component{
 					large
 					raised
 					title={'Base'}
-					buttonStyle={{height: this.state.height/4}}
+					buttonStyle={{height: this.state.height/4, margin: 5}}
 					icon={{name: 'weekend'}}
 					backgroundColor={'#fc5830'}
 				/>

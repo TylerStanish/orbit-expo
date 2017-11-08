@@ -6,14 +6,22 @@ import{
 import {connect} from 'react-redux';
 import ScrollableTabView from 'react-native-scrollable-tab-view';
 
-import {fetchLeaderboard30, fetchLeaderboard60, fetchLeaderboard90} from '../actions/LeaderboardActions';
+import {
+	fetchLeaderboard30,
+	fetchLeaderboard60,
+	fetchLeaderboard90,
+	unmountFetchLeaderboard30,
+	unmountFetchLeaderboard60,
+	unmountFetchLeaderboard90
+} from '../actions/LeaderboardActions';
 
 class LeaderboardScreen extends React.Component{
 
 	static navigationOptions = {
 		title: 'Leaderboards'
-	}
+	};
 
+	// you should combine these three methods
 	componentWillMount(){
 		this.props.fetchLeaderboard30();
 		this.props.fetchLeaderboard60();
@@ -21,7 +29,9 @@ class LeaderboardScreen extends React.Component{
 	}
 
 	componentWillUnmount(){
-		// unmount the snapshot
+		this.props.unmountFetchLeaderboard30();
+		this.props.unmountFetchLeaderboard60();
+		this.props.unmountFetchLeaderboard90();
 	}
 
 	render(){
@@ -44,7 +54,10 @@ export default connect(state => {
 }, {
 	fetchLeaderboard30,
 	fetchLeaderboard60,
-	fetchLeaderboard90
+	fetchLeaderboard90,
+	unmountFetchLeaderboard30,
+	unmountFetchLeaderboard60,
+	unmountFetchLeaderboard90
 })(LeaderboardScreen);
 
 class LeaderboardList extends React.Component{
@@ -52,11 +65,14 @@ class LeaderboardList extends React.Component{
 	// don't let users view more than ten because it will satisfy them!
 	// they must not settle for anything less than best!
 	renderLeaders(){
-		return this.props.topDawgs.map(user => {
+		return this.props.topDawgs.map((user, i) => {
 			return(
-				<View style={{margin: 10, flexDirection: 'row', flex: 1, justifyContent: 'space-between'}}>
-					<Text style={{fontWeight: 'bold'}}>{user.name}</Text>
-					<Text>{user.score}</Text>
+				<View style={{margin: 10, flexDirection: 'row', justifyContent: 'space-between'}}>
+					<View style={{flexDirection: 'row'}}>
+						<Text style={{fontSize: 24}}>{i}.  </Text>
+						<Text style={{fontSize: 24, fontWeight: 'bold'}}>{user.name}</Text>
+					</View>
+					<Text style={{fontSize: 24}}>{user.score}</Text>
 				</View>
 			);
 		});

@@ -15,8 +15,7 @@
 /*
 * ORBIT SCRUM
 *
-* -- Leaderboards
-* -- Travel costs and interplanetary traveling
+* -- Travel costs? and interplanetary traveling
 * -- Bases
 * -- Add in bounty hunter
 *

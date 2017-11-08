@@ -3,13 +3,14 @@ import axios from 'axios';
 import firebase from 'firebase';
 import App from '../../../App';
 
-export const nextPeriod = (gameId, last, cb) => {
+export const nextPeriod = (gameId, last, location, cb) => {
 	return async dispatch => {
 		dispatch({type: Types.NEXT_PERIOD});
 		dispatch({type: Types.TOGGLE_ABSOLUTE_LOADING});
 		let token = await firebase.auth().currentUser.getIdToken();
 		axios.post(process.env.URL + '/nextPeriod', {
-			gameId
+			gameId,
+			location
 		}, {
 			headers: {
 				'x-auth': token

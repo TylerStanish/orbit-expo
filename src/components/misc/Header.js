@@ -6,6 +6,7 @@ import{
 import {connect} from 'react-redux';
 import Loading from './Loading';
 import {nextPeriod} from '../../actions/single/SinglePlayerGameActions';
+import {openTravelModal} from '../../actions/Modals';
 
 class Header extends React.Component{
 	render(){
@@ -22,9 +23,10 @@ class Header extends React.Component{
 		return(
 			<Text
 				style={{marginRight: 5}}
-				onPress={() => this.props.nextPeriod(this.props.game._id, last, () => {
-					this.props.navigation.navigate('SinglePlayer');
-				})}
+				// onPress={() => this.props.nextPeriod(this.props.game._id, last, () => {
+				// 	this.props.navigation.navigate('SinglePlayer');
+				// })}
+				onPress={() => this.props.openTravelModal()}
 			>
 				{text}
 			</Text>
@@ -37,4 +39,4 @@ export default connect(state => {
 		game: state.fetchGamesReducer.game,
 		loading: state.singlePlayerGameReducer.nextPeriodLoading
 	}
-}, {nextPeriod})(Header);
+}, {nextPeriod, openTravelModal})(Header);

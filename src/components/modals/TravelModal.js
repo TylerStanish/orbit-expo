@@ -16,12 +16,6 @@ class TravelModal extends React.Component{
 
 	state = {selected: ''};
 
-	componentWillReceiveProps(nextProps){
-		if(nextProps.game.currentLocation !== this.props.game.currentLocation){
-			this.setState({selected: nextProps.game.currentLocation});
-		}
-	}
-
 	renderPlanets(){
 		return gameData.places.map(place => {
 			return <CheckBox
@@ -46,7 +40,7 @@ class TravelModal extends React.Component{
 				<Button
 					title={'Travel'}
 					backgroundColor={'green'}
-					onPress={() => this.props.nextPeriod(this.props.game._id)}
+					onPress={() => this.props.nextPeriod(this.props.game._id, false, this.state.selected)}
 					loading={this.props.loading}
 				/>
 			</ModalTemplate>

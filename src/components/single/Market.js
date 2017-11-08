@@ -69,7 +69,6 @@ class Item extends React.Component{
 		let min = gameData.contrabandInfo[this.props.name][0];
 		let max = gameData.contrabandInfo[this.props.name][1];
 		let range = max-min;
-		console.log(min,max,price);
 		let r = (price - min) * 255/range;
 		let g = (max - price) * 255/range;
 		let b = 0;

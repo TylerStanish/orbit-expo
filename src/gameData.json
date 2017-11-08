@@ -12,28 +12,36 @@
 			"maxSpace": 60,
 			"cost": 0,
 			"defense": 0.20,
-			"space": 60
+			"space": 60,
+			"damage": 0,
+			"health": 30
 		},
 		{
 			"name": "Trade Vessel",
 			"maxSpace": 100,
 			"cost": 200000,
 			"defense": 0.12,
-			"space": 0
+			"space": 0,
+			"damage": 0,
+			"health": 50
 		},
 		{
 			"name": "Curator Starfighter",
 			"maxSpace": 140,
 			"cost": 1000000,
 			"defense": 0.03,
-			"space": 0
+			"space": 0,
+			"damage": 0,
+			"health": 100
 		},
 		{
 			"name": "Imperial Yacht",
 			"maxSpace": 200,
 			"cost": 10000000,
 			"defense": 0.001,
-			"space": 0
+			"space": 0,
+			"damage": 0,
+			"health": 250
 		}
 	],
 	"contrabandInfo": {
@@ -90,4 +98,6 @@
 			"qty": 0
 		}
 	]
-}
+},
+"damage": 0,
+"health": 30
