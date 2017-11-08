@@ -4,7 +4,7 @@ import {
 	View
 } from 'react-native';
 import {Icon} from 'react-native-elements';
-import styles from '~/src/styles';
+import styles from '../../styles';
 
 export default class ModalTemplate extends React.Component{
 

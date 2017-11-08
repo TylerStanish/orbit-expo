@@ -10,7 +10,7 @@ import {nextPeriod} from '../../actions/single/SinglePlayerGameActions';
 class Header extends React.Component{
 	render(){
 		if(!this.props.game || this.props.loading){
-			return <Loading/>
+			return <Loading style={{marginRight: 5}}/>
 		}
 		let last = false;
 		let text = `Period ${this.props.game.currentPeriod}/${this.props.game.maxPeriods}`;

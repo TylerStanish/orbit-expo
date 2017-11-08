@@ -64,7 +64,6 @@ class Footer extends React.Component{
 		let bla = Keyboard.addListener('keyboardDidShow', e => {
 			// this.state.height.setValue(this.state.height._value + e.endCoordinates.height);
 			keyboardHeight = e.endCoordinates.height;
-			console.log('set height ti', keyboardHeight);
 			Animated.timing(this.state.height, {toValue: this.state.height._value + e.endCoordinates.height}).start(() => {
 				// this._ref.focus();
 			});
@@ -79,8 +78,6 @@ class Footer extends React.Component{
 	getMaxBuy(){
 		let bal = this.props.game.chips;
 		let price = this.props.game.repository[this.props.selectedItem].prices.slice(-1).pop();
-		console.log("for debugging");
-		console.log(bal, price, this.props.selectedItem);
 		return Math.min(Math.floor(bal/price), this.props.game.ship.space);
 	}
 

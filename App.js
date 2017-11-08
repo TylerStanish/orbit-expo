@@ -12,7 +12,24 @@
 *
 * */
 
+/*
+* ORBIT SCRUM
+*
+* -- Leaderboards
+* -- Travel costs and interplanetary traveling
+* -- Bases
+* -- Add in bounty hunter
+*
+* BUGS
+* -- Graph shoots up after double click on home button
+*
+* MISC NOTES
+* -- It may be a good thing that we make updates so that those at the top of the leaderboard
+* go challenged when a new leaderboard pops up?
+*
+* */
 
+console.disableYellowBox = true;
 
 import React from 'react';
 import {Provider} from 'react-redux';
@@ -31,6 +48,7 @@ import ChooseScreen from './src/screens/ChooseScreen';
 import SinglePlayerScreen from './src/screens/SinglePlayerScreen';
 import SinglePlayerGameScreen from './src/screens/SinglePlayerGameScreen';
 import PhoneVerify from './src/screens/PhoneVerifyScreen';
+import LeaderboardScreen from './src/screens/LeaderboardScreen';
 const Navigator = StackNavigator({
 	Welcome: {
 		screen: WelcomeScreen,
@@ -58,6 +76,9 @@ const Navigator = StackNavigator({
 	},
 	SinglePlayerGame: {
 		screen: SinglePlayerGameScreen
+	},
+	Leaderboard: {
+		screen: LeaderboardScreen
 	}
 });
 

@@ -1,23 +1,3 @@
-// export default {
-// 	UPDATE_USER,
-// 	CREATE_GAME,
-// 	CREATED_GAME,
-// 	CREATED_GAME_FAILED,
-//
-// 	FETCH_GAMES,
-// 	FETCHED_GAMES,
-// 	FETCHED_GAMES_FAILED,
-//
-// 	OPEN_NEW_GAME_MODAL,
-// 	CLOSE_NEW_GAME_MODAL,
-// 	OPEN_BANK_MODAL,
-// 	CLOSE_BANK_MODAL,
-// 	OPEN_SHIP_MODAL,
-// 	CLOSE_SHIP_MODAL,
-// 	OPEN_TRAVEL_MODAL,
-// 	CLOSE_TRAVEL_MODAL
-// }
-
 export const UPDATE_USER = 'update_user';
 
 export const CREATE_GAME = 'create_game';
@@ -45,9 +25,9 @@ export const SHIP_PURCHASE_FAILED = 'ship_purchased_failed';
 export const BUY_CONTRABAND = 'buy_contraband';
 export const BOUGHT_CONTRABAND = 'bought_contraband';
 export const BUY_CONTRABAND_FAILED = 'buy_contraband_failed';
-export const SELL_CONTRABAND = 'buy_contraband';
-export const SOLD_CONTRABAND = 'bought_contraband';
-export const SELL_CONTRABAND_FAILED = 'buy_contraband_failed';
+export const SELL_CONTRABAND = 'sell_contraband';
+export const SOLD_CONTRABAND = 'sold_contraband';
+export const SELL_CONTRABAND_FAILED = 'sell_contraband_failed';
 
 // Auth types
 export const SIGN_UP_WITH_PHONE = 'sign_up_with_phone';
@@ -72,3 +52,14 @@ export const OPEN_TRANSACTION_MODAL = 'open_transaction_modal';
 export const CLOSE_TRANSACTION_MODAL = 'close_transaction_modal';
 export const TOGGLE_ABSOLUTE_LOADING = 'toggle_absolute_loading';
 export const SET_BANK_MODAL_AMOUNT = 'set_bank_modal_amount';
+
+// Leaderboard types
+export const FETCH_LEADERBOARD_30 = 'fetch_leaderboard_30';
+export const FETCHED_LEADERBOARD_30 = 'fetched_leaderboard_30';
+export const FETCH_LEADERBOARD_30_FAILED = 'fetch_leaderboard_30_failed';
+export const FETCH_LEADERBOARD_60 = 'fetch_leaderboard_60';
+export const FETCHED_LEADERBOARD_60 = 'fetched_leaderboard_60';
+export const FETCH_LEADERBOARD_60_FAILED = 'fetch_leaderboard_60_failed';
+export const FETCH_LEADERBOARD_90 = 'fetch_leaderboard_90';
+export const FETCHED_LEADERBOARD_90 = 'fetched_leaderboard_90';
+export const FETCH_LEADERBOARD_90_FAILED = 'fetch_leaderboard_90_failed';

@@ -7,7 +7,7 @@ import{
 class Loading extends React.Component{
 	render(){
 		return(
-			<View>
+			<View style={this.props.style}>
 				<ActivityIndicator color={'black'}/>
 			</View>
 		);

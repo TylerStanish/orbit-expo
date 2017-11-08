@@ -1,5 +1,5 @@
 import React from 'react';
-import{ScrollView} from 'react-native';
+import{ScrollView, View} from 'react-native';
 import {connect} from 'react-redux';
 import ModalTemplate from './ModalTemplate';
 import {
@@ -25,41 +25,76 @@ class BankModal extends React.Component{
 	}
 
 	handleInput(amount){
-		if(amount.includes('.')){
-			this.setState({disabled: true, disabled1: true});
-			return;
-		}
-		amount = parseInt(amount);
-		let {chips, debt, currentPeriod} = this.props.game;
-		let disabled;
-		let disabled1;
-		if(amount > chips){
-			disabled1 = true;
-		}
-		if(amount > debt){
-			disabled1 = true;
-		}
-		if(amount > currentPeriod*5000 - debt){
-			disabled = true;
-		}
-		if(isNaN(amount) || amount === 0){
-			disabled = true;
-			disabled1 = true;
-		}
-		this.setState({disabled, disabled1});
+		// if(amount.includes('.')){
+		// 	this.setState({disabled: true, disabled1: true});
+		// 	return;
+		// }
+		// amount = parseInt(amount);
+		// let {chips, debt, currentPeriod} = this.props.game;
+		// let disabled;
+		// let disabled1;
+		// if(amount > chips){
+		// 	disabled1 = true;
+		// }
+		// if(amount > debt){
+		// 	disabled1 = true;
+		// }
+		// if(amount > currentPeriod*5000 - debt){
+		// 	disabled = true;
+		// }
+		// if(isNaN(amount) || amount === 0){
+		// 	disabled = true;
+		// 	disabled1 = true;
+		// }
+		// this.setState({disabled, disabled1});
 		this.props.setBankModalAmount(amount);
 	}
 
-	borrowMax(){
+	setBorrowMax(){
 		let {chips, debt, currentPeriod, _id} = this.props.game;
 		let max = currentPeriod*5000 - debt;
-		this.props.borrow(_id, max);
+		max = Math.max(0, max);
+		this.handleInput(max.toString());
+		this.props.setBankModalAmount(max);
+		// this.props.borrow(_id, max);
 	}
 
-	payBackMax(){
+	setPayBackMax(){
 		let {chips, debt, currentPeriod, _id} = this.props.game;
 		let max = Math.min(chips, debt);
-		this.props.payBack(_id, max);
+		max = Math.max(0, max);
+		this.handleInput(max.toString());
+		this.props.setBankModalAmount(max);
+		// this.props.payBack(_id, max);
+	}
+
+	componentWillReceiveProps(nextProps){
+		let {amount} = nextProps;
+		amount = amount.toString();
+		if(amount !== this.props.amount){
+			if(amount.includes('.')){
+				this.setState({disabled: true, disabled1: true});
+				return;
+			}
+			amount = parseInt(amount);
+			let {chips, debt, currentPeriod} = this.props.game;
+			let disabled;
+			let disabled1;
+			if(amount > chips){
+				disabled1 = true;
+			}
+			if(amount > debt){
+				disabled1 = true;
+			}
+			if(amount > currentPeriod*5000 - debt){
+				disabled = true;
+			}
+			if(isNaN(amount) || amount === 0){
+				disabled = true;
+				disabled1 = true;
+			}
+			this.setState({disabled, disabled1});
+		}
 	}
 
 	render(){
@@ -70,32 +105,39 @@ class BankModal extends React.Component{
 					<FormInput
 						keyboardType={'numeric'}
 						onChangeText={t => this.handleInput(t)}
-						autoFocus
 						placeholder={'Amount'}
-						value={this.props.amount}
+						value={this.props.amount.toString()}
 					/>
-					<Button
-						title={'Borrow max'}
-						onPress={() => this.borrowMax()}
-					/>
-					<Button
-						backgroundColor={'green'}
-						title={'Borrow'}
-						large
-						disabled={this.state.disabled}
-						onPress={() => this.props.borrow(this.props.game._id, parseInt(this.props.amount))}
-					/>
-					<Button
-						title={'Pay back max'}
-						onPress={() => this.payBackMax()}
-					/>
-					<Button
-						backgroundColor={'red'}
-						title={'Pay back'}
-						large
-						disabled={this.state.disabled1}
-						onPress={() => this.props.payBack(this.props.game._id, parseInt(this.props.amount))}
-					/>
+					<View style={{flexDirection: 'row', margin: 10}}>
+						<Button
+							title={'Set max'}
+							onPress={() => this.setBorrowMax()}
+							containerViewStyle={{flex: 1}}
+						/>
+						<Button
+							backgroundColor={'green'}
+							title={'Borrow'}
+							large
+							disabled={this.state.disabled}
+							onPress={() => this.props.borrow(this.props.game._id, parseInt(this.props.amount))}
+							containerViewStyle={{flex: 3}}
+						/>
+					</View>
+					<View style={{flexDirection: 'row', margin: 10}}>
+						<Button
+							title={'Set max'}
+							onPress={() => this.setPayBackMax()}
+							containerViewStyle={{flex: 1}}
+						/>
+						<Button
+							backgroundColor={'red'}
+							title={'Pay back'}
+							large
+							disabled={this.state.disabled1}
+							onPress={() => this.props.payBack(this.props.game._id, parseInt(this.props.amount))}
+							containerViewStyle={{flex: 3}}
+						/>
+					</View>
 				</Content>
 			</ModalTemplate>
 		);

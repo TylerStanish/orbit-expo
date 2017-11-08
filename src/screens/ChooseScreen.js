@@ -7,7 +7,7 @@ import {
 	PricingCard
 } from 'react-native-elements';
 import firebase from 'firebase';
-import styles from '~/src/styles';
+import styles from '../styles';
 
 export default class ChooseScreen extends React.Component{
 
@@ -18,6 +18,15 @@ export default class ChooseScreen extends React.Component{
 	render(){
 		return(
 			<View style={styles.containerCenter}>
+				<PricingCard
+					containerStyle={{flex: 1}}
+					wrapperStyle={{flex: 1, justifyContent: 'center'}}
+					title={'Leaderboards'}
+					color={'#FF8E09'}
+					button={{title: 'Leaderboards', icon: 'grade'}}
+					info={['Who holds records?']}
+					onButtonPress={() => this.props.navigation.navigate('Leaderboard')}
+				/>
 				<PricingCard
 					containerStyle={{flex: 1}}
 					wrapperStyle={{flex: 1, justifyContent: 'center'}}

@@ -8,8 +8,6 @@ export const nextPeriod = (gameId, last, cb) => {
 		dispatch({type: Types.NEXT_PERIOD});
 		dispatch({type: Types.TOGGLE_ABSOLUTE_LOADING});
 		let token = await firebase.auth().currentUser.getIdToken();
-		console.log('this is what youre looking for');
-		console.log(gameId, last, token);
 		axios.post(process.env.URL + '/nextPeriod', {
 			gameId
 		}, {
@@ -124,7 +122,7 @@ export const buyShip = (gameId, ship) => {
 						maxSpace: shipObj.maxSpace,
 						cost: shipObj.cost,
 						name: ship,
-						space
+						space: space
 					}
 				});
 			});
