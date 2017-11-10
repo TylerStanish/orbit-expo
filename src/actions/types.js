@@ -63,3 +63,7 @@ export const FETCH_LEADERBOARD_60_FAILED = 'fetch_leaderboard_60_failed';
 export const FETCH_LEADERBOARD_90 = 'fetch_leaderboard_90';
 export const FETCHED_LEADERBOARD_90 = 'fetched_leaderboard_90';
 export const FETCH_LEADERBOARD_90_FAILED = 'fetch_leaderboard_90_failed';
+
+
+// Navigation types
+export const GO_BACK = 'go_back';

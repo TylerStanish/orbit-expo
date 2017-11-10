@@ -42,57 +42,14 @@ import Expo, {Constants, Font} from 'expo';
 import firebase from 'firebase';
 
 import * as Types from './src/actions/types';
-
-import {StackNavigator, NavigationActions, addNavigationHelpers} from 'react-navigation';
-import WelcomeScreen from './src/screens/WelcomeScreen';
-import AuthScreen from './src/screens/AuthScreen';
-import ChooseScreen from './src/screens/ChooseScreen';
-import SinglePlayerScreen from './src/screens/SinglePlayerScreen';
-import SinglePlayerGameScreen from './src/screens/SinglePlayerGameScreen';
-import PhoneVerify from './src/screens/PhoneVerifyScreen';
-import LeaderboardScreen from './src/screens/LeaderboardScreen';
-const Navigator = StackNavigator({
-	Welcome: {
-		screen: WelcomeScreen,
-		navigationOptions: {
-			header: null
-		}
-	},
-	Auth: {
-		screen: AuthScreen,
-		navigationOptions: {
-			header: null
-		}
-	},
-	PhoneVerify: {
-		screen: PhoneVerify,
-		navigationOptions: {
-			header: null
-		}
-	},
-	Choose: {
-		screen: ChooseScreen,
-	},
-	SinglePlayer: {
-		screen: SinglePlayerScreen
-	},
-	SinglePlayerGame: {
-		screen: SinglePlayerGameScreen
-	},
-	Leaderboard: {
-		screen: LeaderboardScreen
-	}
-});
+import {NavigationActions} from 'react-navigation';
+import AppWithNavigationState from './src/navigation/Navigator';
 
 export default class extends React.Component{
 
 	state = {
 		loading: true
-	}
-
-	static goBackOnNavigator(){
-		this._navigator.dispatch(NavigationActions.back());
-	}
+	};
 
 	componentWillMount(){
 		process.env.URL = 'https://us-central1-smuggler-23fe7.cloudfunctions.net';
@@ -110,7 +67,7 @@ export default class extends React.Component{
 			if(this.state.loading) this.setState({loading: false});
 			if(user){
 				console.log(user);
-				this._navigator.dispatch(NavigationActions.reset({
+				this.store.dispatch(NavigationActions.reset({
 					index: 0,
 					actions: [NavigationActions.navigate({routeName: 'Choose'})]
 				}));
@@ -120,7 +77,11 @@ export default class extends React.Component{
 				type: Types.UPDATE_USER,
 				payload: user
 			});
-			this._navigator.dispatch(NavigationActions.reset({
+			// this._navigator.dispatch(NavigationActions.reset({
+			// 	index: 0,
+			// 	actions: [NavigationActions.navigate({routeName: 'Welcome'})]
+			// }));
+			this.store.dispatch(NavigationActions.reset({
 				index: 0,
 				actions: [NavigationActions.navigate({routeName: 'Welcome'})]
 			}));
@@ -143,10 +104,7 @@ export default class extends React.Component{
 
 		return(
 			<Provider store={this.store}>
-				<Navigator
-					ref={ref => this._navigator = ref}
-					navigation={addNavigationHelpers({dispatch: this.store.dispatch})}
-				/>
+				<AppWithNavigationState/>
 			</Provider>
 		)
 	}

@@ -5,6 +5,7 @@ import FetchGamesReducer from './single/FetchGamesReducer';
 import ModalReducer from './ModalReducer';
 import SinglePlayerGameReducer from './single/SinglePlayerGameReducer';
 import LeaderboardReducer from './LeaderboardReducer';
+import NavReducer from './NavReducer';
 
 export default combineReducers({
 	authReducer: AuthReducer,
@@ -12,5 +13,6 @@ export default combineReducers({
 	fetchGamesReducer: FetchGamesReducer,
 	modalReducer: ModalReducer,
 	singlePlayerGameReducer: SinglePlayerGameReducer,
-	leaderboardReducer: LeaderboardReducer
+	leaderboardReducer: LeaderboardReducer,
+	nav: NavReducer
 });
