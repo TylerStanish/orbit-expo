@@ -19,7 +19,7 @@ export default class ChooseScreen extends React.Component{
 		return(
 			<View style={styles.containerCenter}>
 				<PricingCard
-					containerStyle={{flex: 1}}
+					containerStyle={{flex: 1, marginBottom: 5, marginTop: 5}}
 					wrapperStyle={{flex: 1, justifyContent: 'center'}}
 					title={'Leaderboards'}
 					color={'#FF8E09'}
@@ -28,7 +28,7 @@ export default class ChooseScreen extends React.Component{
 					onButtonPress={() => this.props.navigation.navigate('Leaderboard')}
 				/>
 				<PricingCard
-					containerStyle={{flex: 1}}
+					containerStyle={{flex: 1, marginBottom: 5, marginTop: 5}}
 					wrapperStyle={{flex: 1, justifyContent: 'center'}}
 					title={'Single Player'}
 					color={'#4f9deb'}
@@ -37,7 +37,7 @@ export default class ChooseScreen extends React.Component{
 					onButtonPress={() => this.props.navigation.navigate('SinglePlayer')}
 				/>
 				<PricingCard
-					containerStyle={{flex: 1}}
+					containerStyle={{flex: 1, marginBottom: 5, marginTop: 5}}
 					wrapperStyle={{flex: 1, justifyContent: 'center'}}
 					title={'Multiplayer'}
 					color={'#9D28E6'}

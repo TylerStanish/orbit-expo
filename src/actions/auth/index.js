@@ -13,7 +13,7 @@ export const signInWithPhone = (phone, cb) => {
 			cb();
 			dispatch({type: Types.SIGNED_UP_WITH_PHONE, payload: tok});
 		}).catch(e => {
-			cb(e);
+			alert(e.error);
 			dispatch({type: Types.SIGNED_UP_WITH_PHONE_FAILED, payload: e});
 		});
 	}
@@ -33,11 +33,12 @@ export const redeemCode = (phone, code) => {
 			firebase.auth().signInWithCustomToken(tok).then(() => {
 				dispatch({type: Types.REDEEMED_CODE, payload: tok});
 			}).catch(e => {
+				alert(e.error);
 				dispatch({type: Types.REDEEMED_CODE_FAILED, payload: e});
 			});
 		}).catch(e => {
 			console.log(e);
-			console.log('the error');
+			alert(e.error);
 			dispatch({type: Types.REDEEMED_CODE_FAILED, payload: e});
 		});
 	}

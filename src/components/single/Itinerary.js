@@ -20,7 +20,7 @@ class Itinerary extends React.Component{
 
 	state = {
 		height: 10
-	}
+	};
 
 	handleLayout(e){
 		let height = e.nativeEvent.layout.height;

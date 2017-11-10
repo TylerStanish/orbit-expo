@@ -29,6 +29,13 @@ class TravelModal extends React.Component{
 		});
 	}
 
+	travel(){
+		if(!this.state.selected){
+			return alert('No planet selected!');
+		}
+		this.props.nextPeriod(this.props.game._id, false, this.state.selected);
+	}
+
 	render(){
 		return(
 			<ModalTemplate visible={this.props.visible} close={() => this.props.close()}>
@@ -40,7 +47,7 @@ class TravelModal extends React.Component{
 				<Button
 					title={'Travel'}
 					backgroundColor={'green'}
-					onPress={() => this.props.nextPeriod(this.props.game._id, false, this.state.selected)}
+					onPress={() => this.travel()}
 					loading={this.props.loading}
 				/>
 			</ModalTemplate>

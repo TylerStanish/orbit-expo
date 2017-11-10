@@ -22,7 +22,6 @@ export default (state = initialState, action) => {
 				nextPeriodLoading: false
 			};
 		case Types.NEXT_PERIOD_FAIL:
-			alert('Failed to go to next round');
 			return{
 				...state,
 				nextPeriodLoading: false,

@@ -31,7 +31,6 @@ export default (state = initialState, action) => {
 				loadingGame: true,
 			};
 		case Types.FETCHED_GAME:
-			console.log(action.payload);
 			return{
 				...state,
 				game: action.payload

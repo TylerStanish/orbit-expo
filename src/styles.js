@@ -25,9 +25,8 @@ export default {
 	},
 	backgroundImage: {
 		resizeMode: 'cover',
-		width: Dimensions.get('window').width,
-		height: Dimensions.get('window').height,
-		justifyContent: 'flex-end'
+
+		flex: 1
 	},
 
 	phoneAuthText: {

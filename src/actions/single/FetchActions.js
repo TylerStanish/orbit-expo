@@ -20,7 +20,7 @@ export const fetchGames = () => {
 
 // This isn't being called
 export const unmountFetchGames = () => {
-	if(fetchGamesQuery.firestore.INTERNAL.delete) fetchGamesQuery.firestore.INTERNAL.delete();
+	// if(fetchGamesQuery.firestore.INTERNAL.delete) fetchGamesQuery.firestore.INTERNAL.delete();
 	console.log('unmounting query');
 	return{
 		type: Types.UNMOUNT_FETCH_GAMES
@@ -36,7 +36,9 @@ export const fetchGame = (_id) => {
 	return dispatch => {
 		dispatch({type: Types.FETCH_GAME});
 		fetchGameQuery = firebase.firestore().collection('single').where('_id', '==', _id).onSnapshot(snapshot => {
-			console.log(snapshot.docs[0], 'should be game returned on fetch');
+			if(!snapshot.docs.length){
+				return;
+			}
 			dispatch({type: Types.FETCHED_GAME, payload: snapshot.docs[0].data()});
 		});
 	}
@@ -44,7 +46,7 @@ export const fetchGame = (_id) => {
 
 export const unmountFetchGame = () => {
 	if(typeof fetchGameQuery === 'function'){
-		fetchGameQuery();
+		// fetchGameQuery();
 	}
 	return{type: 'bla'};
 };

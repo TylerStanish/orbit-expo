@@ -18,6 +18,7 @@
 * -- Travel costs? and interplanetary traveling
 * -- Bases
 * -- Add in bounty hunter
+* -- Attach navigator to redux
 *
 * BUGS
 * -- Graph shoots up after double click on home button
@@ -28,9 +29,11 @@
 *
 * */
 
+window.Image = () => {};
 console.disableYellowBox = true;
 
 import React from 'react';
+import {Alert} from 'react-native';
 import {Provider} from 'react-redux';
 import {createStore, applyMiddleware} from 'redux';
 import ReduxThunk from 'redux-thunk';
@@ -40,7 +43,7 @@ import firebase from 'firebase';
 
 import * as Types from './src/actions/types';
 
-import {StackNavigator, NavigationActions} from 'react-navigation';
+import {StackNavigator, NavigationActions, addNavigationHelpers} from 'react-navigation';
 import WelcomeScreen from './src/screens/WelcomeScreen';
 import AuthScreen from './src/screens/AuthScreen';
 import ChooseScreen from './src/screens/ChooseScreen';
@@ -128,6 +131,7 @@ export default class extends React.Component{
 		Font.loadAsync({
 			'monospace': require('./assets/fonts/Monospace.ttf')
 		});
+		Alert.alert('Warning!', 'Your leaderboard status is temporary! This is only a beta test');
 	}
 
 	store = createStore(reducers, {}, applyMiddleware(ReduxThunk));
@@ -141,6 +145,7 @@ export default class extends React.Component{
 			<Provider store={this.store}>
 				<Navigator
 					ref={ref => this._navigator = ref}
+					navigation={addNavigationHelpers({dispatch: this.store.dispatch})}
 				/>
 			</Provider>
 		)

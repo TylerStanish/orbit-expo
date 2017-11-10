@@ -10,6 +10,9 @@ import {fetchGame, unmountFetchGame} from '../actions/single/FetchActions';
 import Header from '../components/misc/Header';
 import AbsoluteLoading from '../components/misc/AbsoluteLoading';
 import Balance from '../components/misc/Balance';
+import {
+	Button
+} from 'react-native-elements';
 
 class SinglePlayerGameScreen extends React.Component{
 
@@ -20,8 +23,11 @@ class SinglePlayerGameScreen extends React.Component{
 		}
 	}
 
+	state = {
+		height: 10
+	}
+
 	componentWillMount(){
-		console.log('should be called with _id', this.props.navigation.state.params._id);
 		this.props.fetchGame(this.props.navigation.state.params._id);
 	}
 
@@ -29,9 +35,16 @@ class SinglePlayerGameScreen extends React.Component{
 		this.props.unmountFetchGame();
 	}
 
+	componentWillReceiveProps(nextProps){
+		console.log('received props', nextProps.game);
+		if(!nextProps.game){
+			this.props.navigation.navigate('SinglePlayer');
+		}
+	}
+
 	render(){
 
-		if(!this.props.game){
+		if(!this.props.game) {
 			return <AbsoluteLoading/>
 		}
 

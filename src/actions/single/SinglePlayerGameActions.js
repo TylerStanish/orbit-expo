@@ -25,6 +25,7 @@ export const nextPeriod = (gameId, last, location, cb) => {
 			}
 		}).catch(e => {
 			console.log(e);
+			alert(e.response.error);
 			dispatch({type: Types.NEXT_PERIOD_FAIL});
 			dispatch({type: Types.TOGGLE_ABSOLUTE_LOADING});
 		});

@@ -19,6 +19,10 @@ class NewGameModal extends React.Component{
 
 	createGame(){
 		let {name, selected} = this.state;
+		if(name.length > 20){
+			alert('Name cannot exceed 20 characters');
+			return;
+		}
 		let numWeeks;
 		if(selected === 0){
 			numWeeks = 30;

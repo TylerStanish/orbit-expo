@@ -43,41 +43,6 @@ class PhoneVerifyScreen extends React.Component{
 		this._ref.focus();
 	}
 
-	// I'm not using this method, but I think it's good
-	renderInputs(){
-		let arr = [];
-		for(let i=0; i<10; i++){
-			arr.push(
-				<TextInput
-					key={i}
-					style={{
-						height: 50,
-						borderBottomWidth: 1,
-						borderBottomColor: 'purple',
-						fontSize: width/15,
-						width: width/12,
-						margin: 4
-					}}
-					keyboardType={'phone-pad'}
-					containerStyle={{width: width/20}}
-					maxLength={1}
-					ref={ref => this._refs[i] = ref}
-					onChangeText={t => {
-						if(i<9 && this.state.numbers[i].length === 0){
-							this._refs[i+1].focus();
-						}else if(i>0){
-							this._refs[i-1].focus();
-						}
-						let {numbers} = this.state;
-						numbers[i] = t;
-						this.setState({numbers});
-					}}
-				/>
-			);
-		}
-		return arr;
-	}
-
 	renderAreaCode(){
 		let arr = [];
 		let numbers = this.state.number.split('').slice(0, 3);
@@ -143,7 +108,7 @@ class PhoneVerifyScreen extends React.Component{
 					});
 				});
 			}else{
-				console.log(err);
+				alert(err.error);
 			}
 		});
 	}
