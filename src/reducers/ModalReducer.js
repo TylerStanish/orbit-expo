@@ -11,7 +11,9 @@ const initialState = {
 
 	absoluteLoading: false,
 
-	bankModalAmount: 0
+	bankModalAmount: 0,
+
+	navigation: null
 };
 
 export default (state = initialState, action) => {
@@ -87,6 +89,12 @@ export default (state = initialState, action) => {
 			return{
 				...state,
 				bankModalAmount: action.payload
+			};
+		case Types.SET_NAVIGATOR:
+			console.log(action.payload);
+			return{
+				...state,
+				navigation: action.payload
 			};
 		default: return state;
 	}

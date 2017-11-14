@@ -66,4 +66,4 @@ export const FETCH_LEADERBOARD_90_FAILED = 'fetch_leaderboard_90_failed';
 
 
 // Navigation types
-export const GO_BACK = 'go_back';
+export const SET_NAVIGATOR = 'set_navigator';

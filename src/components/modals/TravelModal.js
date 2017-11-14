@@ -11,6 +11,7 @@ import {
 import {closeTravelModal} from '../../actions/Modals';
 import {nextPeriod} from '../../actions/single/SinglePlayerGameActions';
 import gameData from '../../gameData.json';
+import {NavigationActions} from 'react-navigation';
 
 class TravelModal extends React.Component{
 
@@ -33,7 +34,13 @@ class TravelModal extends React.Component{
 		if(!this.state.selected){
 			return alert('No planet selected!');
 		}
-		this.props.nextPeriod(this.props.game._id, false, this.state.selected);
+		this.props.nextPeriod(this.props.game._id, false, this.state.selected, () => {
+			// this.props.navigation.navigate('SinglePlayer');
+			this.props.navigation.dispatch(NavigationActions.reset({
+				index: 0,
+				actions: [NavigationActions.navigate({routeName: 'Choose'})]
+			}));
+		});
 	}
 
 	render(){
@@ -59,6 +66,7 @@ export default connect(state => {
 	return {
 		visible: state.modalReducer.travelModalVisible,
 		game: state.fetchGamesReducer.game,
-		loading: state.singlePlayerGameReducer.nextPeriodLoading
+		loading: state.singlePlayerGameReducer.nextPeriodLoading,
+		navigation: state.modalReducer.navigation
 	}
 }, {close: closeTravelModal, nextPeriod})(TravelModal);

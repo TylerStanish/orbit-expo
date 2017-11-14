@@ -7,6 +7,8 @@ import SinglePlayerGameReducer from './single/SinglePlayerGameReducer';
 import LeaderboardReducer from './LeaderboardReducer';
 import NavReducer from './NavReducer';
 
+import Navigator from '../navigation/Navigator';
+
 export default combineReducers({
 	authReducer: AuthReducer,
 	newGameReducer: NewGameReducer,
@@ -14,5 +16,6 @@ export default combineReducers({
 	modalReducer: ModalReducer,
 	singlePlayerGameReducer: SinglePlayerGameReducer,
 	leaderboardReducer: LeaderboardReducer,
-	nav: NavReducer
+	// nav: NavReducer,
+	// nav: (state,action) => Navigator.router.getStateForAction(action,state)
 });

@@ -24,10 +24,16 @@ export const nextPeriod = (gameId, last, location, cb) => {
 				cb();
 			}
 		}).catch(e => {
+			console.log('bla');
 			console.log(e);
+			if(e){
+				cb();
+				console.log('called callback');
+			}
 			alert(e.response.error);
 			dispatch({type: Types.NEXT_PERIOD_FAIL});
 			dispatch({type: Types.TOGGLE_ABSOLUTE_LOADING});
+			dispatch({type: Types.CLOSE_TRAVEL_MODAL});
 		});
 	}
 };
