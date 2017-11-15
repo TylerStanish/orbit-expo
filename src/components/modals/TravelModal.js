@@ -36,6 +36,7 @@ class TravelModal extends React.Component{
 		}
 		this.props.nextPeriod(this.props.game._id, false, this.state.selected, () => {
 			// this.props.navigation.navigate('SinglePlayer');
+			this.props.close();
 			this.props.navigation.dispatch(NavigationActions.reset({
 				index: 0,
 				actions: [NavigationActions.navigate({routeName: 'Choose'})]

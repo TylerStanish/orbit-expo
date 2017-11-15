@@ -91,11 +91,17 @@ export default (state = initialState, action) => {
 				bankModalAmount: action.payload
 			};
 		case Types.SET_NAVIGATOR:
-			console.log(action.payload);
+			// UNBELIEVABLE! The line commented out below was the problem!
+			// console.log(action.payload);
 			return{
 				...state,
 				navigation: action.payload
 			};
+		// case Types.NEXT_PERIOD_FAIL:
+		// 	return{
+		// 		...state,
+		// 		travelModalVisible: false
+		// 	};
 		default: return state;
 	}
 }

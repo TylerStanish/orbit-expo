@@ -110,11 +110,11 @@ export default class extends React.Component{
 			if(this.state.loading) this.setState({loading: false});
 			if(user){
 				console.log(user);
-				this.store.dispatch({type: Types.SET_NAVIGATOR, payload: this._navigator});
 				this._navigator.dispatch(NavigationActions.reset({
 					index: 0,
 					actions: [NavigationActions.navigate({routeName: 'Choose'})]
 				}));
+				this.store.dispatch({type: Types.SET_NAVIGATOR, payload: this._navigator});
 				return;
 			}
 			this.store.dispatch({

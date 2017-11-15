@@ -22,6 +22,9 @@ export default (state = initialState, action) => {
 				nextPeriodLoading: false
 			};
 		case Types.NEXT_PERIOD_FAIL:
+			setTimeout(() => {
+				alert(action.error);
+			}, 1000);
 			return{
 				...state,
 				nextPeriodLoading: false,
