@@ -19,6 +19,7 @@
 * -- Bases
 * -- Add in bounty hunter
 * -- Attach navigator to redux
+* -- Ship damage
 *
 * BUGS
 * -- Graph shoots up after double click on home button
@@ -94,7 +95,8 @@ export default class extends React.Component{
 	}
 
 	componentWillMount(){
-		process.env.URL = 'https://us-central1-smuggler-23fe7.cloudfunctions.net';
+		// process.env.URL = 'https://us-central1-smuggler-23fe7.cloudfunctions.net';
+		process.env.URL = 'http://localhost:5000/smuggler-23fe7/us-central1';
 		firebase.initializeApp({
 			apiKey: 'AIzaSyAoh8fDZ9x5b5NI39xFHe--DnqGOsxrxlc',
 			authDomain: 'smuggler-23fe7.firebaseapp.com',

@@ -15,7 +15,7 @@ import {NavigationActions} from 'react-navigation';
 
 class TravelModal extends React.Component{
 
-	state = {selected: ''};
+	state = {selected: this.props.game.currentLocation};
 
 	renderPlanets(){
 		return gameData.places.map(place => {
@@ -33,6 +33,10 @@ class TravelModal extends React.Component{
 	travel(){
 		if(!this.state.selected){
 			return alert('No planet selected!');
+		}
+		if(this.props.game.travelCosts[this.state.selected] > this.props.game.chips){
+			alert('Insufficient funds');
+			return;
 		}
 		this.props.nextPeriod(this.props.game._id, false, this.state.selected, () => {
 			// this.props.navigation.navigate('SinglePlayer');
@@ -53,7 +57,7 @@ class TravelModal extends React.Component{
 				<Image/>
 				{this.renderPlanets()}
 				<Button
-					title={'Travel'}
+					title={`Travel to ${this.state.selected} for ${this.props.game.travelCosts[this.state.selected]}`}
 					backgroundColor={'green'}
 					onPress={() => this.travel()}
 					loading={this.props.loading}
