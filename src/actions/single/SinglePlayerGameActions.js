@@ -1,7 +1,6 @@
 import * as Types from '../types';
 import axios from 'axios';
 import firebase from 'firebase';
-import App from '../../../App';
 
 export const nextPeriod = (gameId, last, location, cb) => {
 	return async dispatch => {
@@ -203,6 +202,36 @@ export const sellContraband = (gameId, amountSell, contrabandType, cb) => {
 			cb();
 		}).catch(e => {
 			dispatch({type: Types.SELL_CONTRABAND_FAILED, payload: e});
+		});
+	}
+};
+
+export const repairShip = (gameId) => {
+	return async dispatch => {
+		dispatch({type: Types.REPAIR_SHIP});
+		const db = firebase.firestore();
+		const ref = db.collection('single').doc(gameId);
+		db.runTransaction(t => {
+			return t.get(ref).then(doc => {
+				let game = doc.data();
+				let currentHealth = game.ship.health;
+				let currentDamage = game.ship.damage;
+				if(game.ship.damage === 0){
+					return Promise.reject('Your ship is already at full health!');
+				}
+				if(game.chips < 15000){
+					return Promise.reject('Insufficient funds');
+				}
+				t.update(ref, {
+					chips: game.chips - 15000,
+					'ship.damage': Math.max(0, game.ship.damage - 15)
+				});
+			});
+		}).then(() => {
+			dispatch({type: Types.REPAIRED_SHIP});
+		}).catch((e) => {
+			alert(e);
+			dispatch({type: Types.REPAIRED_SHIP});
 		});
 	}
 };

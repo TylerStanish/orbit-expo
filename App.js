@@ -15,9 +15,7 @@
 /*
 * ORBIT SCRUM
 *
-* -- Travel costs? and interplanetary traveling
 * -- Bases
-* -- Add in bounty hunter
 * -- Attach navigator to redux
 * -- Ship damage
 *

@@ -29,6 +29,9 @@ export const SELL_CONTRABAND = 'sell_contraband';
 export const SOLD_CONTRABAND = 'sold_contraband';
 export const SELL_CONTRABAND_FAILED = 'sell_contraband_failed';
 
+export const REPAIR_SHIP = 'repair_ship';
+export const REPAIRED_SHIP = 'repaired_ship';
+
 // Auth types
 export const SIGN_UP_WITH_PHONE = 'sign_up_with_phone';
 export const SIGNED_UP_WITH_PHONE = 'signed_up_with_phone';

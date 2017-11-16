@@ -130,7 +130,7 @@ class Footer extends React.Component{
 			button = (
 				<Button
 					backgroundColor={'#8cc153'}
-					title={this.props.buyContrabandLoading ? '' : 'Buy'}
+					title={this.props.buyContrabandLoading ? ' ' : 'Buy'}
 					loading={this.props.buyContrabandLoading}
 					borderRadius={5}
 					raised
@@ -147,7 +147,7 @@ class Footer extends React.Component{
 			button = (
 				<Button
 					backgroundColor={'#ff4b30'}
-					title={this.props.sellContrabandLoading ? '' : 'Sell'}
+					title={this.props.sellContrabandLoading ? ' ' : 'Sell'}
 					loading={this.props.sellContrabandLoading}
 					containerViewStyle={{flex: 1, marginLeft: 0, marginRight: 5}}
 					disabled={this.state.disabled}

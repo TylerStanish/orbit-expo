@@ -1,5 +1,6 @@
 import React from 'react';
 import{
+	View,
 	Text
 } from 'react-native';
 import {connect} from 'react-redux';
@@ -10,7 +11,7 @@ import{
 } from 'react-native-elements';
 
 import {closeShipModal} from '../../actions/Modals';
-import {buyShip} from '../../actions/single/SinglePlayerGameActions';
+import {buyShip, repairShip} from '../../actions/single/SinglePlayerGameActions';
 import Loading from '../misc/Loading';
 
 const costObj = {
@@ -93,8 +94,15 @@ class ShipModal extends React.Component{
 					onPress={() => this.props.buyShip(this.props.game._id, this.state.selected)}
 					title={this.state.selected ? `Buy ${this.state.selected} for ${costObj[this.state.selected]}` : ''}
 					disabled={!this.state.selected}
-
 				/>
+				<View>
+					<Text>Ship damage: {this.props.game.ship.damage}/{this.props.game.ship.health}</Text>
+					<Button
+						raised
+						onPress={() => this.props.repairShip(this.props.game._id)}
+						title={'Repair 15 points for 15000'}
+					/>
+				</View>
 			</ModalTemplate>
 		);
 	}
@@ -106,4 +114,4 @@ export default connect(state => {
 		game: state.fetchGamesReducer.game,
 		loading: state.singlePlayerGameReducer.shipLoading
 	}
-}, {close: closeShipModal, buyShip})(ShipModal);
+}, {close: closeShipModal, buyShip, repairShip})(ShipModal);
