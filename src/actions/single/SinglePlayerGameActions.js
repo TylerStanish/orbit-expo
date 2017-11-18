@@ -119,16 +119,20 @@ export const buyShip = (gameId, ship) => {
 					spaceOccupied += gameData.repository[item].qty;
 				}
 				let space = shipObj.maxSpace - spaceOccupied;
-
+				let shipObject = {
+					defense: shipObj.defense,
+					maxSpace: shipObj.maxSpace,
+					cost: shipObj.cost,
+					name: ship,
+					space: space,
+					damage: 0,
+					health: shipObj.health
+				};
+				console.log(shipObject);
 				t.update(ref, {
 					chips: chips - cost,
-					ship: {
-						defense: shipObj.defense,
-						maxSpace: shipObj.maxSpace,
-						cost: shipObj.cost,
-						name: ship,
-						space: space
-					}
+					ship: shipObject,
+					purchasedShips: game.purchasedShips.concat(ship)
 				});
 			});
 		}).then(() => {
@@ -232,6 +236,35 @@ export const repairShip = (gameId) => {
 		}).catch((e) => {
 			alert(e);
 			dispatch({type: Types.REPAIRED_SHIP});
+		});
+	}
+};
+
+export const purchaseBase = (gameId, base) => {
+	return async dispatch => {
+		dispatch({type: Types.BUY_BASE});
+		const db = firebase.firestore();
+		const ref = db.collection('single').doc(gameId);
+		db.runTransaction(t => {
+			return t.get(ref).then(doc => {
+				let game = doc.data();
+				let chips = game.chips;
+				if(game.purchasedBases.indexOf(base) >= 0){
+					return Promise.reject('You already own this base');
+				}
+				if(chips - gameData.bases[base] < 0){
+					return Promise.reject('Insufficient funds');
+				}
+				t.update(ref, {
+					chips: chips - gameData.bases[base],
+					purchasedBases: game.purchasedBases.concat(base)
+				});
+			});
+		}).then(() => {
+			dispatch({type: Types.BOUGHT_BASE});
+		}).catch(e => {
+			alert(e);
+			dispatch({type: Types.BOUGHT_BASE});
 		});
 	}
 };

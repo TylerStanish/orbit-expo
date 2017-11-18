@@ -73,6 +73,18 @@ export const closeTransactionModal = () => {
 	}
 };
 
+export const openBaseModal = () => {
+	return{
+		type: Types.OPEN_BASE_MODAL
+	}
+};
+
+export const closeBaseModal = () => {
+	return{
+		type: Types.CLOSE_BASE_MODAL
+	}
+};
+
 export const setBankModalAmount = (amount) => {
 	return{
 		type: Types.SET_BANK_MODAL_AMOUNT,

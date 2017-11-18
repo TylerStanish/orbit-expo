@@ -6,6 +6,12 @@
 		"Phobos",
 		"Mars"
 	],
+	"bases": {
+		"Urban Hut": 40000,
+		"Rotan Flat": 200000,
+		"Phobos High Rise": 1500000,
+		"Trafficker's Mansion": 5000000
+	},
 	"ships": [
 		{
 			"name": "Asteroid Clunker",

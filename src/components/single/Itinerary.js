@@ -9,11 +9,13 @@ import {connect} from 'react-redux';
 import {
 	openBankModal,
 	openShipModal,
-	openTravelModal
+	openTravelModal,
+	openBaseModal
 } from '../../actions/Modals';
 import BankModal from '../modals/BankModal';
 import ShipModal from '../modals/ShipModal';
 import TravelModal from '../modals/TravelModal';
+import BaseModal from '../modals/BaseModal';
 import Balance from '../misc/Balance';
 
 class Itinerary extends React.Component{
@@ -64,10 +66,12 @@ class Itinerary extends React.Component{
 					buttonStyle={{height: this.state.height/4, margin: 5}}
 					icon={{name: 'weekend'}}
 					backgroundColor={'#fc5830'}
+					onPress={() => this.props.openBaseModal()}
 				/>
 				<BankModal/>
 				<ShipModal/>
 				<TravelModal/>
+				<BaseModal/>
 			</View>
 		);
 	}
@@ -76,5 +80,6 @@ class Itinerary extends React.Component{
 export default connect(null, {
 	openBankModal,
 	openShipModal,
-	openTravelModal
+	openTravelModal,
+	openBaseModal
 })(Itinerary);

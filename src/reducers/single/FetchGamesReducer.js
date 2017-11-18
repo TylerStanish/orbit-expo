@@ -4,7 +4,7 @@ const initialState = {
 	games: [],
 	game: null,
 	loading: false,
-	loadingGame: false
+	loadingGames: false
 };
 
 export default (state = initialState, action) => {

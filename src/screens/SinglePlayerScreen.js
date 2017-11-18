@@ -1,7 +1,7 @@
 import React from 'react';
 import {
 	View,
-	ScrollView,
+	ActivityIndicator,
 	TouchableOpacity,
 	Image,
 	Dimensions
@@ -69,6 +69,7 @@ class SinglePlayerScreen extends React.Component{
 	}
 
 	render(){
+
 		return(
 			<View style={{flex: 1, paddingTop: 10}}>
 				<Button
@@ -80,6 +81,7 @@ class SinglePlayerScreen extends React.Component{
 					style={{marginBottom: 10}}
 				/>
 				<List style={{flex: 1}} onLayout={e => this.handleLayout(e)}>
+					{this.props.loading ? <ActivityIndicator size={'large'}/> : <View/>}
 					{this.renderGames()}
 				</List>
 				<NewGameModal/>
@@ -90,6 +92,7 @@ class SinglePlayerScreen extends React.Component{
 
 export default connect((state) => {
 	return{
-		games: state.fetchGamesReducer.games
+		games: state.fetchGamesReducer.games,
+		loading: state.fetchGamesReducer.loading
 	}
 }, {fetchGames, openNewGameModal, unmountFetchGames, fetchGame})(SinglePlayerScreen);

@@ -20,7 +20,7 @@ class TravelModal extends React.Component{
 	renderPlanets(){
 		return gameData.places.map(place => {
 			return <CheckBox
-				title={place}
+				title={place + ' - ' + this.props.game.travelCosts[place]}
 				checkedIcon={'dot-circle-o'}
 				uncheckedIcon={'circle-o'}
 				onPress={() => this.setState({selected: place})}
@@ -38,7 +38,7 @@ class TravelModal extends React.Component{
 			alert('Insufficient funds');
 			return;
 		}
-		this.props.nextPeriod(this.props.game._id, false, this.state.selected, () => {
+		this.props.nextPeriod(this.props.game._id, this.props.game.currentPeriod === this.props.game.maxPeriods, this.state.selected, () => {
 			// this.props.navigation.navigate('SinglePlayer');
 			this.props.close();
 			this.props.navigation.dispatch(NavigationActions.reset({

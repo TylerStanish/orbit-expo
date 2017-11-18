@@ -32,6 +32,10 @@ export const SELL_CONTRABAND_FAILED = 'sell_contraband_failed';
 export const REPAIR_SHIP = 'repair_ship';
 export const REPAIRED_SHIP = 'repaired_ship';
 
+export const BUY_BASE = 'buy_base';
+export const BOUGHT_BASE = 'bought_base';
+export const BUY_BASE_FAILED = 'buy_base_failed';
+
 // Auth types
 export const SIGN_UP_WITH_PHONE = 'sign_up_with_phone';
 export const SIGNED_UP_WITH_PHONE = 'signed_up_with_phone';
@@ -52,6 +56,8 @@ export const CLOSE_TRAVEL_MODAL = 'close_travel_modal';
 export const OPEN_PHONE_AUTH_MODAL = 'open_phone_auth_modal';
 export const CLOSE_PHONE_AUTH_MODAL = 'close_phone_auth_modal';
 export const OPEN_TRANSACTION_MODAL = 'open_transaction_modal';
+export const OPEN_BASE_MODAL = 'open_base_modal';
+export const CLOSE_BASE_MODAL = 'close_base_modal';
 export const CLOSE_TRANSACTION_MODAL = 'close_transaction_modal';
 export const TOGGLE_ABSOLUTE_LOADING = 'toggle_absolute_loading';
 export const SET_BANK_MODAL_AMOUNT = 'set_bank_modal_amount';

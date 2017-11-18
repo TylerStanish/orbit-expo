@@ -7,8 +7,9 @@ const initialState = {
 	travelModalVisible: false,
 	phoneAuthModalVisible: false,
 	transactionModalVisible: false,
+	baseModalVisible: false,
 	transactionItem: null,
-
+	baseModalLoading: false,
 	absoluteLoading: false,
 
 	bankModalAmount: 0,
@@ -80,6 +81,17 @@ export default (state = initialState, action) => {
 				...state,
 				transactionModalVisible: false
 			};
+		case Types.OPEN_BASE_MODAL:
+			return{
+				...state,
+				baseModalVisible: true
+			};
+		case Types.CLOSE_BASE_MODAL:
+			console.log('got here');
+			return{
+				...state,
+				baseModalVisible: false
+			};
 		case Types.TOGGLE_ABSOLUTE_LOADING:
 			return{
 				...state,
@@ -97,11 +109,16 @@ export default (state = initialState, action) => {
 				...state,
 				navigation: action.payload
 			};
-		// case Types.NEXT_PERIOD_FAIL:
-		// 	return{
-		// 		...state,
-		// 		travelModalVisible: false
-		// 	};
+		case Types.BUY_BASE:
+			return{
+				...state,
+				baseModalLoading: true
+			};
+		case Types.BOUGHT_BASE:
+			return{
+				...state,
+				baseModalLoading: false
+			};
 		default: return state;
 	}
 }

@@ -1,13 +1,13 @@
 import React from 'react';
 import{
-	View,
-	Text
+	View
 } from 'react-native';
 import {connect} from 'react-redux';
 import ModalTemplate from './ModalTemplate';
 import{
 	CheckBox,
-	Button
+	Button,
+	Text
 } from 'react-native-elements';
 
 import {closeShipModal} from '../../actions/Modals';
@@ -95,8 +95,8 @@ class ShipModal extends React.Component{
 					title={this.state.selected ? `Buy ${this.state.selected} for ${costObj[this.state.selected]}` : ''}
 					disabled={!this.state.selected}
 				/>
-				<View>
-					<Text>Ship damage: {this.props.game.ship.damage}/{this.props.game.ship.health}</Text>
+				<View style={{alignItems: 'center', padding: 10}}>
+					<Text style={{margin: 10}} h4>Ship damage: {this.props.game.ship.damage}/{this.props.game.ship.health}</Text>
 					<Button
 						raised
 						onPress={() => this.props.repairShip(this.props.game._id)}

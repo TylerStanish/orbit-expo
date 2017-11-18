@@ -71,7 +71,7 @@ class LeaderboardList extends React.Component{
 				<View style={{margin: 10, flexDirection: 'row', justifyContent: 'space-between'}}>
 					<View style={{flexDirection: 'row'}}>
 						<Text style={{fontSize: 20}}>{i+1}.  </Text>
-						<Text adjustsFontSizeToFit style={{fontSize: 20, fontWeight: 'bold'}}>{user.name}</Text>
+						<Text style={{fontSize: 20, fontWeight: 'bold'}}>{user.name}</Text>
 					</View>
 					<Text style={{fontSize: 20}}>{user.score}</Text>
 				</View>

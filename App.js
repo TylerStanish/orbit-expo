@@ -16,8 +16,6 @@
 * ORBIT SCRUM
 *
 * -- Bases
-* -- Attach navigator to redux
-* -- Ship damage
 *
 * BUGS
 * -- Graph shoots up after double click on home button
@@ -88,23 +86,15 @@ export default class extends React.Component{
 		loading: true
 	};
 
-	static goBackOnNavigator(){
-		this._navigator.dispatch(NavigationActions.back());
-	}
-
 	componentWillMount(){
 		// process.env.URL = 'https://us-central1-smuggler-23fe7.cloudfunctions.net';
 		process.env.URL = 'http://localhost:5000/smuggler-23fe7/us-central1';
+
 		firebase.initializeApp({
 			apiKey: 'AIzaSyAoh8fDZ9x5b5NI39xFHe--DnqGOsxrxlc',
 			authDomain: 'smuggler-23fe7.firebaseapp.com',
 			projectId: 'smuggler-23fe7'
 		});
-
-		// firebase.firestore().enablePersistence().then(() => {
-		// 	console.log('offline persistence enabled');
-		// });
-
 
 		firebase.auth().onAuthStateChanged(user => {
 			if(this.state.loading) this.setState({loading: false});
