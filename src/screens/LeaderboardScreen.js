@@ -73,7 +73,7 @@ class LeaderboardList extends React.Component{
 						<Text style={{fontSize: 20}}>{i+1}.  </Text>
 						<Text style={{fontSize: 20, fontWeight: 'bold'}}>{user.name}</Text>
 					</View>
-					<Text style={{fontSize: 20}}>{user.score}</Text>
+					<Text style={{fontSize: 20}}>∂ {user.score}</Text>
 				</View>
 			);
 		});

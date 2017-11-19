@@ -15,7 +15,7 @@ export default class ModalTemplate extends React.Component{
 				  in addition to the styles.modalContainer
 				 */}
 				<View style={styles.modalContainer}>
-					<View style={styles.modalHeader}>
+					<View style={[styles.modalHeader, {position: this.props.absolute ? 'absolute' : 'relative', zIndex: 9, right: 0, top: 0}]}>
 						<Icon
 							name={'close'}
 							color={'red'}

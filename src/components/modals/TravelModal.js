@@ -20,7 +20,7 @@ class TravelModal extends React.Component{
 	renderPlanets(){
 		return gameData.places.map(place => {
 			return <CheckBox
-				title={place + ' - ' + this.props.game.travelCosts[place]}
+				title={place + ' - ∂ ' + this.props.game.travelCosts[place]}
 				checkedIcon={'dot-circle-o'}
 				uncheckedIcon={'circle-o'}
 				onPress={() => this.setState({selected: place})}
@@ -57,7 +57,7 @@ class TravelModal extends React.Component{
 				<Image/>
 				{this.renderPlanets()}
 				<Button
-					title={`Travel to ${this.state.selected} for ${this.props.game.travelCosts[this.state.selected]}`}
+					title={`Travel to ${this.state.selected} for ∂${this.props.game.travelCosts[this.state.selected]}`}
 					backgroundColor={'green'}
 					onPress={() => this.travel()}
 					loading={this.props.loading}

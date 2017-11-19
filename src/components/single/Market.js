@@ -72,7 +72,7 @@ class Item extends React.Component{
 		let r = (price - min) * 255/range;
 		let g = (max - price) * 255/range;
 		let b = 0;
-		return <Text style={{color: `rgb(${r},${g},${b})`}}>{price}</Text>
+		return <Text style={{color: `rgb(${r},${g},${b})`}}>∂ {price}</Text>
 	}
 
 	render(){

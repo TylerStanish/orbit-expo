@@ -16,7 +16,11 @@ import {
 import {connect} from 'react-redux';
 import {fetchGames, openNewGameModal, unmountFetchGames, fetchGame} from '../actions';
 import NewGameModal from '../components/modals/NewGameModal';
-import styles from '../styles';
+
+const CuratorStarfighter = require('../../assets/icons/CuratorStarfighter.png');
+const TradeVessel = require('../../assets/icons/TradeVessel.png');
+const AsteroidClunker = require('../../assets/icons/AsteroidClunker.png');
+const ImperialYacht = require('../../assets/icons/ImperialYacht.png');
 
 const {width} = Dimensions.get('window');
 
@@ -36,6 +40,23 @@ class SinglePlayerScreen extends React.Component{
 
 	renderGames(){
 		return this.props.games.map(game => {
+			let uri;
+			switch(game.ship.name){
+				case 'Asteroid Clunker':
+					uri = AsteroidClunker;
+					break;
+				case 'Trade Vessel':
+					uri = TradeVessel;
+					break;
+				case 'Curator Starfighter':
+					uri = CuratorStarfighter;
+					break;
+				case 'Imperial Yacht':
+					uri = ImperialYacht;
+					break;
+				default:
+					uri = AsteroidClunker;
+			}
 			return (
 				<TouchableOpacity
 					style={{height: this.state.height/5 - 10, marginVertical: 5, width: '100%', flexDirection: 'row', marginHorizontal: 5, justifyContent: 'space-between', alignItems: 'center'}}
@@ -43,7 +64,7 @@ class SinglePlayerScreen extends React.Component{
 					key={game._id}
 					onPress={() => this.props.navigation.navigate('SinglePlayerGame', {_id: game._id})}
 				>
-					<Image source={require('../../assets/icons/spaceship.jpg')} style={{borderRadius: 5, height: this.state.height/5 - 10, width: this.state.height/5-10}}/>
+					<Image source={uri} style={{borderRadius: 5, height: this.state.height/5 - 10, width: this.state.height/5-10}}/>
 					<View style={{flexDirection: 'column', alignItems: 'center', justifyContent: 'center', marginLeft: 10}}>
 						<Text numberOfLines={1} ellipsizeMode={'tail'} style={{textAlign: 'center',fontWeight: 'bold', fontSize: 20, width: width - this.state.height/5 - 30}}>{game.captainName}</Text>
 						<Text style={{textAlign: 'center'}}>{game.ship.name}</Text>
@@ -81,8 +102,7 @@ class SinglePlayerScreen extends React.Component{
 					style={{marginBottom: 10}}
 				/>
 				<List style={{flex: 1}} onLayout={e => this.handleLayout(e)}>
-					{this.props.loading ? <ActivityIndicator size={'large'}/> : <View/>}
-					{this.renderGames()}
+					{this.props.loading ? <ActivityIndicator size={'large'}/> : this.renderGames()}
 				</List>
 				<NewGameModal/>
 			</View>

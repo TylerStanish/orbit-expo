@@ -51,7 +51,7 @@ class NewGameModal extends React.Component{
 					selectedBackgroundColor={'#97c662'}
 				/>
 				<Button
-					title={'Begin Game'}
+					title={'Create Game'}
 					backgroundColor={'#97c662'}
 					color={'#4a4a4a'}
 					style={{marginTop: 10}}
