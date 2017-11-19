@@ -34,11 +34,10 @@ class BaseModal extends React.Component{
 			let checkbox = (
 				<CheckBox
 					title={base + ' - ' + (purchased ? 'Purchased' : '∂' + gameData.bases[base].toLocaleString())}
-					disabled={purchased}
 					checkedIcon={'dot-circle-o'}
 					uncheckedIcon={'circle-o'}
 					onPress={() => this.setState({selected: base})}
-					checked={this.state.selected === base || purchased}
+					checked={this.state.selected === base}
 					key={base}
 				/>
 			);
@@ -77,7 +76,7 @@ class BaseModal extends React.Component{
 						style={{marginBottom: 10}}
 						loading={this.props.loading}
 						title={'Purchase'}
-						disabled={!this.state.selected}
+						disabled={!this.state.selected || this.props.game.purchasedBases.indexOf(this.state.selected) >= 0}
 						onPress={() => this.props.purchaseBase(this.props.game._id, this.state.selected)}
 						backgroundColor={'green'}
 					/>

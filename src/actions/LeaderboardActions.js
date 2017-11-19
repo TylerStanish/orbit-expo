@@ -64,3 +64,9 @@ export const unmountFetchLeaderboard90 = () => {
 		type: 'bla'
 	}
 };
+
+export const resetPage = () => {
+	return{
+		type: Types.RESET_PAGE
+	}
+};

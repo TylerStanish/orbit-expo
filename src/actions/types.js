@@ -73,6 +73,9 @@ export const FETCH_LEADERBOARD_90 = 'fetch_leaderboard_90';
 export const FETCHED_LEADERBOARD_90 = 'fetched_leaderboard_90';
 export const FETCH_LEADERBOARD_90_FAILED = 'fetch_leaderboard_90_failed';
 
+export const SCROLL_TO_PAGE = 'scroll_to_page';
+export const RESET_PAGE = 'reset_page';
+
 
 // Navigation types
 export const SET_NAVIGATOR = 'set_navigator';

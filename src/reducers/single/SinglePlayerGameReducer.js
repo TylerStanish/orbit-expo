@@ -23,7 +23,7 @@ export default (state = initialState, action) => {
 			};
 		case Types.NEXT_PERIOD_FAIL:
 			setTimeout(() => {
-				alert(action.error);
+				alert(action.error, 'But you may have made the leaderboards?!');
 			}, 1000);
 			return{
 				...state,

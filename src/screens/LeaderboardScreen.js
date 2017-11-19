@@ -12,8 +12,10 @@ import {
 	fetchLeaderboard90,
 	unmountFetchLeaderboard30,
 	unmountFetchLeaderboard60,
-	unmountFetchLeaderboard90
+	unmountFetchLeaderboard90,
+	resetPage
 } from '../actions/LeaderboardActions';
+import Loading from '../components/misc/Loading';
 
 class LeaderboardScreen extends React.Component{
 
@@ -32,12 +34,12 @@ class LeaderboardScreen extends React.Component{
 		// this.props.unmountFetchLeaderboard30();
 		// this.props.unmountFetchLeaderboard60();
 		// this.props.unmountFetchLeaderboard90();
+		this.props.resetPage();
 	}
 
 	render(){
-		console.log(this.props.leaders30);
 		return(
-			<ScrollableTabView>
+			<ScrollableTabView page={this.props.page}>
 				<LeaderboardList topDawgs={this.props.leaders30} tabLabel={'30 weeks'}/>
 				<LeaderboardList topDawgs={this.props.leaders60} tabLabel={'60 weeks'}/>
 				<LeaderboardList topDawgs={this.props.leaders90} tabLabel={'90 weeks'}/>
@@ -50,7 +52,8 @@ export default connect(state => {
 	return{
 		leaders30: state.leaderboardReducer.leaderboard30,
 		leaders60: state.leaderboardReducer.leaderboard60,
-		leaders90: state.leaderboardReducer.leaderboard90
+		leaders90: state.leaderboardReducer.leaderboard90,
+		page: state.leaderboardReducer.page
 	}
 }, {
 	fetchLeaderboard30,
@@ -58,7 +61,8 @@ export default connect(state => {
 	fetchLeaderboard90,
 	unmountFetchLeaderboard30,
 	unmountFetchLeaderboard60,
-	unmountFetchLeaderboard90
+	unmountFetchLeaderboard90,
+	resetPage
 })(LeaderboardScreen);
 
 class LeaderboardList extends React.Component{
@@ -80,6 +84,11 @@ class LeaderboardList extends React.Component{
 	}
 
 	render(){
+
+		if(!this.props.topDawgs){
+			return <Loading/>
+		}
+
 		return(
 			<View style={{flex: 1}}>
 				{this.renderLeaders()}

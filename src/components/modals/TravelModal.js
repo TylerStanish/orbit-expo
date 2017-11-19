@@ -1,7 +1,10 @@
 import React from 'react';
 import {
-	Image
+	Image,
+	Dimensions,
+	View
 } from 'react-native';
+const {height, width} = Dimensions.get('window');
 import {connect} from 'react-redux';
 import ModalTemplate from './ModalTemplate';
 import {
@@ -12,6 +15,12 @@ import {closeTravelModal} from '../../actions/Modals';
 import {nextPeriod} from '../../actions/single/SinglePlayerGameActions';
 import gameData from '../../gameData.json';
 import {NavigationActions} from 'react-navigation';
+
+const Earth = require('../../../assets/icons/earth.png');
+const Rota = require('../../../assets/icons/rota.png');
+const Mars = require('../../../assets/icons/mars.png');
+const Phobos = require('../../../assets/icons/phobos.png');
+const Moon = require('../../../assets/icons/moon.png');
 
 class TravelModal extends React.Component{
 
@@ -38,30 +47,58 @@ class TravelModal extends React.Component{
 			alert('Insufficient funds');
 			return;
 		}
-		this.props.nextPeriod(this.props.game._id, this.props.game.currentPeriod === this.props.game.maxPeriods, this.state.selected, () => {
+		this.props.nextPeriod(this.props.game._id, this.props.game.currentPeriod === this.props.game.maxPeriods, this.state.selected, (maxPeriods) => {
 			// this.props.navigation.navigate('SinglePlayer');
 			this.props.close();
 			this.props.navigation.dispatch(NavigationActions.reset({
-				index: 0,
-				actions: [NavigationActions.navigate({routeName: 'Choose'})]
+				index: 1,
+				actions: [NavigationActions.navigate({routeName: 'Choose'}), NavigationActions.navigate({routeName: 'Leaderboard'})]
 			}));
+			// this.props.navigation.dispatch(NavigationActions.navigate({
+			// 	index: 0,
+			// 	actions: [NavigationActions.navigate({routeName: 'Leaderboard'})]
+			// }));
 		});
 	}
 
 	render(){
+
+		let uri;
+		switch(this.state.selected){
+			case 'Earth':
+				uri = Earth;
+				break;
+			case 'Phobos':
+				uri = Phobos;
+				break;
+			case 'The Moon':
+				uri = Moon;
+				break;
+			case 'Mars':
+				uri = Mars;
+				break;
+			case 'Rota':
+				uri = Rota;
+				break;
+			default:
+				uri = Earth;
+		}
+
 		return(
-			<ModalTemplate visible={this.props.visible} close={() => this.props.close()}>
+			<ModalTemplate absolute visible={this.props.visible} close={() => this.props.close()}>
 				{/* Render image of planet on top */}
 				{/* Then render list of places to go such that when you tap on one the image changes */}
 				{/* Then maybe list various information about each site */}
-				<Image/>
-				{this.renderPlanets()}
-				<Button
-					title={`Travel to ${this.state.selected} for ∂${this.props.game.travelCosts[this.state.selected]}`}
-					backgroundColor={'green'}
-					onPress={() => this.travel()}
-					loading={this.props.loading}
-				/>
+				<Image source={uri} style={{width: width-63, height: 200, position: 'absolute', top: 0, left: 0}} resizeMode={'contain'}/>
+				<View style={{marginTop: 200, flex: 1}}>
+					{this.renderPlanets()}
+					<Button
+						title={`Travel to ${this.state.selected} for ∂${this.props.game.travelCosts[this.state.selected]}`}
+						backgroundColor={'green'}
+						onPress={() => this.travel()}
+						loading={this.props.loading}
+					/>
+				</View>
 			</ModalTemplate>
 		);
 	}

@@ -2,8 +2,18 @@ import * as Types from '../types';
 import axios from 'axios';
 import firebase from 'firebase';
 
+const checkForLeaderboard = async (gameId, maxPeriods) => {
+
+	let leaderboard = firebase.firestore().collection(`leaderboard${maxPeriods}`).orderBy('score', 'desc').limit(10).get().then(sn => sn.docs.map(doc => doc.data()));
+
+};
+
 export const nextPeriod = (gameId, last, location, cb) => {
 	return async dispatch => {
+		let doc = await firebase.firestore().collection('single').doc(gameId).get();
+		let page = 0;
+		if(doc.data().maxPeriods === 60) page = 1;
+		if(doc.data().maxPeriods === 90) page = 2;
 		dispatch({type: Types.NEXT_PERIOD});
 		dispatch({type: Types.TOGGLE_ABSOLUTE_LOADING});
 		let token = await firebase.auth().currentUser.getIdToken();
@@ -20,13 +30,20 @@ export const nextPeriod = (gameId, last, location, cb) => {
 			dispatch({type: Types.TOGGLE_ABSOLUTE_LOADING});
 			if(last){
 				// dispatch a navigator action that goes back to the SinglePlayerScreen
-				cb();
+				cb(doc.data().maxPeriods);
+				dispatch({type: Types.SCROLL_TO_PAGE, payload: page});
+				// check for leaderboard
+				// checkForLeaderboard(gameId, doc.data().maxPeriods);
 			}
 		}).catch(e => {
 			if(e){
 				cb();
 				console.log('called callback');
 				dispatch({type: Types.NEXT_PERIOD_FAIL, error: e.response.data.error});
+				dispatch({type: Types.SCROLL_TO_PAGE, payload: page});
+
+				// check for leaderboard
+				// checkForLeaderboard(gameId, doc.data().maxPeriods);
 			}
 			// changing to .message might be fix because alert() doesn't work for objects
 

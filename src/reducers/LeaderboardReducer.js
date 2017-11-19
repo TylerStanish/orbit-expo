@@ -8,7 +8,9 @@ const initialState = {
 	leaderboard60: [],
 
 	leaderboard90loading: false,
-	leaderboard90: []
+	leaderboard90: [],
+
+	page: 0
 };
 
 export default (state = initialState, action) => {
@@ -30,6 +32,41 @@ export default (state = initialState, action) => {
 				...state,
 				leaderboard30Loading: false
 			};
+		case Types.FETCHED_LEADERBOARD_60:
+			console.log(action.payload, 'from leaderboards here');
+			return{
+				...state,
+				leaderboard60: action.payload,
+				leaderboard60loading: false
+			};
+		case Types.FETCH_LEADERBOARD_60_FAILED:
+			alert('Failed to fetch the leaderboard for 60 weeks');
+			return{
+				...state,
+				leaderboard60Loading: false
+			};
+		case Types.FETCHED_LEADERBOARD_90:
+			return{
+				...state,
+				leaderboard90: action.payload,
+				leaderboard90loading: false
+			};
+		case Types.FETCH_LEADERBOARD_90_FAILED:
+			alert('Failed to fetch the leaderboard for 90 weeks');
+			return{
+				...state,
+				leaderboard90Loading: false
+			};
+		case Types.SCROLL_TO_PAGE:
+			return{
+				...state,
+				page: action.payload
+			};
+		case Types.RESET_PAGE:
+			return{
+				...state,
+				page: 0
+			}
 		default: return state;
 	}
 }

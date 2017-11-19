@@ -15,8 +15,7 @@
 /*
 * ORBIT SCRUM
 *
-* -- Bases
-* -- Alert the user if he makes the leader board
+* -- Alert the user if he makes the leader board (do this by changing leaderboard to modal?)
 *
 * BUGS
 * -- Graph shoots up after double click on home button
