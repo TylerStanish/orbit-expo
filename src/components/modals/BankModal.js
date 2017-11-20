@@ -107,6 +107,8 @@ class BankModal extends React.Component{
 						onChangeText={t => this.handleInput(t)}
 						placeholder={'Amount'}
 						value={this.props.amount.toString()}
+						autoFocus
+						selectTextOnFocus
 					/>
 					<View style={{flexDirection: 'row', margin: 10}}>
 						<Button

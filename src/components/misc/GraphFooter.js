@@ -40,9 +40,9 @@ class Footer extends React.Component{
 
 		amount: '0',
 		disabled: true
-	}
+	};
 
-	keyboardHeight = new Animated.Value(0)
+	keyboardHeight = new Animated.Value(0);
 
 	handleButtonPress(index){
 		Animated.parallel([
@@ -63,7 +63,7 @@ class Footer extends React.Component{
 	componentDidMount(){
 		let bla = Keyboard.addListener('keyboardDidShow', e => {
 			// this.state.height.setValue(this.state.height._value + e.endCoordinates.height);
-			keyboardHeight = e.endCoordinates.height;
+			if(!keyboardHeight) keyboardHeight = e.endCoordinates.height;
 			Animated.timing(this.state.height, {toValue: this.state.height._value + e.endCoordinates.height}).start(() => {
 				// this._ref.focus();
 			});
@@ -71,7 +71,7 @@ class Footer extends React.Component{
 		let bla1 = Keyboard.addListener('keyboardDidHide', e => {
 			// this.state.height.setValue(this.state.height._value + e.endCoordinates.height);
 
-			Animated.timing(this.state.height, {toValue: this.state.height._value - keyboardHeight}).start();
+			// Animated.timing(this.state.height, {toValue: this.state.height._value - keyboardHeight}).start();
 		});
 	}
 
@@ -118,8 +118,8 @@ class Footer extends React.Component{
 	closeTransaction(){
 		this.state.opacity.setValue(0);
 		Animated.parallel([
-			Animated.timing(this.state.transactionHeight, {duration: 200, toValue: 0}),
-			Animated.timing(this.state.height, {duration: 200, toValue: 250})
+			Animated.timing(this.state.transactionHeight, {duration: 100, toValue: 0}),
+			Animated.timing(this.state.height, {duration: 100, toValue: 250})
 		]).start();
 	}
 
@@ -139,6 +139,7 @@ class Footer extends React.Component{
 					onPress={() => {
 						this.props.buyContraband(this.props.game._id, Number(this.state.amount), this.props.selectedItem, () => {
 							this.closeTransaction();
+							this._ref.blur();
 						});
 					}}
 				/>
@@ -156,6 +157,7 @@ class Footer extends React.Component{
 					onPress={() => {
 						this.props.sellContraband(this.props.game._id, Number(this.state.amount), this.props.selectedItem, () => {
 							this.closeTransaction();
+							this._ref.blur();
 						});
 					}}
 				/>
