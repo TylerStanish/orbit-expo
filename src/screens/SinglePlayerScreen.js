@@ -28,7 +28,7 @@ class SinglePlayerScreen extends React.Component{
 
 	static navigationOptions = {
 		headerTitle: 'Games'
-	}
+	};
 
 	state = {
 		height: 0

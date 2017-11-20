@@ -14,7 +14,7 @@ export default class ChooseScreen extends React.Component{
 	static navigationOptions = {
 		headerRight: <Text onPress={() => firebase.auth().signOut()} style={{fontWeight: 'bold', marginRight: 10}}>Log out</Text>,
 		headerTitle: 'Main Menu'
-	}
+	};
 
 	render(){
 		return(
