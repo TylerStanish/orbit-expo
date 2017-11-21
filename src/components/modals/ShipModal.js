@@ -96,28 +96,33 @@ class ShipModal extends React.Component{
 			<ModalTemplate absolute visible={this.props.visible} close={() => this.props.close()}>
 				{/* Put image of selected ship and add default image and selected */}
 				<Image source={uri} style={{width: width-63, height: 200, position: 'absolute', top: 0, left: 0}} resizeMode={'contain'}/>
-				<View style={{flex: 1, marginTop: 200}}>
+				<View style={{marginTop: 200}}>
 					<View style={{marginHorizontal: 10, backgroundColor: 'transparent'}}>
-						<Text style={{marginHorizontal: 10, textAlign: 'center'}} h4>{this.state.selected}</Text>
+						{/*<Text style={{marginHorizontal: 10, textAlign: 'center'}} h4>{this.state.selected}</Text>*/}
+						{/* This gets cut off... */}
 						<Text>Defense:  {Math.floor(1/ship.defense)}</Text>
 						<Text>Storage Capacity:  {ship.maxSpace}</Text>
 						<Text>Health:   {ship.health}</Text>
 					</View>
 				</View>
-				{this.renderShips()}
-				<Button
-					raised
-					onPress={() => this.props.buyShip(this.props.game._id, this.state.selected)}
-					title={this.state.selected ? `Buy the ${this.state.selected}` : 'Select a ship'}
-					disabled={!this.state.selected || this.props.game.purchasedShips.indexOf(this.state.selected) >= 0}
-				/>
-				<View style={{alignItems: 'center', padding: 10}}>
-					<Text style={{margin: 10}} h4>Ship damage: {this.props.game.ship.damage}/{this.props.game.ship.health}</Text>
+				<View style={{flex: 1}}>
+					{this.renderShips()}
+				</View>
+				<View style={{flex: 1}}>
 					<Button
 						raised
-						onPress={() => this.props.repairShip(this.props.game._id)}
-						title={'Repair 15 points for ∂15000'}
+						onPress={() => this.props.buyShip(this.props.game._id, this.state.selected)}
+						title={this.state.selected ? `Buy the ${this.state.selected}` : 'Select a ship'}
+						disabled={!this.state.selected || this.props.game.purchasedShips.indexOf(this.state.selected) >= 0}
 					/>
+					<View style={{alignItems: 'center', padding: 10}}>
+						<Text style={{margin: 10}} h4>Ship damage: {this.props.game.ship.damage}/{this.props.game.ship.health}</Text>
+						<Button
+							raised
+							onPress={() => this.props.repairShip(this.props.game._id)}
+							title={'Repair 15 points for ∂15000'}
+						/>
+					</View>
 				</View>
 			</ModalTemplate>
 		);

@@ -16,6 +16,8 @@
 * ORBIT SCRUM
 *
 * -- Alert the user if he makes the leader board (do this by changing leaderboard to modal?)
+* -- Fix glitch when going from market to itinerary and opening the bank modal and going back to market,
+*    the graph is higher than it should be
 *
 * BUGS
 * -- Graph shoots up after double click on home button

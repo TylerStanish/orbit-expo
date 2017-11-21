@@ -51,7 +51,7 @@ class SinglePlayerGameScreen extends React.Component{
 		return(
 			<View style={{flex: 1}}>
 				<Balance chips={this.props.game.chips} debt={this.props.game.debt} netWorth={this.props.game.netWorth}/>
-				<ScrollableTabView contentProps={{keyboardShouldPersistTaps: 'handled', keyboardDismissMode: 'none'}}>
+				<ScrollableTabView contentProps={{keyboardShouldPersistTaps: 'handled'}}>
 					<Itinerary game={this.props.game} tabLabel={'Itinerary'}/>
 					<Market game={this.props.game} tabLabel={'Market'}/>
 				</ScrollableTabView>

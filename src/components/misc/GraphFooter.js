@@ -27,7 +27,7 @@ const {width} = Dimensions.get('window');
 import {openTransactionModal} from '../../actions/Modals';
 import {buyContraband, sellContraband} from '../../actions/single/SinglePlayerGameActions';
 
-let keyboardHeight = 0;
+// let keyboardHeight = 0;
 
 class Footer extends React.Component{
 
@@ -63,15 +63,15 @@ class Footer extends React.Component{
 	componentDidMount(){
 		let bla = Keyboard.addListener('keyboardDidShow', e => {
 			// this.state.height.setValue(this.state.height._value + e.endCoordinates.height);
-			if(!keyboardHeight) keyboardHeight = e.endCoordinates.height;
+			if(!this.keyboardHeight) this.keyboardHeight.setValue(e.endCoordinates.height);
 			Animated.timing(this.state.height, {toValue: this.state.height._value + e.endCoordinates.height}).start(() => {
 				// this._ref.focus();
 			});
 		});
 		let bla1 = Keyboard.addListener('keyboardDidHide', e => {
 			// this.state.height.setValue(this.state.height._value + e.endCoordinates.height);
-
-			// Animated.timing(this.state.height, {toValue: this.state.height._value - keyboardHeight}).start();
+			if(this.keyboardHeight) this.keyboardHeight.setValue(0);
+			Animated.timing(this.state.height, {toValue: this.state.height._value - this.keyboardHeight._value}).start();
 		});
 	}
 
