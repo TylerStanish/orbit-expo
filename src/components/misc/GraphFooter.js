@@ -64,14 +64,21 @@ class Footer extends React.Component{
 		let bla = Keyboard.addListener('keyboardDidShow', e => {
 			// this.state.height.setValue(this.state.height._value + e.endCoordinates.height);
 			if(!this.keyboardHeight) this.keyboardHeight.setValue(e.endCoordinates.height);
-			Animated.timing(this.state.height, {toValue: this.state.height._value + e.endCoordinates.height}).start(() => {
+			console.log(e.endCoordinates.height);
+			if(!this._keyboardHeightTrueValue) this._keyboardHeightTrueValue = e.endCoordinates.height;
+			Animated.timing(this.state.height, {toValue: this.state.height._value + this._keyboardHeightTrueValue}).start(() => {
 				// this._ref.focus();
 			});
 		});
 		let bla1 = Keyboard.addListener('keyboardDidHide', e => {
 			// this.state.height.setValue(this.state.height._value + e.endCoordinates.height);
-			if(this.keyboardHeight) this.keyboardHeight.setValue(0);
-			Animated.timing(this.state.height, {toValue: this.state.height._value - this.keyboardHeight._value}).start();
+			if(this.state.height._value - this._keyboardHeightTrueValue >= 0){
+				console.log(this.state.height._value - this._keyboardHeightTrueValue);
+				console.log(this.state.height._value);
+				console.log(this._keyboardHeightTrueValue);
+				Animated.timing(this.state.height, {toValue: 250}).start();
+			}
+			if(this.keyboardHeight._value) this.keyboardHeight.setValue(0);
 		});
 	}
 
@@ -117,6 +124,7 @@ class Footer extends React.Component{
 
 	closeTransaction(){
 		this.state.opacity.setValue(0);
+		this._ref.blur();
 		Animated.parallel([
 			Animated.timing(this.state.transactionHeight, {duration: 100, toValue: 0}),
 			Animated.timing(this.state.height, {duration: 100, toValue: 250})
