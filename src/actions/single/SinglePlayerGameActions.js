@@ -82,7 +82,11 @@ export const payBack = (gameId, amount) => {
 				let game = doc.data();
 				let chips = game.chips - amount;
 				let debt = game.debt - amount;
-				t.update(ref, {chips, debt});
+				let debtPeriods = game.debtPeriods;
+				if(debt === 0){
+					debtPeriods = 0;
+				}
+				t.update(ref, {chips, debt, debtPeriods});
 			});
 		}).then(() => {
 			dispatch({type: Types.CLOSE_BANK_MODAL});
