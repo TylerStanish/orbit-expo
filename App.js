@@ -52,95 +52,95 @@ import SinglePlayerGameScreen from './src/screens/SinglePlayerGameScreen';
 import PhoneVerify from './src/screens/PhoneVerifyScreen';
 import LeaderboardScreen from './src/screens/LeaderboardScreen';
 const Navigator = StackNavigator({
-	Welcome: {
-		screen: WelcomeScreen,
-		navigationOptions: {
-			header: null
-		}
-	},
-	Auth: {
-		screen: AuthScreen,
-		navigationOptions: {
-			header: null
-		}
-	},
-	PhoneVerify: {
-		screen: PhoneVerify,
-		navigationOptions: {
-			header: null
-		}
-	},
-	Choose: {
-		screen: ChooseScreen,
-	},
-	SinglePlayer: {
-		screen: SinglePlayerScreen
-	},
-	SinglePlayerGame: {
-		screen: SinglePlayerGameScreen
-	},
-	Leaderboard: {
-		screen: LeaderboardScreen
-	}
+  Welcome: {
+    screen: WelcomeScreen,
+    navigationOptions: {
+      header: null
+    }
+  },
+  Auth: {
+    screen: AuthScreen,
+    navigationOptions: {
+      header: null
+    }
+  },
+  PhoneVerify: {
+    screen: PhoneVerify,
+    navigationOptions: {
+      header: null
+    }
+  },
+  Choose: {
+    screen: ChooseScreen,
+  },
+  SinglePlayer: {
+    screen: SinglePlayerScreen
+  },
+  SinglePlayerGame: {
+    screen: SinglePlayerGameScreen
+  },
+  Leaderboard: {
+    screen: LeaderboardScreen
+  }
 });
 
 export default class extends React.Component{
 
-	state = {
-		loading: true
-	};
+  state = {
+    loading: true
+  };
 
-	componentWillMount(){
-		process.env.URL = 'https://us-central1-smuggler-23fe7.cloudfunctions.net';
-		// process.env.URL = 'http://localhost:5000/smuggler-23fe7/us-central1';
+  componentWillMount(){
+    process.env.URL = 'https://us-central1-smuggler-23fe7.cloudfunctions.net';
+    // process.env.URL = 'http://localhost:5000/smuggler-23fe7/us-central1';
 
-		firebase.initializeApp({
-			apiKey: 'AIzaSyAoh8fDZ9x5b5NI39xFHe--DnqGOsxrxlc',
-			authDomain: 'smuggler-23fe7.firebaseapp.com',
-			projectId: 'smuggler-23fe7'
-		});
+    firebase.initializeApp({
+      apiKey: 'AIzaSyAoh8fDZ9x5b5NI39xFHe--DnqGOsxrxlc',
+      authDomain: 'smuggler-23fe7.firebaseapp.com',
+      projectId: 'smuggler-23fe7'
+    });
 
-		firebase.auth().onAuthStateChanged(user => {
-			if(this.state.loading) this.setState({loading: false});
-			if(user){
-				console.log(user);
-				this._navigator.dispatch(NavigationActions.reset({
-					index: 0,
-					actions: [NavigationActions.navigate({routeName: 'Choose'})]
-				}));
-				this.store.dispatch({type: Types.SET_NAVIGATOR, payload: this._navigator});
-				return;
-			}
-			this.store.dispatch({
-				type: Types.UPDATE_USER,
-				payload: user
-			});
-			this._navigator.dispatch(NavigationActions.reset({
-				index: 0,
-				actions: [NavigationActions.navigate({routeName: 'Welcome'})]
-			}));
-		});
-	}
+    firebase.auth().onAuthStateChanged(user => {
+      if(this.state.loading) this.setState({loading: false});
+      if(user){
+        console.log(user);
+        this._navigator.dispatch(NavigationActions.reset({
+          index: 0,
+          actions: [NavigationActions.navigate({routeName: 'Choose'})]
+        }));
+        this.store.dispatch({type: Types.SET_NAVIGATOR, payload: this._navigator});
+        return;
+      }
+      this.store.dispatch({
+        type: Types.UPDATE_USER,
+        payload: user
+      });
+      this._navigator.dispatch(NavigationActions.reset({
+        index: 0,
+        actions: [NavigationActions.navigate({routeName: 'Welcome'})]
+      }));
+    });
+  }
 
-	componentDidMount() {
-		Font.loadAsync({
-			'monospace': require('./assets/fonts/Monospace.ttf')
-		});
-	}
+  componentDidMount() {
+    Font.loadAsync({
+      'monospace': require('./assets/fonts/Monospace.ttf')
+    });
+  }
 
-	store = createStore(reducers, {}, applyMiddleware(ReduxThunk));
-	render(){
+  store = createStore(reducers, {}, applyMiddleware(ReduxThunk));
+  render(){
 
-		if(this.state.loading){
-			return <Expo.AppLoading/>
-		}
+    if(this.state.loading){
+      return <Expo.AppLoading/>
+    }
 
-		return(
-			<Provider store={this.store}>
-				<Navigator
-					ref={ref => this._navigator = ref}
-				/>
-			</Provider>
-		)
-	}
+    return(
+      <Provider store={this.store}>
+        <Navigator
+          ref={ref => this._navigator = ref}
+        />
+      </Provider>
+    )
+  }
 }

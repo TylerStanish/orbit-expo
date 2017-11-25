@@ -1,17 +1,17 @@
 import React from 'react';
 import{
-	View,
-	ActivityIndicator
+  View,
+  ActivityIndicator
 } from 'react-native';
 
 class Loading extends React.Component{
-	render(){
-		return(
-			<View style={this.props.style}>
-				<ActivityIndicator color={'black'}/>
-			</View>
-		);
-	}
+  render(){
+    return(
+      <View style={this.props.style}>
+        <ActivityIndicator color={'black'}/>
+      </View>
+    );
+  }
 }
 
 export default Loading;

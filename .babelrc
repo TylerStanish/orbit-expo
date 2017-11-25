@@ -4,7 +4,7 @@
     "development": {
       "plugins": [
         "transform-react-jsx-source",
-	      "babel-plugin-root-import"
+        "babel-plugin-root-import"
       ]
     }
   }

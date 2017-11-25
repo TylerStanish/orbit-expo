@@ -5,17 +5,14 @@ import FetchGamesReducer from './single/FetchGamesReducer';
 import ModalReducer from './ModalReducer';
 import SinglePlayerGameReducer from './single/SinglePlayerGameReducer';
 import LeaderboardReducer from './LeaderboardReducer';
-import NavReducer from './NavReducer';
-
-import Navigator from '../navigation/Navigator';
 
 export default combineReducers({
-	authReducer: AuthReducer,
-	newGameReducer: NewGameReducer,
-	fetchGamesReducer: FetchGamesReducer,
-	modalReducer: ModalReducer,
-	singlePlayerGameReducer: SinglePlayerGameReducer,
-	leaderboardReducer: LeaderboardReducer,
-	// nav: NavReducer,
-	// nav: (state,action) => Navigator.router.getStateForAction(action,state)
+  authReducer: AuthReducer,
+  newGameReducer: NewGameReducer,
+  fetchGamesReducer: FetchGamesReducer,
+  modalReducer: ModalReducer,
+  singlePlayerGameReducer: SinglePlayerGameReducer,
+  leaderboardReducer: LeaderboardReducer,
+  // nav: NavReducer,
+  // nav: (state,action) => Navigator.router.getStateForAction(action,state)
 });
