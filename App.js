@@ -51,6 +51,9 @@ import SinglePlayerScreen from './src/screens/SinglePlayerScreen';
 import SinglePlayerGameScreen from './src/screens/SinglePlayerGameScreen';
 import PhoneVerify from './src/screens/PhoneVerifyScreen';
 import LeaderboardScreen from './src/screens/LeaderboardScreen';
+
+import keys from './keys.json';
+
 const Navigator = StackNavigator({
   Welcome: {
     screen: WelcomeScreen,
@@ -91,14 +94,10 @@ export default class extends React.Component{
   };
 
   componentWillMount(){
-    process.env.URL = 'https://us-central1-smuggler-23fe7.cloudfunctions.net';
-    // process.env.URL = 'http://localhost:5000/smuggler-23fe7/us-central1';
+    process.env.URL = keys.url.global;
+    // process.env.URL = keys.url.local;
 
-    firebase.initializeApp({
-      apiKey: 'AIzaSyAoh8fDZ9x5b5NI39xFHe--DnqGOsxrxlc',
-      authDomain: 'smuggler-23fe7.firebaseapp.com',
-      projectId: 'smuggler-23fe7'
-    });
+    firebase.initializeApp(keys.firebase);
 
     firebase.auth().onAuthStateChanged(user => {
       if(this.state.loading) this.setState({loading: false});
