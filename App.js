@@ -97,7 +97,7 @@ export default class extends React.Component{
     process.env.URL = keys.url.global;
     // process.env.URL = keys.url.local;
 
-    firebase.initializeApp(keys.firebase);
+    firebase.initializeApp(keys.config);
 
     firebase.auth().onAuthStateChanged(user => {
       if(this.state.loading) this.setState({loading: false});

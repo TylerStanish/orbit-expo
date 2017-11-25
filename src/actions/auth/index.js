@@ -34,7 +34,7 @@ export const redeemCode = (phone, code) => {
         dispatch({type: Types.REDEEMED_CODE, payload: tok});
       }).catch(e => {
         console.log(e);
-        dispatch({type: Types.REDEEMED_CODE_FAILED, payload: e.response.data.error});
+        dispatch({type: Types.REDEEMED_CODE_FAILED, payload: e.message});
       });
     }).catch(e => {
       console.log(e);
