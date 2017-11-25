@@ -1,7 +1,8 @@
 import React from 'react';
 import {
 	View,
-	Image
+	Image,
+  AppState
 } from 'react-native';
 import {
 	SocialIcon,
@@ -17,9 +18,26 @@ import {openPhoneAuthModal} from '../actions/Modals';
 
 class AuthScreen extends React.Component{
 
+  _previousState = '';
+
+  componentDidMount() {
+    AppState.addEventListener('change', this._handleAppStateChange);
+  }
+
+  componentWillUnmount() {
+    AppState.removeEventListener('change', this._handleAppStateChange);
+  }
+
+  _handleAppStateChange = (nextAppState) => {
+    if (this.state.appState.match(/inactive|background/) && nextAppState === 'active') {
+      console.log('App has come to the foreground!')
+    }
+    this.setState({appState: nextAppState});
+  }
+
 	state = {
 		number: 0
-	}
+	};
 
 	async signInWithGoogle(){
 		const res = await expo.Google.logInAsync({
@@ -38,13 +56,6 @@ class AuthScreen extends React.Component{
 	}
 
 	signUpWithPhone(){
-		// let {number} = this.state;
-		// number = Number(number);
-		// if(isNaN(number)){
-		// 	alert('Invalid phone number');
-		// 	return;
-		// }
-		// this.props.openPhoneAuthModal();
 		this.props.navigation.navigate('PhoneVerify');
 	}
 
@@ -55,6 +66,7 @@ class AuthScreen extends React.Component{
 					<FormInput
 						keyboardType={'phone-pad'}
 						onChangeText={number => this.setState({number})}
+            ref={ref => this._ref = ref}
 					/>
 					<SocialIcon
 						type={'phone'}

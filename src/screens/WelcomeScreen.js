@@ -1,77 +1,79 @@
 import React from 'react';
-import {Dimensions} from 'react-native';
-import AppIntro from 'react-native-app-intro';
+import {
+  Dimensions,
+  View,
+  StatusBar
+} from 'react-native';
+import AppIntro from 'react-native-app-intro-slider';
 
 export default class WelcomeScreen extends React.Component{
 
 	onSkipBtnHandle = () => {
 		this.props.navigation.navigate('PhoneVerify');
-	}
+	};
 
 	doneBtnHandle = () => {
 		this.props.navigation.navigate('PhoneVerify');
-	}
+	};
 
 	render(){
 		const pageArray = [{
+		  key: '1',
 			title: 'Orbit Smuggler',
-			img: require('../../assets/icons/zeroth.png'),
-			imgStyle: {
+			image: require('../../assets/icons/zeroth.png'),
+			imageStyle: {
 				flex:1,
 				resizeMode: 'contain'
 			},
 			backgroundColor: '#212121',
-			fontColor: '#fff',
-			level: 10,
 		}, {
-			description: 'Orbit Smuggler is a turn based strategy app where you play the role of a smuggler moving black market goods around the solar system.',
-			img: require('../../assets/icons/first.png'),
-			imgStyle: {
+		  key: '2',
+			text: 'Orbit Smuggler is a turn based strategy app where you play the role of a smuggler moving black market goods around the solar system.',
+			image: require('../../assets/icons/first.png'),
+			imageStyle: {
 				flex:1,
-				resizeMode: 'contain'
+				resizeMode: 'center'
 			},
 			backgroundColor: '#311B92',
-			fontColor: '#fff',
-			level: 10,
 		}, {
-			description: 'Make wise economic decisions buying low and selling high on black market goods in a dystopian high-tech future. Beware of authorities.',
-			img: require('../../assets/icons/second.png'),
-			imgStyle: {
+		  key: '3',
+			text: 'Make wise economic decisions buying low and selling high on black market goods in a dystopian high-tech future. Beware of authorities.',
+			image: require('../../assets/icons/second.png'),
+			imageStyle: {
 				flex:1,
 				resizeMode: 'contain'
 			},
 			backgroundColor: '#263238',
-			fontColor: '#fff',
-			level: 10,
 		}, {
-			description: 'Use the Orbit to your advantage. Trade when planets are close.',
-			img: require('../../assets/icons/fourth.png'),
-			imgStyle: {
+		  key: '4',
+			text: 'Use the Orbit to your advantage. Trade when planets are close.',
+			image: require('../../assets/icons/fourth.png'),
+			imageStyle: {
 				height: 93 * 2.5,
 				width: Dimensions.get('window').width,
 			},
 			backgroundColor: '#000000',
-			fontColor: '#fff',
-			level: 10,
 		}, {
-			description: 'Pay off your debt quickly or face dire consequences. Keep earning chips (currency) and best your previous score.',
-			img: require('../../assets/icons/third.png'),
-			imgStyle: {
+		  key: '5',
+			text: 'Pay off your debt quickly or face dire consequences. Keep earning chips (currency) and best your previous score.',
+			image: require('../../assets/icons/third.png'),
+			imageStyle: {
 				height: 93 * 2.5,
 				width: Dimensions.get('window').width,
 			},
 			backgroundColor: '#004D40',
-			fontColor: '#fff',
-			level: 10,
 		}];
 		return(
-			<AppIntro
-				onNextBtnClick={this.nextBtnHandle}
-				onDoneBtnClick={this.doneBtnHandle}
-				onSkipBtnClick={this.onSkipBtnHandle}
-				onSlideChange={this.onSlideChangeHandle}
-				pageArray={pageArray}
-			/>
+			<View style={{flex: 1}}>
+        <StatusBar hidden/>
+				<AppIntro
+					onDone={this.doneBtnHandle}
+					onSkip={this.onSkipBtnHandle}
+					slides={pageArray}
+          dotColor={'#aaa'}
+          activeDotColor={'#eee'}
+				/>
+      </View>
 		)
 	}
 }

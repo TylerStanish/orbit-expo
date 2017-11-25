@@ -27,6 +27,7 @@ export default (state = initialState, action) => {
 				loading: false
 			};
 		case types.SIGNED_UP_WITH_PHONE_FAILED:
+      alert(action.payload);
 			return{
 				...state,
 				loading: false,
@@ -44,10 +45,11 @@ export default (state = initialState, action) => {
 				token: action.payload
 			};
 		case types.REDEEMED_CODE_FAILED:
+		  alert(action.payload);
 			return{
 				...state,
 				loadingRedeem: false,
-				errorRedeem: action.paylaod
+				errorRedeem: action.payload
 			};
 		default: return state;
 	}

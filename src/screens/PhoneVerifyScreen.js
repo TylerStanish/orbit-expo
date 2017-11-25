@@ -2,10 +2,11 @@ import React from 'react';
 import {
 	View,
 	Dimensions,
-	TextInput,
 	Text,
 	Keyboard,
-	Animated
+	Animated,
+  AppState,
+  StatusBar
 } from 'react-native';
 import {
 	Button,
@@ -31,16 +32,37 @@ class PhoneVerifyScreen extends React.Component{
 			},
 
 			verifying: true,
-			verifyOpacity: new Animated.Value(1),
-			redeemOpacity: new Animated.Value(0)
+			verifyOpacity: new Animated.Value(0),
+			redeemOpacity: new Animated.Value(0),
+
+      appState: ''
 		};
 	}
 
+  componentWillUnmount() {
+    AppState.removeEventListener('change', this._handleAppStateChange);
+  }
+
+  _handleAppStateChange = (nextAppState) => {
+    if (this.state.appState.match(/inactive|background/) && nextAppState === 'active') {
+      console.log('App has come to the foreground!');
+      if(this._ref) {
+        this._ref.focus();
+      }
+      if(this._ref2){
+        this._ref2.focus();
+      }
+    }
+    this.setState({appState: nextAppState});
+  }
+
 	componentDidMount(){
+    AppState.addEventListener('change', this._handleAppStateChange);
 		let bla = Keyboard.addListener('keyboardDidShow', (e) => {
 			this.setState({keyboardHeight: e.endCoordinates.height});
 		});
 		this._ref.focus();
+		Animated.timing(this.state.verifyOpacity, {toValue: 1}).start();
 	}
 
 	renderAreaCode(){
@@ -194,6 +216,7 @@ class PhoneVerifyScreen extends React.Component{
 							this.setState({code: num});
 						}
 					}}
+          ref={ref => this._ref2 = ref}
 				/>
 				<View style={{flexDirection: 'row'}}>{this.renderCode()}</View>
 				<Button
@@ -209,7 +232,12 @@ class PhoneVerifyScreen extends React.Component{
 			</Animated.View>
 		);
 
-		return this.state.verifying ? verifying : redeeming
+		return(
+		  <View style={{flex: 1}}>
+        <StatusBar hidden={false}/>
+        {this.state.verifying ? verifying : redeeming}
+      </View>
+    );
 	}
 }
 
