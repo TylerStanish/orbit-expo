@@ -54,6 +54,7 @@ export const nextPeriod = (gameId, last, location, cb) => {
 
 export const borrow = (gameId, amount) => {
   return async dispatch => {
+    dispatch({type: Types.BORROW_LOADING});
     const db = firebase.firestore();
     const ref = db.collection('single').doc(gameId);
     db.runTransaction(t => {
@@ -65,6 +66,7 @@ export const borrow = (gameId, amount) => {
       });
     }).then(() => {
       dispatch({type: Types.CLOSE_BANK_MODAL});
+      dispatch({type: Types.BORROW_LOADING});
       dispatch({type: Types.SET_BANK_MODAL_AMOUNT, payload: 0});
     }).catch((e) => {
       alert('Transaction failed');
@@ -75,6 +77,7 @@ export const borrow = (gameId, amount) => {
 
 export const payBack = (gameId, amount) => {
   return async dispatch => {
+    dispatch({type: Types.PAYBACK_LOADING});
     const db = firebase.firestore();
     const ref = db.collection('single').doc(gameId);
     db.runTransaction(t => {
@@ -90,6 +93,7 @@ export const payBack = (gameId, amount) => {
       });
     }).then(() => {
       dispatch({type: Types.CLOSE_BANK_MODAL});
+      dispatch({type: Types.PAYBACK_LOADING});
       dispatch({type: Types.SET_BANK_MODAL_AMOUNT, payload: 0});
     }).catch((e) => {
       alert('Transaction failed');

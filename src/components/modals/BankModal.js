@@ -118,10 +118,11 @@ class BankModal extends React.Component{
             />
             <Button
               backgroundColor={'green'}
-              title={'Borrow'}
+              title={!this.props.borrowLoading ? 'Borrow' : ' '}
+              loading={this.props.borrowLoading}
               large
               disabled={this.state.disabled}
-              onPress={() => this.props.borrow(this.props.game._id, parseInt(this.props.amount))}
+              onPress={() => this.borrow()}
               containerViewStyle={{flex: 3}}
             />
           </View>
@@ -133,16 +134,27 @@ class BankModal extends React.Component{
             />
             <Button
               backgroundColor={'red'}
-              title={'Pay back'}
+              title={!this.props.payBackLoading ? 'Pay back' : ' '}
+              loading={this.props.payBackLoading}
               large
               disabled={this.state.disabled1}
-              onPress={() => this.props.payBack(this.props.game._id, parseInt(this.props.amount))}
+              onPress={() => this.payBack()}
               containerViewStyle={{flex: 3}}
             />
           </View>
         </Content>
       </ModalTemplate>
     );
+  }
+
+  payBack(){
+    if(this.props.payBackLoading) return;
+    this.props.payBack(this.props.game._id, parseInt(this.props.amount))
+  }
+
+  borrow(){
+    if(this.props.borrowLoading) return;
+    this.props.borrow(this.props.game._id, parseInt(this.props.amount))
   }
 }
 
@@ -151,6 +163,9 @@ export default connect(state => {
     visible: state.modalReducer.bankModalVisible,
     game: state.fetchGamesReducer.game,
 
-    amount: state.modalReducer.bankModalAmount
+    amount: state.modalReducer.bankModalAmount,
+
+    payBackLoading: state.modalReducer.payBackLoading,
+    borrowLoading: state.modalReducer.borrowLoading
   }
 }, {close: closeBankModal, borrow, payBack, setBankModalAmount})(BankModal);

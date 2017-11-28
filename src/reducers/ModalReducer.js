@@ -14,7 +14,10 @@ const initialState = {
 
   bankModalAmount: 0,
 
-  navigation: null
+  navigation: null,
+
+  payBackLoading: false,
+  borrowLoading: false
 };
 
 export default (state = initialState, action) => {
@@ -118,6 +121,18 @@ export default (state = initialState, action) => {
       return{
         ...state,
         baseModalLoading: false
+      };
+
+    // loading stuff
+    case Types.PAYBACK_LOADING:
+      return{
+        ...state,
+        payBackLoading: !state.payBackLoading
+      };
+    case Types.BORROW_LOADING:
+      return{
+        ...state,
+        borrowLoading: !state.borrowLoading
       };
     default: return state;
   }

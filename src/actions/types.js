@@ -79,3 +79,8 @@ export const RESET_PAGE = 'reset_page';
 
 // Navigation types
 export const SET_NAVIGATOR = 'set_navigator';
+
+
+// transactions
+export const PAYBACK_LOADING = 'payback_loading';
+export const BORROW_LOADING = 'borrow_loading';
