@@ -69,9 +69,9 @@ class BaseModal extends React.Component{
     return(
       <ModalTemplate absolute visible={this.props.visible} close={() => this.props.closeBaseModal()}>
         {/*<Image source={uri} style={{width: width-63, height: 200, position: 'absolute', top: 0, left: 0}} resizeMode={'contain'}/>*/}
-        <View style={{position: 'absolute', top: 0, left: 0, width: width-63, height: 200, justifyContent: 'center', alignItems: 'center'}}>
-          <Text style={{color: '#aaa', fontStyle: 'italic'}}>Waiting for Tom's awesome photoshop skills or whatever he uses to create these base images</Text>
-        </View>
+        {/*<View style={{position: 'absolute', top: 0, left: 0, width: width-63, height: 200, justifyContent: 'center', alignItems: 'center'}}>*/}
+          {/*<Text style={{color: '#aaa', fontStyle: 'italic'}}>Waiting for Tom's awesome photoshop skills or whatever he uses to create these base images</Text>*/}
+        {/*</View>*/}
         <View style={{flex: 1, marginTop: 200}}>
           {this.renderBases()}
           <Text style={{color: '#aaa', marginHorizontal: 10, marginVertical: 5, textAlign: 'justify'}}>Purchasing a base is intended to de-liquefy your chips to secure at least the total value of the bases you have purchased</Text>
