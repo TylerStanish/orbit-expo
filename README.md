@@ -8,7 +8,7 @@ Or if you already have the Expo app:
 ![Expo QR code](./READMEstuff/orbitqr.png "Expo QR code")
 
 
-#Gameplay!
+# Gameplay!
 
 ![Gameplay](./READMEstuff/output.gif) ![Gameplay](./READMEstuff/output1.gif)
 
