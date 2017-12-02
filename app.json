@@ -18,7 +18,11 @@
       "assetExts": ["ttf", "mp4"]
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "net.64th.Orbit"
+    },
+    "android": {
+      "package": "net.64th.Orbit"
     }
   }
 }
