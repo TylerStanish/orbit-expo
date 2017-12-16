@@ -19,26 +19,9 @@ export const signInWithPhone = (phone, cb) => {
   }
 };
 
-export const redeemCode = (phone, code) => {
+export const redeemCode = (code, phone) => {
   return dispatch => {
     dispatch({type: Types.REDEEM_CODE});
-    axios.post(process.env.URL + '/redeemCode', {
-      phone,
-      code
-    }).then((res) => {
-      let tok = res.data.token;
-      console.log(tok);
-      console.log('^^^ should be the token');
-      // let's log em' in
-      firebase.auth().signInWithCustomToken(tok).then(() => {
-        dispatch({type: Types.REDEEMED_CODE, payload: tok});
-      }).catch(e => {
-        console.log(e);
-        dispatch({type: Types.REDEEMED_CODE_FAILED, payload: e.message});
-      });
-    }).catch(e => {
-      console.log(e);
-      dispatch({type: Types.REDEEMED_CODE_FAILED, payload: e.response.data.error});
-    });
+
   }
 };

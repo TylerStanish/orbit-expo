@@ -122,9 +122,9 @@ export default class extends React.Component{
   }
 
   componentDidMount() {
-    Font.loadAsync({
-      'monospace': require('./assets/fonts/Monospace.ttf')
-    });
+    // Font.loadAsync({
+    //   'monospace': require('./assets/fonts/Monospace.ttf')
+    // });
   }
 
   store = createStore(reducers, {}, applyMiddleware(ReduxThunk));

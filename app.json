@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "orbitstanish",
-    "description": "An empty new project",
-    "slug": "orbitstanish",
+    "name": "Orbit Smuggler",
+    "description": "A turn-based strategy game",
+    "slug": "Orbit Smuggler",
     "privacy": "public",
     "sdkVersion": "22.0.0",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "orientation": "portrait",
     "primaryColor": "#cccccc",
     "icon": "./assets/icons/app.png",
@@ -18,11 +18,11 @@
       "assetExts": ["ttf", "mp4"]
     },
     "ios": {
-      "supportsTablet": true,
-      "bundleIdentifier": "net.64th.Orbit"
+      "supportsTablet": false,
+      "bundleIdentifier": "com.tylerstanish.Orbit"
     },
     "android": {
-      "package": "net.64th.Orbit"
+      "package": "com.tylerstanish.Orbit"
     }
   }
 }
