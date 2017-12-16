@@ -3,7 +3,6 @@ import{
   View,
   StatusBar
 } from 'react-native';
-// import PhoneAuth from '../../react-native-phone-auth-component';
 import PhoneAuth from 'react-native-phone-auth-component';
 import axios from 'axios';
 import firebase from 'firebase';
