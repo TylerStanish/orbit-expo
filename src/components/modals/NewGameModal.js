@@ -42,7 +42,9 @@ class NewGameModal extends React.Component{
         <FormLabel>Game name</FormLabel>
         <FormInput
           onChangeText={name => this.setState({name})}
-          placeholder={'Captain'}
+          autoFocus
+          onSubmitEditing={() => this.createGame()}
+          returnKeyType={'go'}
         />
         <ButtonGroup
           buttons={['30 weeks', '60 weeks', '90 weeks']}

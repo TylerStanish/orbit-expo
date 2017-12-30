@@ -19,9 +19,6 @@
 * -- Fix glitch when going from market to itinerary and opening the bank modal and going back to market,
 *    the graph is higher than it should be
 *
-* BUGS
-* -- Graph shoots up after double click on home button
-*
 * MISC NOTES
 * -- It may be a good thing that we make updates so that those at the top of the leaderboard
 * go challenged when a new leaderboard pops up?
@@ -32,7 +29,6 @@ window.Image = () => {};
 console.disableYellowBox = true;
 
 import React from 'react';
-// import {Image} from 'react-native';
 // Image.prefetch('./assets/icons/AsteroidClunker.png');
 import {Provider} from 'react-redux';
 import {createStore, applyMiddleware} from 'redux';
@@ -85,6 +81,13 @@ const Navigator = StackNavigator({
   Leaderboard: {
     screen: LeaderboardScreen
   }
+}, {
+  navigationOptions: {
+    headerStyle: {
+      paddingTop: Constants.statusBarHeight + (64-Constants.statusBarHeight - 20)/2,
+      height: 64
+    }
+  }
 });
 
 export default class extends React.Component{
@@ -96,6 +99,7 @@ export default class extends React.Component{
   componentWillMount(){
     process.env.URL = keys.url.global;
     // process.env.URL = keys.url.local;
+    // process.env.URL = keys.url.network;
 
     firebase.initializeApp(keys.config);
 

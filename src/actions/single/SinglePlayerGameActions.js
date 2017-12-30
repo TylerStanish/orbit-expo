@@ -24,7 +24,12 @@ export const nextPeriod = (gameId, last, location, cb) => {
       headers: {
         'x-auth': token
       }
-    }).then(() => {
+    }).then(res => {
+      // let message = res.response.data.message;
+      console.log(res);
+      if(res.data.message){
+        setTimeout(() => alert(res.data.message), 500);
+      }
       dispatch({type: Types.NEXT_PERIOD_SUCCESS});
       dispatch({type: Types.CLOSE_TRAVEL_MODAL});
       dispatch({type: Types.TOGGLE_ABSOLUTE_LOADING});

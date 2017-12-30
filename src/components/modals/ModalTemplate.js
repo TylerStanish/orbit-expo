@@ -10,7 +10,7 @@ export default class ModalTemplate extends React.Component{
 
   render(){
     return(
-      <Modal animationType={'slide'} visible={this.props.visible} transparent>
+      <Modal onRequestClose={() => this.props.close()} animationType={'slide'} visible={this.props.visible} transparent>
         {/* Something cool would be to add style props to the below line
           in addition to the styles.modalContainer
          */}

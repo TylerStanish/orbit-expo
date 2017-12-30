@@ -25,28 +25,6 @@ class BankModal extends React.Component{
   }
 
   handleInput(amount){
-    // if(amount.includes('.')){
-    // 	this.setState({disabled: true, disabled1: true});
-    // 	return;
-    // }
-    // amount = parseInt(amount);
-    // let {chips, debt, currentPeriod} = this.props.game;
-    // let disabled;
-    // let disabled1;
-    // if(amount > chips){
-    // 	disabled1 = true;
-    // }
-    // if(amount > debt){
-    // 	disabled1 = true;
-    // }
-    // if(amount > currentPeriod*5000 - debt){
-    // 	disabled = true;
-    // }
-    // if(isNaN(amount) || amount === 0){
-    // 	disabled = true;
-    // 	disabled1 = true;
-    // }
-    // this.setState({disabled, disabled1});
     this.props.setBankModalAmount(amount);
   }
 

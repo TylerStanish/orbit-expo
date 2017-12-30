@@ -9,7 +9,6 @@ import {
 import {
   Button,
   Text,
-  ListItem,
   List,
   Icon
 } from 'react-native-elements';
@@ -61,6 +60,7 @@ class SinglePlayerScreen extends React.Component{
         default:
           uri = AsteroidClunker;
       }
+      console.log(game);
       return (
         <TouchableOpacity
           style={{height: this.state.height/5 - 10, marginVertical: 5, width: '100%', flexDirection: 'row', marginHorizontal: 5, justifyContent: 'space-between', alignItems: 'center'}}
@@ -80,20 +80,13 @@ class SinglePlayerScreen extends React.Component{
     });
   }
 
-// <ListItem
-// title={game.captainName}
-// subtitle={game.ship.name}
-// badge={{value: game.chips, containerStyle: {marginTop: 10}}}
-// key={Math.random()}
-// style={{height: this._height/5, borderTopWidth: 0.5}}
-// onPress={() => this.props.navigation.navigate('SinglePlayerGame', {_id: game._id})}
-// />
-
   handleLayout(e){
     this.setState({height: e.nativeEvent.layout.height});
   }
 
   render(){
+
+    let loading = <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}><ActivityIndicator color={'black'} size={'large'}/></View>;
 
     return(
       <View style={{flex: 1, paddingTop: 10}}>
@@ -105,9 +98,7 @@ class SinglePlayerScreen extends React.Component{
           onPress={() => this.props.openNewGameModal()}
           style={{marginBottom: 10}}
         />
-        <List style={{flex: 1}} onLayout={e => this.handleLayout(e)}>
-          {this.props.loading ? <ActivityIndicator size={'large'}/> : this.renderGames()}
-        </List>
+        {this.props.loading ? loading : <List style={{flex: 1}} onLayout={e => this.handleLayout(e)}>{this.renderGames()}</List>}
         <NewGameModal/>
       </View>
     )

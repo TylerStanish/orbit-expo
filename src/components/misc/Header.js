@@ -22,10 +22,7 @@ class Header extends React.Component{
 
     return(
       <Text
-        style={{marginRight: 5}}
-        // onPress={() => this.props.nextPeriod(this.props.game._id, last, () => {
-        // 	this.props.navigation.navigate('SinglePlayer');
-        // })}
+        style={{marginRight: 5, color: '#007aff'}}
         onPress={() => this.props.openTravelModal()}
       >
         {text}

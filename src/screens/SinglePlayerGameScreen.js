@@ -45,7 +45,7 @@ class SinglePlayerGameScreen extends React.Component{
   render(){
 
     if(!this.props.game) {
-      return <AbsoluteLoading/>
+      return <View style={{flex: 1}}><AbsoluteLoading/></View>
     }
 
     return(
