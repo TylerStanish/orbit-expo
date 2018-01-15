@@ -56,8 +56,8 @@ class PhoneVerifyScreen extends React.Component{
           signInWithPhone={(phone, cb) => this.signInWithPhone(phone, cb)}
           redeemCode={(code, cb) => this.redeemCode(code, cb)}
           codeLength={4}
-          buttonTextColor={'black'}
-          spinnerColor={'black'}
+          buttonTextColor={'white'}
+          spinnerColor={'white'}
         />
       </View>
     );

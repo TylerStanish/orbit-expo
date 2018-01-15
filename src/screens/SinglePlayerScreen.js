@@ -87,7 +87,7 @@ class SinglePlayerScreen extends React.Component{
   render(){
 
     let loading = <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}><ActivityIndicator color={'black'} size={'large'}/></View>;
-
+    console.log(this.props.games);
     return(
       <View style={{flex: 1, paddingTop: 10}}>
         <Button

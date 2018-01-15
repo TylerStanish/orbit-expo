@@ -1,7 +1,8 @@
 import React from 'react';
 import {
   View,
-  Text
+  Text,
+  Platform
 } from 'react-native';
 import {
   PricingCard
@@ -20,8 +21,8 @@ export default class ChooseScreen extends React.Component{
     return(
       <View style={styles.containerCenter}>
         <PricingCard
-          containerStyle={{flex: 1, marginBottom: 5, marginTop: 5}}
-          wrapperStyle={{flex: 1, justifyContent: 'center'}}
+          containerStyle={{flex: 1, marginBottom: 2, marginTop: 2}}
+          wrapperStyle={{flex: 1, justifyContent: 'center', paddingTop: Platform.OS === 'android' ? 13 : 0}}
           title={'Leaderboards'}
           color={'#FF8E09'}
           button={{title: 'Leaderboards', icon: 'grade'}}
@@ -29,8 +30,8 @@ export default class ChooseScreen extends React.Component{
           onButtonPress={() => this.props.navigation.navigate('Leaderboard')}
         />
         <PricingCard
-          containerStyle={{flex: 1, marginBottom: 5, marginTop: 5}}
-          wrapperStyle={{flex: 1, justifyContent: 'center'}}
+          containerStyle={{flex: 1, marginBottom: 2, marginTop: 2}}
+          wrapperStyle={{flex: 1, justifyContent: 'center', paddingTop: Platform.OS === 'android' ? 13 : 0}}
           title={'Single Player'}
           color={'#4f9deb'}
           button={{title: 'Single Player', icon: 'person'}}
@@ -38,8 +39,8 @@ export default class ChooseScreen extends React.Component{
           onButtonPress={() => this.props.navigation.navigate('SinglePlayer')}
         />
         <PricingCard
-          containerStyle={{flex: 1, marginBottom: 5, marginTop: 5}}
-          wrapperStyle={{flex: 1, justifyContent: 'center'}}
+          containerStyle={{flex: 1, marginBottom: 2, marginTop: 2}}
+          wrapperStyle={{flex: 1, justifyContent: 'center', paddingTop: Platform.OS === 'android' ? 13 : 0}}
           title={'Multiplayer'}
           color={'#9D28E6'}
           button={{title: 'Coming soon!', icon: 'people'}}

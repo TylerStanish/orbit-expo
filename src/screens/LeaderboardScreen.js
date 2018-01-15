@@ -84,8 +84,9 @@ class LeaderboardList extends React.Component{
   }
 
   render(){
-
+    console.log(this.props.topDawgs, 'the top dawgs');
     if(!this.props.topDawgs){
+      console.log('returned loading');
       return <Loading/>
     }
 

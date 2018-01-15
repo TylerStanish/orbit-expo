@@ -7,9 +7,12 @@ export const fetchLeaderboard30 = () => {
   return dispatch => {
     dispatch({type: Types.FETCH_LEADERBOARD_30});
     leaderboard30Query = firebase.firestore().collection('leaderboard30').orderBy('score', 'desc').limit(10);
+    console.log('dispatched query for 30');
     leaderboard30Query.onSnapshot(snapshot => {
+      console.log('fetching leaderboard 30');
       dispatch({type: Types.FETCHED_LEADERBOARD_30, payload: snapshot.docs.map(doc => doc.data())});
     }, err => {
+      console.log(err, 'the error for firebase leader board 30');
       dispatch({type: Types.FETCH_LEADERBOARD_30_FAILED});
     });
   }
